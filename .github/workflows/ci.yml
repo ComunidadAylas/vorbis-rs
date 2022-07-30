@@ -15,15 +15,15 @@ jobs:
     strategy:
       matrix:
         target:
-          - x86_64-unknown-linux-glibc
-          - aarch64-unknown-linux-glibc
+          - x86_64-unknown-linux-gnu
+          - aarch64-unknown-linux-gnu
           - x86_64-pc-windows-gnu
           - x86_64-apple-darwin
         include:
-          - target: x86_64-unknown-linux-glibc
+          - target: x86_64-unknown-linux-gnu
             runner: ubuntu-20.04
             cli-executable: optivorbis
-          - target: aarch64-unknown-linux-glibc
+          - target: aarch64-unknown-linux-gnu
             runner: ubuntu-20.04
             cli-executable: optivorbis
           - target: x86_64-pc-windows-gnu
@@ -54,7 +54,7 @@ jobs:
           components: rust-src, rustfmt, clippy
 
       - name: 🧰 Install ARM64 cross-compilation toolchain
-        if: matrix.target == 'aarch64-unknown-linux-glibc'
+        if: matrix.target == 'aarch64-unknown-linux-gnu'
         run: sudo apt install -yq gcc-aarch64-linux-gnu qemu-user
 
       - name: 💨 Cache Rust artifacts
@@ -62,14 +62,14 @@ jobs:
 
       - name: '🔍 Static analysis: run Clippy'
         uses: actions-rs/clippy-check@v1
-        if: matrix.target == 'x86_64-unknown-linux-glibc'
+        if: matrix.target == 'x86_64-unknown-linux-gnu'
         with:
           args: --no-deps --all-targets --all-features -- -D warnings
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: '🔍 Static analysis: run rustfmt'
         uses: actions-rs/cargo@v1
-        if: matrix.target == 'x86_64-unknown-linux-glibc'
+        if: matrix.target == 'x86_64-unknown-linux-gnu'
         with:
           command: fmt
           args: --check --all
