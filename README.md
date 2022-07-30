@@ -73,5 +73,5 @@ the binding crates with the latest upstream changes should be easy:
    confidence that the upgrade was completed successfully.
 5. Commit the changes.
 
-When cloning the repositories, remember to also check out the submodules with
-the vendor code. You can do this by running `git submodule update --init --recursive`.
+When cloning the repository, remember to also check out the submodules with the
+vendor code. You can do this by running `git submodule update --init --recursive`.
