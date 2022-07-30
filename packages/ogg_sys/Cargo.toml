@@ -9,7 +9,7 @@ links = "ogg"
 
 [build-dependencies]
 cc = "1.0.73"
-git2 = { version = "0.14.4", default-features = false }
+git2 = { version = "0.15.0", default-features = false }
 bindgen = { version = "0.60.1", optional = true }
 
 [features]
