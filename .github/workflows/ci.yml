@@ -22,16 +22,12 @@ jobs:
         include:
           - target: x86_64-unknown-linux-gnu
             runner: ubuntu-20.04
-            cli-executable: optivorbis
           - target: aarch64-unknown-linux-gnu
             runner: ubuntu-20.04
-            cli-executable: optivorbis
           - target: x86_64-pc-windows-gnu
             runner: windows-2022
-            cli-executable: optivorbis.exe
           - target: x86_64-apple-darwin
             runner: macos-11
-            cli-executable: optivorbis
 
     name: CI (${{ matrix.target }})
     runs-on: ${{ matrix.runner }}
