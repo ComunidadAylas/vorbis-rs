@@ -22,12 +22,19 @@ jobs:
         include:
           - target: x86_64-unknown-linux-gnu
             runner: ubuntu-20.04
+            packages-to-test: -p ogg_sys -p vorbis_sys -p vorbis
           - target: aarch64-unknown-linux-gnu
             runner: ubuntu-20.04
+            packages-to-test: -p ogg_sys -p vorbis_sys -p vorbis
           - target: x86_64-pc-windows-gnu
             runner: windows-2022
+            # Low-level FFI binding crates only contain layout tests
+            # that assume a Unix-like platform, so they won't work
+            # on Windows
+            packages-to-test: -p vorbis
           - target: x86_64-apple-darwin
             runner: macos-11
+            packages-to-test: -p ogg_sys -p vorbis_sys -p vorbis
 
     name: CI (${{ matrix.target }})
     runs-on: ${{ matrix.runner }}
@@ -78,4 +85,4 @@ jobs:
           LD_LIBRARY_PATH: /usr/aarch64-linux-gnu/lib
         with:
           command: test
-          args: --release --target ${{ matrix.target }} -- --nocapture
+          args: --release --target ${{ matrix.target }} ${{ matrix.packages-to-test }} -- --nocapture
