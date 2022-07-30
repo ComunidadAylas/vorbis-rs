@@ -1,6 +1,7 @@
 [submodule "ogg_vendor"]
 	path = vendor/ogg
 	url = https://github.com/ComunidadAylas/ogg.git
+	branch = master
 	shallow = true
 [submodule "vorbis_vendor"]
 	path = vendor/vorbis
