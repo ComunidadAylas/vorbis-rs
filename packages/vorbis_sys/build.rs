@@ -94,5 +94,6 @@ fn main() {
 		.include(env::var_os("DEP_OGG_INCLUDE").unwrap())
 		.include(vorbis_vendor_path.join("lib"))
 		.include(include_path)
+		.define("HAVE_STDINT_H", None)
 		.compile("vorbis");
 }
