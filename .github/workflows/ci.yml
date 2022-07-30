@@ -72,6 +72,10 @@ jobs:
 
       - name: ✔️ Run tests
         uses: actions-rs/cargo@v1
+        env:
+          # Handle AArch64 dynamic libraries installed by libc6-arm64-cross
+          # being in a path that the dynamic linker does not check by default
+          LD_LIBRARY_PATH: /usr/aarch64-linux-gnu/lib
         with:
           command: test
           args: --release --target ${{ matrix.target }} -- --nocapture
