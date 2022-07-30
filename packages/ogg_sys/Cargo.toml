@@ -1,0 +1,18 @@
+[package]
+name = "ogg_sys"
+description = "Low-level FFI bindings for libogg"
+authors = ["Alejandro González <AlexTMjugador@users.noreply.github.com>"]
+license = "BSD-3-Clause"
+version = "0.0.1"
+edition = "2021"
+links = "ogg"
+
+[build-dependencies]
+cc = "1.0.73"
+git2 = { version = "0.14.4", default-features = false }
+bindgen = { version = "0.60.1", optional = true }
+
+[features]
+# Requires Clang and slows down the build, but guarantees that the bindings are up to date.
+# It usually is better to run the generate-bindings.sh script instead
+build-time-bindgen = ["bindgen"]

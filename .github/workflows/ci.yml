@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  ci:
+    strategy:
+      matrix:
+        target:
+          - x86_64-unknown-linux-glibc
+          - aarch64-unknown-linux-glibc
+          - x86_64-pc-windows-gnu
+          - x86_64-apple-darwin
+        include:
+          - target: x86_64-unknown-linux-glibc
+            runner: ubuntu-20.04
+            cli-executable: optivorbis
+          - target: aarch64-unknown-linux-glibc
+            runner: ubuntu-20.04
+            cli-executable: optivorbis
+          - target: x86_64-pc-windows-gnu
+            runner: windows-2022
+            cli-executable: optivorbis.exe
+          - target: x86_64-apple-darwin
+            runner: macos-11
+            cli-executable: optivorbis
+
+    name: CI (${{ matrix.target }})
+    runs-on: ${{ matrix.runner }}
+
+    # Only run if this is not a pull request, or for pull requests on forks
+    if: github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name != 'ComunidadAylas/vorbis-rs'
+
+    steps:
+      - name: 📥 Checkout source
+        uses: actions/checkout@v3
+        with:
+          submodules: recursive
+
+      - name: 🧰 Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          target: ${{ matrix.target }}
+          profile: minimal
+          components: rust-src, rustfmt, clippy
+
+      - name: 🧰 Install ARM64 cross-compilation toolchain
+        if: matrix.target == 'aarch64-unknown-linux-glibc'
+        run: sudo apt install -yq gcc-aarch64-linux-gnu qemu-user
+
+      - name: 💨 Cache Rust artifacts
+        uses: Swatinem/rust-cache@v1
+
+      - name: '🔍 Static analysis: run Clippy'
+        uses: actions-rs/clippy-check@v1
+        if: matrix.target == 'x86_64-unknown-linux-glibc'
+        with:
+          args: --no-deps --all-targets --all-features -- -D warnings
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: '🔍 Static analysis: run rustfmt'
+        uses: actions-rs/cargo@v1
+        if: matrix.target == 'x86_64-unknown-linux-glibc'
+        with:
+          command: fmt
+          args: --check --all
+
+      - name: ✔️ Run tests
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: --release --target ${{ matrix.target }} -- --nocapture

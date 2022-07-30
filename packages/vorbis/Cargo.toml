@@ -1,0 +1,16 @@
+[package]
+name = "vorbis"
+description = "High-level bindings for the vorbisfile, libvorbisenc and libvorbis C libraries"
+authors = ["Alejandro González <AlexTMjugador@users.noreply.github.com>"]
+license = "BSD-3-Clause"
+version = "0.0.1"
+edition = "2021"
+publish = false
+
+[dependencies]
+vorbis_sys = { version = "0.0.1", path = "../vorbis_sys" }
+ogg_sys = { version = "0.0.1", path = "../ogg_sys" }
+
+errno = { version = "0.2.8", default-features = false }
+tinyvec = { version = "1.6.0", default-features = false, features = ["alloc", "rustc_1_57"] }
+thiserror = "1.0.31"

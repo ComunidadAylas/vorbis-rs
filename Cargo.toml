@@ -1,0 +1,13 @@
+[workspace]
+members = ["packages/*"]
+
+[patch.crates-io]
+# Audio processing code relying on dasp depends on this PR:
+# https://github.com/RustAudio/dasp/pull/178
+dasp_signal = { git = "https://github.com/RustAudio/dasp", rev = "6b15274b" }
+dasp_interpolate = { git = "https://github.com/RustAudio/dasp", rev = "6b15274b" }
+dasp_ring_buffer = { git = "https://github.com/RustAudio/dasp", rev = "6b15274b" }
+dasp_frame = { git = "https://github.com/RustAudio/dasp", rev = "6b15274b" }
+
+[profile.release]
+debug = true

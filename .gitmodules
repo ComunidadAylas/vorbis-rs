@@ -1,0 +1,8 @@
+[submodule "ogg_vendor"]
+	path = vendor/ogg
+	url = https://github.com/ComunidadAylas/ogg.git
+	shallow = true
+[submodule "vorbis_vendor"]
+	path = vendor/vorbis
+	url = https://github.com/enzo1982/vorbis-aotuv-lancer.git
+	shallow = true
