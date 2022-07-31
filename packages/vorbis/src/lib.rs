@@ -79,8 +79,8 @@ use vorbis_sys::{
 	vorbis_bitrate_flushpacket, vorbis_block, vorbis_block_clear, vorbis_block_init,
 	vorbis_comment, vorbis_comment_add_tag, vorbis_comment_clear, vorbis_comment_init,
 	vorbis_dsp_clear, vorbis_dsp_state, vorbis_encode_ctl, vorbis_encode_init,
-	vorbis_encode_setup_init, vorbis_encode_setup_managed, vorbis_info, vorbis_info_clear,
-	vorbis_info_init, OggVorbis_File, OV_ECTL_RATEMANAGE2_SET
+	vorbis_encode_init_vbr, vorbis_encode_setup_init, vorbis_encode_setup_managed, vorbis_info,
+	vorbis_info_clear, vorbis_info_init, OggVorbis_File, OV_ECTL_RATEMANAGE2_SET
 };
 
 use thiserror::Error;
@@ -417,6 +417,38 @@ impl VorbisInfo {
 		Ok(())
 	}
 
+	/// Like [`encode_init_vbr`](Self::encode_init_vbr), but selects the quality mode
+	/// directly from the specified quality factor, without internally converting a
+	/// target bitrate to a quality factor. The valid range for this factor is
+	/// [-0.1, 1].
+	///
+	/// This encoding strategy fixes the output subjective quality level, but lets
+	/// Vorbis vary the target bitrate depending on the qualities of the input signal.
+	/// An upside of this approach is that Vorbis can automatically increase or
+	/// decrease the target bitrate according to how difficult the signal is to encode,
+	/// which guarantees perceptually-consistent results while using an optimal bitrate.
+	/// Another upside is that there always is some mode to encode audio at a given
+	/// quality level. The downside is that the output bitrate is harder to predict
+	/// across different types of audio signals.
+	fn encode_init_quality_vbr(
+		&mut self,
+		sampling_frequency: NonZeroU32,
+		channels: NonZeroU8,
+		quality_factor: f32
+	) -> Result<(), VorbisError> {
+		unsafe {
+			// SAFETY: we assume vorbis_encode_init_vbr follows its documented contract
+			libvorbisenc_return_value_to_result!(vorbis_encode_init_vbr(
+				&mut *self.vorbis_info,
+				channels.get() as c_long,
+				sampling_frequency.get().try_into()?,
+				quality_factor
+			))?;
+		}
+
+		Ok(())
+	}
+
 	/// Prepares this Vorbis codec information struct to encode an audio signal
 	/// in ABR mode selected by an average bitrate (in bit/s). The bitrate management
 	/// engine is enabled to ensure that the instantaneous bitrate does not divert
@@ -653,6 +685,20 @@ pub enum VorbisBitrateManagementStrategy {
 		/// The bitrate to target with this strategy.
 		target_bitrate: NonZeroU32
 	},
+	/// Similar to [`Vbr`](Self::Vbr), this encoding strategy fixes the output
+	/// subjective quality level, but lets Vorbis vary the target bitrate
+	/// depending on the qualities of the input signal. An upside of this
+	/// approach is that Vorbis can automatically increase or decrease the target
+	/// bitrate according to how difficult the signal is to encode, which
+	/// guarantees perceptually-consistent results while using an optimal bitrate.
+	/// Another upside is that there always is some mode to encode audio at a given
+	/// quality level. The downside is that the output bitrate is harder to predict
+	/// across different types of audio signals.
+	QualityVbr {
+		/// The perceptual quality factor to target with this strategy, in the
+		/// [-0.1, 1] range.
+		target_quality: f32
+	},
 	/// ABR mode, selected by an average bitrate (in bit/s). The bitrate
 	/// management engine is enabled to ensure that the instantaneous bitrate
 	/// does not divert significantly from the specified average over time,
@@ -706,6 +752,9 @@ impl<W: Write> VorbisEncoder<W> {
 		match bitrate_management_strategy {
 			VorbisBitrateManagementStrategy::Vbr { target_bitrate } => {
 				vorbis_info.encode_init_vbr(sampling_frequency, channels, target_bitrate)
+			}
+			VorbisBitrateManagementStrategy::QualityVbr { target_quality } => {
+				vorbis_info.encode_init_quality_vbr(sampling_frequency, channels, target_quality)
 			}
 			VorbisBitrateManagementStrategy::Abr { average_bitrate } => {
 				vorbis_info.encode_init_abr(sampling_frequency, channels, average_bitrate)
