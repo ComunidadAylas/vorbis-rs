@@ -4,4 +4,4 @@
 	branch = master
 [submodule "vorbis_vendor"]
 	path = vendor/vorbis
-	url = https://github.com/enzo1982/vorbis-aotuv-lancer.git
+	url = https://github.com/ComunidadAylas/vorbis-aotuv-lancer.git
