@@ -13,4 +13,4 @@ ogg_sys = { version = "0.0.1", path = "../ogg_sys" }
 
 errno = { version = "0.2.8", default-features = false }
 tinyvec = { version = "1.6.0", default-features = false, features = ["alloc", "rustc_1_57"] }
-thiserror = "1.0.33"
+thiserror = "1.0.34"
