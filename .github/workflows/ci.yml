@@ -67,7 +67,7 @@ jobs:
         uses: actions-rs/clippy-check@v1
         if: matrix.target == 'x86_64-unknown-linux-gnu'
         with:
-          args: --no-deps -- -D warnings
+          args: --no-deps
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: '🔍 Static analysis: run rustfmt'
