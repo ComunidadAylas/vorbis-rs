@@ -40,9 +40,11 @@ impl VorbisAudioSamples {
 		// because the trusted code in VorbisDecoder instantiates us
 		let mut audio_samples = tiny_vec!([&[f32]; 2]);
 		unsafe {
-			audio_samples.extend(slice::from_raw_parts(buf, channels).iter().map(
-				|channel_samples| slice::from_raw_parts(*channel_samples, samples_read as usize)
-			));
+			audio_samples.extend(
+				slice::from_raw_parts(buf, channels)
+					.iter()
+					.map(|channel_samples| slice::from_raw_parts(*channel_samples, samples_read))
+			);
 		}
 
 		Self { audio_samples }
