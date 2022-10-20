@@ -116,6 +116,7 @@ impl OggPacket {
 	pub fn new(ogg_packet: ogg_packet) -> Self {
 		OggPacket { ogg_packet }
 	}
+
 	/// Submits this Ogg packet to be written to the specified Ogg stream. The
 	/// packet won't actually be written anywhere until
 	/// [its pending pages are written](OggStream::write_pending_pages) or
