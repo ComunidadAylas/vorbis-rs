@@ -16,7 +16,11 @@ impl VorbisAudioSamples {
 	/// # Safety
 	/// This function assumes that it is called by trusted code on [`VorbisDecoder`] only.
 	/// For more information, please read the safety comment in its source code.
-	pub fn new(buf: *mut *mut f32, channels: usize, samples_read: usize) -> Self {
+	pub(in crate::decoder) fn new(
+		buf: *mut *mut f32,
+		channels: usize,
+		samples_read: usize
+	) -> Self {
 		// SAFETY: ov_read_float initializes a pointer to an array of pointers. The pointers in
 		// the array point to the array of samples for each channel. The idiomatic Rust equivalent
 		// to that double indirection is a slice of slices. However, slices are fat pointers,
