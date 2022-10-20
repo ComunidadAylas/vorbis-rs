@@ -6,15 +6,16 @@ use vorbis_sys::{
 use std::mem::MaybeUninit;
 use std::num::NonZeroU32;
 
-use crate::common::{assume_init_box, OggPacket, VorbisComments, VorbisError, VorbisInfo};
-use crate::vorbis_error_code_to_string;
+use crate::common::{
+	assume_init_box, vorbis_error_code_to_string, OggPacket, VorbisComments, VorbisError,
+	VorbisInfo
+};
 
 /// A high-level abstraction that holds all the needed state for a Vorbis encoder.
 pub struct VorbisEncodingState {
-	// made pub because it was used in macros, may need tweaking
-	pub vorbis_info: VorbisInfo,
-	pub vorbis_dsp_state: Box<vorbis_dsp_state>,
-	pub vorbis_block: Box<vorbis_block>
+	pub(crate) vorbis_info: VorbisInfo,
+	pub(crate) vorbis_dsp_state: Box<vorbis_dsp_state>,
+	pub(crate) vorbis_block: Box<vorbis_block>
 }
 
 impl VorbisEncodingState {

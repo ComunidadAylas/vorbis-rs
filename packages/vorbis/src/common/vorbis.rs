@@ -12,13 +12,11 @@ use std::num::{NonZeroU32, NonZeroU8};
 use std::os::raw::{c_int, c_long};
 use std::ptr;
 
-use crate::common::{assume_init_box, VorbisError};
-use crate::vorbis_error_code_to_string;
+use crate::common::{assume_init_box, vorbis_error_code_to_string, VorbisError};
 
 /// A high-level abstraction for a Vorbis stream information struct.
 pub struct VorbisInfo {
-	// made pub because it was used in macros, may need tweaking
-	pub vorbis_info: Box<vorbis_info>
+	pub(crate) vorbis_info: Box<vorbis_info>
 }
 
 impl VorbisInfo {
@@ -193,8 +191,7 @@ impl Drop for VorbisInfo {
 
 /// A high-level abstraction for a list of Vorbis user comments.
 pub struct VorbisComments {
-	// made pub because it was used in macros, may need tweaking
-	pub vorbis_comment: vorbis_comment
+	pub(crate) vorbis_comment: vorbis_comment
 }
 
 impl VorbisComments {

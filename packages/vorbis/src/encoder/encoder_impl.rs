@@ -1,6 +1,7 @@
-use crate::common::{OggPacket, OggStream, VorbisComments, VorbisError, VorbisInfo};
+use crate::common::{
+	vorbis_error_code_to_string, OggPacket, OggStream, VorbisComments, VorbisError, VorbisInfo
+};
 use crate::encoder::{VorbisBitrateManagementStrategy, VorbisEncodingState};
-use crate::vorbis_error_code_to_string;
 
 use std::borrow::Cow;
 use std::io::Write;

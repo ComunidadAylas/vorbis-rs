@@ -9,9 +9,8 @@ use std::ptr;
 
 use vorbis_sys::{ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File};
 
-use crate::common::{assume_init_box, VorbisError};
+use crate::common::{assume_init_box, vorbis_error_code_to_string, VorbisError};
 use crate::decoder::VorbisAudioSamples;
-use crate::vorbis_error_code_to_string;
 
 /// A decoder that turns a perceptually-encoded, non-chained Ogg Vorbis stream into
 /// blocks of planar, single-precision float audio samples.
