@@ -1,18 +1,13 @@
-use git2::Repository;
+use std::env::current_dir;
 
 fn main() {
-	let repo = Repository::discover(".").expect("Could not discover current repository");
-
-	let ogg_vendor_submodule = repo
-		.find_submodule("ogg_vendor")
-		.expect("Could not find ogg_vendor submodule");
-	let ogg_vendor_path = repo.path().join("..").join(ogg_vendor_submodule.path());
+	let ogg_vendor_path = current_dir()
+		.expect("Could not get current working directory")
+		.join("ogg_vendor");
 
 	println!(
 		"cargo:rerun-if-changed={}",
-		ogg_vendor_path
-			.to_str()
-			.expect("The ogg_vendor submodule is in a non-UTF-8 path")
+		ogg_vendor_path.to_str().unwrap()
 	);
 
 	let include_path = ogg_vendor_path.join("include");
@@ -22,7 +17,7 @@ fn main() {
 	bindgen::Builder::default()
 		.header(include_path.join("ogg/ogg.h").to_str().unwrap())
 		.disable_header_comment()
-		.clang_arg("-I../../vendor/ogg/include")
+		.clang_arg(format!("-I{}/include", ogg_vendor_path.to_str().unwrap()))
 		.size_t_is_usize(true)
 		.allowlist_function("ogg.*")
 		.allowlist_type("ogg.*")

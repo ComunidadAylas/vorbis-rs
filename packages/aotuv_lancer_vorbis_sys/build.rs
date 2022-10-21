@@ -1,21 +1,15 @@
 use std::env;
-
-use git2::Repository;
+use std::env::current_dir;
 
 fn main() {
-	let repo = Repository::discover(".").expect("Could not discover current repository");
-
 	#[cfg(feature = "build-time-bindgen")]
-	let ogg_vendor_submodule = repo
-		.find_submodule("ogg_vendor")
-		.expect("Could not find ogg_vendor submodule");
-	#[cfg(feature = "build-time-bindgen")]
-	let ogg_vendor_path = repo.path().join("..").join(ogg_vendor_submodule.path());
+	let ogg_vendor_path = current_dir()
+		.expect("Could not get current working directory")
+		.join("ogg_vendor");
 
-	let vorbis_vendor_submodule = repo
-		.find_submodule("vorbis_vendor")
-		.expect("Could not find vorbis_vendor submodule");
-	let vorbis_vendor_path = repo.path().join("..").join(vorbis_vendor_submodule.path());
+	let vorbis_vendor_path = current_dir()
+		.expect("Could not get current working directory")
+		.join("vorbis_vendor");
 
 	// libvorbis depends on libogg. libogg is built first due to our Cargo.toml dependency on ogg_next_sys,
 	// but the Cargo linking instructions in its build script do not affect us

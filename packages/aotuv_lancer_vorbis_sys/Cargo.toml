@@ -11,13 +11,16 @@ links = "vorbis"
 rust-version = "1.60.0"
 keywords = ["libvorbis", "vorbisfile", "libvorbisenc", "aotuv", "lancer"]
 categories = ["external-ffi-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
+exclude = [
+    "/ogg_vendor/**/.*", "/ogg_vendor/cmake", "/ogg_vendor/doc", "/ogg_vendor/README.md",
+    "/vorbis_vendor/**/.*", "/vorbis_vendor/cmake", "/vorbis_vendor/doc", "/vorbis_vendor/README.md"
+]
 
 [dependencies]
-ogg_next_sys = { version = "0.1.0", path = "../ogg_next_sys" }
+ogg_next_sys = { version = "0.1.1", path = "../ogg_next_sys" }
 
 [build-dependencies]
 cc = "1.0.73"
-git2 = { version = "0.15.0", default-features = false }
 bindgen = { version = "0.61.0", optional = true }
 
 [features]
