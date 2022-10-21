@@ -4,7 +4,10 @@
 //! These bindings depend on the accompanying low-level FFI bindings at the `ogg_sys` and
 //! `vorbis_sys` crates, which link to the latest versions of the upstream `libogg` and patched
 //! upstream `libvorbis` codebases, respectively. The upstream `libvorbis` codebase is patched
-//! with the latest aoTuV and Lancer patches, which improve coding efficiency and performance.
+//! with the latest [aoTuV] and [Lancer] patches, which improve coding efficiency and performance.
+//!
+//! [aoTuV]: https://github.com/AO-Yumi/vorbis_aotuv
+//! [Lancer]: https://web.archive.org/web/20160408055651/http://homepage3.nifty.com/blacksword/index.htm
 
 #[cfg(test)]
 mod tests;
