@@ -1,4 +1,4 @@
-use vorbis_sys::{
+use aotuv_lancer_vorbis_sys::{
 	vorbis_analysis_headerout, vorbis_analysis_init, vorbis_block, vorbis_block_clear,
 	vorbis_block_init, vorbis_dsp_clear, vorbis_dsp_state
 };

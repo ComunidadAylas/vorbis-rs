@@ -1,15 +1,19 @@
 [package]
-name = "vorbis_sys"
-description = "Low-level FFI bindings for libvorbis, vorbisfile, and libvorbisenc"
+name = "aotuv_lancer_vorbis_sys"
+description = "Low-level FFI bindings for libvorbis, vorbisfile, and libvorbisenc C libraries with the aoTuV and Lancer patches"
 authors = ["Alejandro González <AlexTMjugador@users.noreply.github.com>"]
 license = "BSD-3-Clause"
-version = "0.0.1"
+version = "0.1.0"
+readme = "../../README.md"
+repository = "https://github.com/ComunidadAylas/vorbis-rs"
 edition = "2021"
 links = "vorbis"
 rust-version = "1.60.0"
+keywords = ["libvorbis", "vorbisfile", "libvorbisenc", "aotuv", "lancer"]
+categories = ["external-ffi-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
 
 [dependencies]
-ogg_sys = { version = "0.0.1", path = "../ogg_sys" }
+ogg_next_sys = { version = "0.1.0", path = "../ogg_next_sys" }
 
 [build-dependencies]
 cc = "1.0.73"

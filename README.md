@@ -1,23 +1,33 @@
-# vorbis-rs
+<div align="center">
+<h1>vorbis-rs</h1>
 
-High and low-level Rust bindings for API-compatible C libraries of the reference
-implementation of the Vorbis audio codec and Ogg container encapsulation.
+<i>Rust bindings for the best-in-breed C libraries of the Vorbis audio codec and
+Ogg container encapsulation.</i>
 
-This project provides bindings for the [upstream
-`libogg`](https://github.com/xiph/ogg) library. The Vorbis encoder is a modified
-version of the latest reference implementation, available
+<a href="https://github.com/ComunidadAylas/vorbis-rs/actions?query=workflow%3ACI"><img alt="CI workflow status"
+src="https://github.com/ComunidadAylas/vorbis-rs/actions/workflows/ci.yml/badge.svg"></a>
+<a href="https://crates.io/crates/vorbis_rs"><img alt="crates.io latest version" src="https://img.shields.io/crates/v/vorbis_rs"></a>
+<a href="https://docs.rs/vorbis_rs"><img alt="docs.rs status" src="https://img.shields.io/docsrs/vorbis_rs?label=docs.rs"></a>
+
+<img alt="crates.io downloads" src="https://img.shields.io/crates/d/vorbis_rs?label=crates.io%20downloads">
+</div>
+
+In particular, the `vorbis_rs` package in this repository provides updated, well-documented and ergonomic bindings for a modified version of the latest reference Vorbis encoder, available
 [here](https://github.com/enzo1982/vorbis-aotuv-lancer), with the
 [aoTuV](https://github.com/AO-Yumi/vorbis_aotuv) and
 [Lancer](https://web.archive.org/web/20160408055651/http://homepage3.nifty.com/blacksword/index.htm)
-patchsets applied to it, which are considered to implement significant encoding
+patchsets applied to it. These patches are considered to implement significant encoding
 quality and performance improvements by the community.
+
+The supporting `aotuv_lancer_vorbis_sys` and `ogg_next_sys` packages provide
+automatically-generated low-level bindings used by `vorbis_rs`.
 
 The minimum supported Rust version (MSRV) for every package in this repository
 is 1.60. Bumping this version is not considered a breaking change for semantic
 versioning purposes. We will try to do it only when we estimate that such a bump
 would not cause widespread inconvenience or breakage.
 
-## ❓ Motivation
+# ❓ Motivation
 
 The Rust ecosystem already has bindings for these libraries (see
 [`vorbis-sys`](https://crates.io/crates/vorbis-sys) and
@@ -51,12 +61,18 @@ technical debt of the ecosystem was higher than starting bindings from scratch
 and periodically updating the library bindings from upstream. Rewriting the
 patched Vorbis encoder in Rust was deemed unfeasible.
 
-## ✨ Contributing
+# ⚖️ License
+
+The bindings in this repository are licensed under the BSD 3-Clause "New" or
+"Revised" License (`LICENSE` or https://opensource.org/licenses/BSD-3-Clause),
+which is the same permissive license used by the upstream projects.
+
+# ✨ Contributing
 
 This repository started as an ad-hoc solution to address the needs of a Rust
 application, but it has grown into a project of its own - PRs are welcome!
 
-### Cloning & updating
+## Cloning & updating
 
 The C libraries sources are managed with
 [submodules](https://git-scm.com/book/en/v2/Git-Tools-Submodules), so updating
@@ -77,3 +93,33 @@ the binding crates with the latest upstream changes should be easy:
 
 When cloning the repository, remember to also check out the submodules with the
 vendor code. You can do this by running `git submodule update --init --recursive`.
+
+# 🤝 Contact
+
+We welcome friendly talk about the project, including questions,
+congratulations, and suggestions. Head to the [GitHub Discussions
+page](https://github.com/ComunidadAylas/vorbis-rs/discussions) to interact with
+fellow users, contributors and developers.
+
+# 🧑‍🤝‍🧑 Contributors
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tr>
+    <td align="center"><a href="https://github.com/AlexTMjugador"><img src="https://avatars.githubusercontent.com/u/7822554?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Alejandro González</b></sub></a><br /><a href="https://github.com/ComunidadAylas/vorbis-rs/commits?author=AlexTMjugador" title="Code">💻</a> <a href="https://github.com/ComunidadAylas/vorbis-rs/commits?author=AlexTMjugador" title="Documentation">📖</a> <a href="#example-AlexTMjugador" title="Examples">💡</a> <a href="#maintenance-AlexTMjugador" title="Maintenance">🚧</a> <a href="#projectManagement-AlexTMjugador" title="Project Management">📆</a></td>
+    <td align="center"><a href="https://github.com/vivyir"><img src="https://avatars.githubusercontent.com/u/67435287?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vivian</b></sub></a><br /><a href="https://github.com/ComunidadAylas/vorbis-rs/commits?author=vivyir" title="Code">💻</a> <a href="#ideas-vivyir" title="Ideas, Planning, & Feedback">🤔</a></td>
+  </tr>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the
+[all-contributors](https://github.com/all-contributors/all-contributors)
+specification. Contributions of any kind welcome!

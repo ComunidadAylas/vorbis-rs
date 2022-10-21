@@ -1,0 +1,38 @@
+{
+  "projectName": "vorbis-rs",
+  "projectOwner": "ComunidadAylas",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "commitConvention": "none",
+  "contributors": [
+    {
+      "login": "AlexTMjugador",
+      "name": "Alejandro González",
+      "avatar_url": "https://avatars.githubusercontent.com/u/7822554?v=4",
+      "profile": "https://github.com/AlexTMjugador",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "maintenance",
+        "projectManagement"
+      ]
+    },
+    {
+      "login": "vivyir",
+      "name": "Vivian",
+      "avatar_url": "https://avatars.githubusercontent.com/u/67435287?v=4",
+      "profile": "https://github.com/vivyir",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7
+}

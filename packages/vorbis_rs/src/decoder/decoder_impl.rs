@@ -7,7 +7,9 @@ use std::num::{NonZeroU32, NonZeroU8};
 use std::os::raw::c_int;
 use std::ptr;
 
-use vorbis_sys::{ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File};
+use aotuv_lancer_vorbis_sys::{
+	ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File
+};
 
 use crate::common::{assume_init_box, vorbis_error_code_to_string, VorbisError};
 use crate::decoder::VorbisAudioSamples;

@@ -9,7 +9,7 @@ use std::mem::MaybeUninit;
 use std::num::{NonZeroU32, NonZeroU8};
 use std::{ptr, slice};
 
-use vorbis_sys::{
+use aotuv_lancer_vorbis_sys::{
 	vorbis_analysis, vorbis_analysis_blockout, vorbis_analysis_buffer, vorbis_analysis_wrote,
 	vorbis_bitrate_addblock, vorbis_bitrate_flushpacket
 };

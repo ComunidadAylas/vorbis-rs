@@ -1,12 +1,16 @@
 [package]
-name = "ogg_sys"
-description = "Low-level FFI bindings for libogg"
+name = "ogg_next_sys"
+description = "Updated low-level FFI bindings for the upstream libogg C library"
 authors = ["Alejandro González <AlexTMjugador@users.noreply.github.com>"]
 license = "BSD-3-Clause"
-version = "0.0.1"
+version = "0.1.0"
+readme = "../../README.md"
+repository = "https://github.com/ComunidadAylas/vorbis-rs"
 edition = "2021"
 links = "ogg"
 rust-version = "1.60.0"
+keywords = ["libogg", "xiph"]
+categories = ["external-ffi-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
 
 [build-dependencies]
 cc = "1.0.73"

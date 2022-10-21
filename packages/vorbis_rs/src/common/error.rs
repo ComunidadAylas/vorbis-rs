@@ -42,6 +42,7 @@ pub enum VorbisError {
 	Io(#[from] io::Error)
 }
 
+#[doc(hidden)] // Implementation detail to allow for ergonomic usage of ?
 impl From<Infallible> for VorbisError {
 	fn from(_: Infallible) -> Self {
 		// SAFETY: infallible can't be instantiated, so this conversion will never happen

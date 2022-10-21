@@ -22,7 +22,7 @@ fn main() {
 	bindgen::Builder::default()
 		.header(include_path.join("ogg/ogg.h").to_str().unwrap())
 		.disable_header_comment()
-		.clang_arg("-I../../ogg_vendor/include")
+		.clang_arg("-I../../vendor/ogg/include")
 		.size_t_is_usize(true)
 		.allowlist_function("ogg.*")
 		.allowlist_type("ogg.*")

@@ -1,7 +1,7 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 
-use ogg_sys::*;
+use ogg_next_sys::*;
 
 include!("bindings.rs");
 
@@ -13,7 +13,7 @@ mod test {
 	use std::os::raw::{c_int, c_long, c_void};
 	use std::{ptr, slice};
 
-	use ogg_sys::{ogg_stream_init, ogg_stream_packetin};
+	use ogg_next_sys::{ogg_stream_init, ogg_stream_packetin};
 
 	use super::*;
 
