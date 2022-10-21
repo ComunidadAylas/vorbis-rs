@@ -9,8 +9,38 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  MSRV: '1.60.0'
 
 jobs:
+  msrv_check:
+    name: MSRV check
+
+    runs-on: ubuntu-20.04
+
+    # Only run if this is not a pull request, or for pull requests on forks
+    if: github.event_name != 'pull_request' ||
+      github.event.pull_request.head.repo.full_name != 'ComunidadAylas/vorbis-rs'
+
+    steps:
+      - name: 📥 Checkout source
+        uses: actions/checkout@v3
+
+      - name: 🧰 Install MSRV toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: ${{ env.MSRV }}
+          profile: minimal
+          default: true
+
+      - name: 💨 Cache Rust artifacts
+        uses: Swatinem/rust-cache@v2
+
+      - name: ⚙️ Run tests
+        uses: actions-rs/cargo@v1
+        with:
+          command: test
+          args: -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
+
   ci:
     strategy:
       matrix:
