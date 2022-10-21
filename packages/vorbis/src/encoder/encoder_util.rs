@@ -120,7 +120,7 @@ pub enum VorbisBitrateManagementStrategy {
 	/// across different types of audio signals.
 	QualityVbr {
 		/// The perceptual quality factor to target with this strategy, in the
-		/// [-0.1, 1] range.
+		/// [-0.2, 1] range.
 		target_quality: f32
 	},
 	/// ABR mode, selected by an average bitrate (in bit/s). The bitrate

@@ -1,6 +1,5 @@
 use super::*;
 use std::io::Cursor;
-use std::num::NonZeroU32;
 
 #[test]
 fn reencoding_works() {
@@ -16,8 +15,10 @@ fn reencoding_works() {
 		[("", ""); 0],
 		decoder.sampling_frequency(),
 		decoder.channels(),
-		VorbisBitrateManagementStrategy::Vbr {
-			target_bitrate: NonZeroU32::new(32000).unwrap()
+		VorbisBitrateManagementStrategy::QualityVbr {
+			// This is a very low quality factor, meant to generate the smallest files and
+			// test whether aoTuV changes work as expected
+			target_quality: -0.2
 		},
 		None,
 		&mut encoded_ogg_data
