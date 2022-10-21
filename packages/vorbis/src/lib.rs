@@ -1,8 +1,7 @@
 //! Safe, ergonomic, and high-quality Rust bindings to the `vorbisfile`, `libvorbisenc`, and
-//! `libvorbis`  C libraries, focused on satisfying the audio processing requirements of
-//! [PackSquash](https://github.com/ComunidadAylas/PackSquash).
+//! `libvorbis` C libraries.
 //!
-//! These bindings depend on the custom, low-level FFI bindings of the accompanying `ogg_sys` and
+//! These bindings depend on the accompanying low-level FFI bindings at the `ogg_sys` and
 //! `vorbis_sys` crates, which link to the latest versions of the upstream `libogg` and patched
 //! upstream `libvorbis` codebases, respectively. The upstream `libvorbis` codebase is patched
 //! with the latest aoTuV and Lancer patches, which improve coding efficiency and performance.

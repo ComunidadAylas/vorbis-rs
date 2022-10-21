@@ -1,8 +1,7 @@
 # vorbis-rs
 
 High and low-level Rust bindings for API-compatible C libraries of the reference
-implementation of the Vorbis audio codec and Ogg container encapsulation, meant
-to be used by [PackSquash](https://github.com/ComunidadAylas/PackSquash).
+implementation of the Vorbis audio codec and Ogg container encapsulation.
 
 This project provides bindings for the [upstream
 `libogg`](https://github.com/xiph/ogg) library. The Vorbis encoder is a modified
@@ -25,8 +24,8 @@ seem reasonable to fix via PRs or patching:
   code quality (lots of `panic!` with messages containing e-mail addresses,
   etc.), and depends on an old version of `vorbis-sys`. In turn `vorbis-sys`
   depends on an old version of the `libvorbis` C library with known security
-  vulnerabilities. It also lacks APIs to do some operations needed by PackSquash
-  that are offered by the C libraries.
+  vulnerabilities. It also lacks APIs to do some operations needed by sensible
+  audio processing applications that are offered by the C libraries.
 - `vorbis-sys` only contains bindings for `libvorbis`, but updated bindings for
   `libvorbisenc` and `vorbisfile` are necessary to do meaningful Vorbis stream
   operations in a sane way. These are not available either.
@@ -40,19 +39,17 @@ seem reasonable to fix via PRs or patching:
   may reasonably expect any patches to be mentioned, which is a good reason to
   do a different set of binding crates anyway.
 
-Therefore, as PackSquash takes code quality seriously, it was decided that
-development effort would be better spent on making new bindings that meet its
-requirements better: it was estimated that the upfront cost of fixing the
+Given these issues and the need for a better solution for Ogg Vorbis audio
+processing applications in Rust, it was decided to spend development effort on
+making new bindings: it was estimated that the upfront cost of fixing the
 technical debt of the ecosystem was higher than starting bindings from scratch
 and periodically updating the library bindings from upstream. Rewriting the
 patched Vorbis encoder in Rust was deemed unfeasible.
 
 ## ✨ Contributing
 
-This project is not meant to accept contributions, as it is an ad-hoc solution
-to address PackSquash needs. However, you are welcome to use it according to the
-license terms. We might welcome PRs improving the bindings or updating the
-vendor code, too. After all, we wish we hadn't had to reinvent the wheel!
+This repository started as an ad-hoc solution to address the needs of a Rust
+application, but it has grown into a project of its own - PRs are welcome!
 
 ### Cloning & updating
 
