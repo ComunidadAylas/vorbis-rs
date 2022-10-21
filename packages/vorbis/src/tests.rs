@@ -1,5 +1,6 @@
 use super::*;
 use std::io::Cursor;
+use std::num::NonZeroU32;
 
 #[test]
 fn reencoding_works() {
