@@ -24,7 +24,7 @@ pub use self::vorbis::{VorbisComments, VorbisInfo};
 /// This function is a backport of the unstable `Box::assume_init` method to stable Rust,
 /// tracked by [issue 63291](https://github.com/rust-lang/rust/issues/63291).
 // FIXME refactor this out once Box::assume_init is made stable, if ever
-pub unsafe fn assume_init_box<T>(boxed: Box<MaybeUninit<T>>) -> Box<T> {
+pub(crate) unsafe fn assume_init_box<T>(boxed: Box<MaybeUninit<T>>) -> Box<T> {
 	Box::from_raw(Box::into_raw(boxed) as *mut T)
 }
 
