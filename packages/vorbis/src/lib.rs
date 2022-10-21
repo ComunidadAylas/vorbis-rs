@@ -15,6 +15,8 @@
 //! now. These are seldom found, however. Feel free to file an issue or open a pull request if you are
 //! interested in chained stream support.
 //!
+//! Seeking is also not supported, although it'd be a welcome addition.
+//!
 //! # Examples
 //!
 //! The following example transcodes an Ogg Vorbis file to another in-memory Ogg Vorbis stream,
