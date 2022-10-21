@@ -6,7 +6,7 @@ license = "BSD-3-Clause"
 version = "0.0.1"
 edition = "2021"
 links = "vorbis"
-publish = false
+rust-version = "1.60.0"
 
 [dependencies]
 ogg_sys = { version = "0.0.1", path = "../ogg_sys" }

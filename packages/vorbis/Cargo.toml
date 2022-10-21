@@ -5,7 +5,7 @@ authors = ["Alejandro González <AlexTMjugador@users.noreply.github.com>"]
 license = "BSD-3-Clause"
 version = "0.0.1"
 edition = "2021"
-publish = false
+rust-version = "1.60.0"
 
 [dependencies]
 vorbis_sys = { version = "0.0.1", path = "../vorbis_sys" }

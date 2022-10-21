@@ -12,6 +12,11 @@ version of the latest reference implementation, available
 patchsets applied to it, which are considered to implement significant encoding
 quality and performance improvements by the community.
 
+The minimum supported Rust version (MSRV) for every package in this repository
+is 1.60. Bumping this version is not considered a breaking change for semantic
+versioning purposes. We will try to do it only when we estimate that such a bump
+would not cause widespread inconvenience or breakage.
+
 ## ❓ Motivation
 
 The Rust ecosystem already has bindings for these libraries (see
