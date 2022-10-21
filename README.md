@@ -67,6 +67,12 @@ The bindings in this repository are licensed under the BSD 3-Clause "New" or
 "Revised" License (`LICENSE` or https://opensource.org/licenses/BSD-3-Clause),
 which is the same permissive license used by the upstream projects.
 
+## Contribution license
+
+Unless you explicitly state otherwise, any contribution intentionally submitted
+for inclusion in vorbis_rs by you shall be licensed as above, without any
+additional terms or conditions.
+
 # ✨ Contributing
 
 This repository started as an ad-hoc solution to address the needs of a Rust
