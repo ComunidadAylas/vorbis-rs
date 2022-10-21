@@ -24,6 +24,8 @@ jobs:
     steps:
       - name: 📥 Checkout source
         uses: actions/checkout@v3
+        with:
+          submodules: recursive
 
       - name: 🧰 Install MSRV toolchain
         uses: actions-rs/toolchain@v1
