@@ -2,4 +2,6 @@
 members = ["packages/*"]
 
 [profile.release]
+# Add debug symbols on release mode to allow debugging upstream code.
+# This does not affect library users
 debug = true
