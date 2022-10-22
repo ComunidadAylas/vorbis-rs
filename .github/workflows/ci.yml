@@ -88,10 +88,11 @@ jobs:
           target: ${{ matrix.target }}
           profile: minimal
           components: rust-src, rustfmt, clippy
+          default: true
 
       - name: 🧰 Install ARM64 cross-compilation toolchain
         if: matrix.target == 'aarch64-unknown-linux-gnu'
-        run: sudo apt install -yq gcc-aarch64-linux-gnu libc6-arm64-cross qemu-user
+        run: sudo apt update && sudo apt install -yq gcc-aarch64-linux-gnu libc6-arm64-cross qemu-user
 
       - name: 💨 Cache Rust artifacts
         uses: Swatinem/rust-cache@v2
