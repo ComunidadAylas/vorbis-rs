@@ -27,8 +27,7 @@ pub enum VorbisError {
 	/// The expected and actual count of samples in an audio block channel did not match.
 	#[error("Expected {expected} samples in audio block channel, got {actual}")]
 	InvalidAudioBlockSampleCount { expected: usize, actual: usize },
-	/// The input stream is a chained Ogg Vorbis stream, which are not supported by either
-	/// Minecraft and these bindings.
+	/// The input stream is a chained Ogg Vorbis stream, which is not supported by these bindings.
 	#[error("Chained Ogg Vorbis streams are not supported. Please combine them into a single logical stream")]
 	UnsupportedStreamChaining,
 	/// A requested Vorbis user comment string contains a NUL character, which is not allowed.

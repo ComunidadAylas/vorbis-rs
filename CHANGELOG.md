@@ -6,8 +6,8 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-
-No changes yet.
+### Changed
+- Removed unnecessary reference to Minecraft in a rustdoc comment
 
 ## [0.1.0] - 2022-10-21
 ### Added
