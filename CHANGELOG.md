@@ -8,6 +8,7 @@ and this project adheres to
 ## [Unreleased]
 ### Changed
 - Removed unnecessary reference to Minecraft in a rustdoc comment
+- Explicitly document the audio block format expected by the `encode_audio_block` method
 
 ## [0.1.0] - 2022-10-21
 ### Added

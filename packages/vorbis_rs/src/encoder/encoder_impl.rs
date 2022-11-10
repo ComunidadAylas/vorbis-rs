@@ -84,6 +84,9 @@ impl<W: Write> VorbisEncoder<W> {
 
 	/// Submits the specified audio block for encoding by Vorbis. Encoded data will be written
 	/// to the configured sink automatically as it becomes available.
+	///
+	/// The audio block is expected to be in planar format (i.e., one vector of samples per
+	/// channel). The order of channels is defined by the Vorbis I specification.
 	pub fn encode_audio_block<B: AsRef<[S]>, S: AsRef<[f32]>>(
 		&mut self,
 		audio_block: B
