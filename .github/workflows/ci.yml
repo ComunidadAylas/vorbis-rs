@@ -35,10 +35,7 @@ jobs:
         uses: Swatinem/rust-cache@v2
 
       - name: ⚙️ Run tests
-        uses: actions-rs/cargo@v1
-        with:
-          command: test
-          args: -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
+        run: cargo test -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
 
   ci:
     strategy:
@@ -99,18 +96,12 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: '🔍 Static analysis: run rustfmt'
-        uses: actions-rs/cargo@v1
         if: matrix.target == 'x86_64-unknown-linux-gnu'
-        with:
-          command: fmt
-          args: --check --all
+        run: cargo fmt --check --all
 
       - name: ✔️ Run tests
-        uses: actions-rs/cargo@v1
         env:
           # Handle AArch64 dynamic libraries installed by libc6-arm64-cross
           # being in a path that the dynamic linker does not check by default
           LD_LIBRARY_PATH: /usr/aarch64-linux-gnu/lib
-        with:
-          command: test
-          args: --release --target ${{ matrix.target }} ${{ matrix.packages-to-test }} -- --nocapture
+        run: cargo test --release --target ${{ matrix.target }} ${{ matrix.packages-to-test }} -- --nocapture
