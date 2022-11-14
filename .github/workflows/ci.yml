@@ -8,7 +8,6 @@ on:
       - synchronize
 
 env:
-  CARGO_TERM_COLOR: always
   MSRV: '1.60.0'
 
 jobs:
@@ -28,11 +27,9 @@ jobs:
           submodules: recursive
 
       - name: 🧰 Install MSRV toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@v1
         with:
           toolchain: ${{ env.MSRV }}
-          profile: minimal
-          default: true
 
       - name: 💨 Cache Rust artifacts
         uses: Swatinem/rust-cache@v2
@@ -82,13 +79,10 @@ jobs:
           submodules: recursive
 
       - name: 🧰 Install Rust toolchain
-        uses: actions-rs/toolchain@v1
+        uses: dtolnay/rust-toolchain@nightly
         with:
-          toolchain: nightly
           target: ${{ matrix.target }}
-          profile: minimal
           components: rust-src, rustfmt, clippy
-          default: true
 
       - name: 🧰 Install ARM64 cross-compilation toolchain
         if: matrix.target == 'aarch64-unknown-linux-gnu'
