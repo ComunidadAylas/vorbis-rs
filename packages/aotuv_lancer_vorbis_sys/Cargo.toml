@@ -21,7 +21,7 @@ ogg_next_sys = { version = "0.1.1", path = "../ogg_next_sys" }
 
 [build-dependencies]
 cc = "1.0.77"
-bindgen = { version = "0.62.0", optional = true }
+bindgen = { version = "0.63.0", optional = true }
 
 [features]
 # Requires Clang and slows down the build, but guarantees that the bindings are up to date.
