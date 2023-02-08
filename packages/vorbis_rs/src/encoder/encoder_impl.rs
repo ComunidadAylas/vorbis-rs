@@ -140,7 +140,7 @@ impl<W: Write> VorbisEncoder<W> {
 
 		// SAFETY: we assume vorbis_analysis_wrote follows its documented contract
 		unsafe {
-			libogg_return_value_to_result!(vorbis_analysis_wrote(
+			libvorbis_return_value_to_result!(vorbis_analysis_wrote(
 				&mut *self.vorbis_encoding_state.vorbis_dsp_state,
 				sample_count as i32
 			))?;
