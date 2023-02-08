@@ -172,6 +172,7 @@ impl<R: Read> Drop for VorbisDecoder<R> {
 #[cfg(test)]
 mod test {
 	use super::VorbisDecoder;
+	use crate::{VorbisError, VorbisLibraryError, VorbisLibraryErrorKind};
 	use std::io::{self, ErrorKind, Read};
 
 	#[test]
@@ -184,6 +185,12 @@ mod test {
 			}
 		}
 
-		assert!(VorbisDecoder::new(ErrorRead).is_err());
+		assert!(matches!(
+			VorbisDecoder::new(ErrorRead),
+			Err(VorbisError::LibraryError(VorbisLibraryError {
+				kind: VorbisLibraryErrorKind::Io,
+				..
+			}))
+		));
 	}
 }
