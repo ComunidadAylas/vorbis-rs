@@ -2,6 +2,7 @@ use core::slice;
 use errno::{set_errno, Errno};
 use std::ffi::c_void;
 use std::io::Read;
+use std::marker::PhantomData;
 use std::mem::MaybeUninit;
 use std::num::{NonZeroU32, NonZeroU8};
 use std::os::raw::c_int;
@@ -16,25 +17,24 @@ use crate::decoder::VorbisAudioSamples;
 
 /// A decoder that turns a perceptually-encoded, non-chained Ogg Vorbis stream into
 /// blocks of planar, single-precision float audio samples.
-pub struct VorbisDecoder {
+pub struct VorbisDecoder<R: Read> {
 	ogg_vorbis_file: Box<OggVorbis_File>,
+	source: PhantomData<R>,
 	last_audio_block: Option<VorbisAudioSamples>
 }
 
-impl VorbisDecoder {
+impl<R: Read> VorbisDecoder<R> {
 	/// Creates a new Vorbis decoder that will read an Ogg Vorbis stream from the
 	/// specified source.
-	pub fn new<R: Read, S: Into<Box<R>>>(source: S) -> Result<Self, VorbisError> {
+	pub fn new<S: Into<Box<R>>>(source: S) -> Result<Self, VorbisError> {
 		// NOTE: stable-friendly version of Box::new_uninit
 		let mut ogg_vorbis_file = Box::new(MaybeUninit::uninit());
 
-		// Box the source again to get a thin pointer that is FFI safe (pointers to DSTs,
-		// e.g. trait objects, are fat, because they contain vtable data). Then leak it
-		// to a raw pointer to hand its ownership over to C code. Using generics here
-		// incurs in potentially substantial monomorphization code size costs when using
-		// several read implementations, and complicates the code for no good performance
-		// benefit. See: https://adventures.michaelfbryan.com/posts/ffi-safe-polymorphism-in-rust/
-		let source = Box::into_raw(Box::new(source.into() as Box<dyn Read>));
+		// The source read needs to be allocated in the heap (i.e., boxed) to have a
+		// constant memory address. Then leak it to a raw pointer to hand its ownership
+		// over to C code. Related, interesting read about trait objects and FFI:
+		// https://adventures.michaelfbryan.com/posts/ffi-safe-polymorphism-in-rust/
+		let source = Box::into_raw(source.into());
 
 		// SAFETY: we assume ov_open_callbacks follows its documented contract.
 		// OggVorbis_File must be boxed because the C code assumes it doesn't
@@ -49,13 +49,13 @@ impl VorbisDecoder {
 					read_func: {
 						// This read callback should match the stdio fread behavior.
 						// See: https://man7.org/linux/man-pages/man3/fread.3p.html
-						unsafe extern "C" fn read_func(
+						unsafe extern "C" fn read_func<R: Read>(
 							ptr: *mut c_void,
 							size: usize,
 							count: usize,
 							datasource: *mut c_void
 						) -> usize {
-							let source = &mut *(datasource as *mut Box<dyn Read>);
+							let source = &mut *(datasource as *mut R);
 							let buf = slice::from_raw_parts_mut(ptr as *mut u8, size * count);
 							match source.read(buf) {
 								Ok(n) => n / size,
@@ -72,18 +72,18 @@ impl VorbisDecoder {
 								}
 							}
 						}
-						Some(read_func)
+						Some(read_func::<R>)
 					},
 					seek_func: None,
 					close_func: {
-						unsafe extern "C" fn close_func(datasource: *mut c_void) -> c_int {
+						unsafe extern "C" fn close_func<R: Read>(datasource: *mut c_void) -> c_int {
 							// Drop the Read when it's no longer needed by vorbisfile.
 							// This is called by ov_clear
-							drop(Box::from_raw(datasource as *mut Box<dyn Read>));
+							drop(Box::from_raw(datasource as *mut R));
 
 							0
 						}
-						Some(close_func)
+						Some(close_func::<R>)
 					},
 					tell_func: None
 				}
@@ -91,12 +91,13 @@ impl VorbisDecoder {
 				// According to the documented contract for ov_open_callbacks, the
 				// application is responsible for cleaning up the data source on
 				// failure. This is reiterated in the docs for OggVorbis_File
-				drop(Box::from_raw(source as *mut Box<dyn Read>));
+				drop(Box::from_raw(source as *mut R));
 				return Err(err);
 			}
 
 			Ok(Self {
 				ogg_vorbis_file: assume_init_box(ogg_vorbis_file),
+				source: PhantomData,
 				last_audio_block: None
 			})
 		}
@@ -156,8 +157,27 @@ impl VorbisDecoder {
 	}
 }
 
-impl Drop for VorbisDecoder {
+impl<R: Read> Drop for VorbisDecoder<R> {
 	fn drop(&mut self) {
 		unsafe { ov_clear(&mut *self.ogg_vorbis_file) };
+	}
+}
+
+#[cfg(test)]
+mod test {
+	use super::VorbisDecoder;
+	use std::io::{self, ErrorKind, Read};
+
+	#[test]
+	fn decoder_handles_io_failures() {
+		struct ErrorRead;
+
+		impl Read for ErrorRead {
+			fn read(&mut self, _buf: &mut [u8]) -> io::Result<usize> {
+				Err(ErrorKind::Other.into())
+			}
+		}
+
+		assert!(VorbisDecoder::new(ErrorRead).is_err());
 	}
 }
