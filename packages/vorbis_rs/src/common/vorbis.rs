@@ -177,7 +177,7 @@ impl VorbisInfo {
 		// SAFETY: the Vorbis I specification allows up to 255 channels, so this
 		// cast is always safe. It also requires at least one channel, and so do
 		// we on VorbisInfo constructors
-		unsafe { NonZeroU8::new(self.vorbis_info.channels as u8).unwrap_unchecked() }
+		unsafe { NonZeroU8::new_unchecked(self.vorbis_info.channels as u8) }
 	}
 }
 

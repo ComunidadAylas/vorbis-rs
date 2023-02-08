@@ -141,7 +141,7 @@ impl<R: Read> VorbisDecoder<R> {
 					samples_read as usize
 				));
 
-				Ok(Some(self.last_audio_block.as_ref().unwrap()))
+				Ok(self.last_audio_block.as_ref())
 			} else {
 				Ok(None)
 			}
@@ -152,14 +152,14 @@ impl<R: Read> VorbisDecoder<R> {
 	pub fn channels(&self) -> NonZeroU8 {
 		// SAFETY: as per the Vorbis I specification, the channel count must be greater than
 		// zero and at most 255
-		unsafe { NonZeroU8::new((*self.ogg_vorbis_file.vi).channels as u8).unwrap_unchecked() }
+		unsafe { NonZeroU8::new_unchecked((*self.ogg_vorbis_file.vi).channels as u8) }
 	}
 
 	/// Returns the sampling frequency of the audio signal decoded by this decoder.
 	pub fn sampling_frequency(&self) -> NonZeroU32 {
 		// SAFETY: as per the Vorbis I specification, the sampling frequency must be greater
 		// than zero and fit in an unsigned 32-bit integer
-		unsafe { NonZeroU32::new((*self.ogg_vorbis_file.vi).rate as u32).unwrap_unchecked() }
+		unsafe { NonZeroU32::new_unchecked((*self.ogg_vorbis_file.vi).rate as u32) }
 	}
 }
 
