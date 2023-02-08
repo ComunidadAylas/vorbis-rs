@@ -185,12 +185,18 @@ mod test {
 			}
 		}
 
-		assert!(matches!(
-			VorbisDecoder::new(ErrorRead),
-			Err(VorbisError::LibraryError(VorbisLibraryError {
-				kind: VorbisLibraryErrorKind::Io,
-				..
-			}))
-		));
+		let result = VorbisDecoder::new(ErrorRead);
+
+		assert!(
+			matches!(
+				result,
+				Err(VorbisError::LibraryError(VorbisLibraryError {
+					kind: VorbisLibraryErrorKind::Io,
+					..
+				}))
+			),
+			"Expected I/O library error, got: {:?}",
+			result.err()
+		);
 	}
 }
