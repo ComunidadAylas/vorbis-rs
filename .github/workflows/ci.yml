@@ -104,4 +104,5 @@ jobs:
           # Handle AArch64 dynamic libraries installed by libc6-arm64-cross
           # being in a path that the dynamic linker does not check by default
           LD_LIBRARY_PATH: /usr/aarch64-linux-gnu/lib
-        run: cargo test --release --target ${{ matrix.target }} ${{ matrix.packages-to-test }} -- --nocapture
+        run: cargo test --release --target ${{ matrix.target }} -Zdoctest-xcompile
+          ${{ matrix.packages-to-test }} -- --nocapture
