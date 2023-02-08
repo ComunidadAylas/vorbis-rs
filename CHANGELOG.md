@@ -6,6 +6,9 @@ and this project adheres to
 [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Fixed a memory leak that occurred when `VorbisDecoder::new` returned unsuccessfully
+
 ### Changed
 - Removed unnecessary reference to Minecraft in a rustdoc comment
 - Explicitly document the audio block format expected by the `encode_audio_block` method

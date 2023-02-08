@@ -27,17 +27,21 @@ impl VorbisDecoder {
 	pub fn new<R: Read, S: Into<Box<R>>>(source: S) -> Result<Self, VorbisError> {
 		// NOTE: stable-friendly version of Box::new_uninit
 		let mut ogg_vorbis_file = Box::new(MaybeUninit::uninit());
+
+		// Box the source again to get a thin pointer that is FFI safe (pointers to DSTs,
+		// e.g. trait objects, are fat, because they contain vtable data). Then leak it
+		// to a raw pointer to hand its ownership over to C code. Using generics here
+		// incurs in potentially substantial monomorphization code size costs when using
+		// several read implementations, and complicates the code for no good performance
+		// benefit. See: https://adventures.michaelfbryan.com/posts/ffi-safe-polymorphism-in-rust/
+		let source = Box::into_raw(Box::new(source.into() as Box<dyn Read>));
+
 		// SAFETY: we assume ov_open_callbacks follows its documented contract.
 		// OggVorbis_File must be boxed because the C code assumes it doesn't
 		// move around in memory
 		unsafe {
-			vorbisfile_return_value_to_result!(ov_open_callbacks(
-				// Transfer the ownership of the Read opaque object to C code.
-				// As far as we know, we can't properly use generics across the C
-				// boundary, so we have to resort to dynamic dispatch and trait
-				// objects. We use double indirection here to turn the unsized,
-				// fat pointer to a trait object to a sized, FFI safe pointer
-				Box::into_raw(Box::new(source.into() as Box<dyn Read>)) as *mut c_void,
+			if let Err(err) = vorbisfile_return_value_to_result!(ov_open_callbacks(
+				source as *mut c_void,
 				ogg_vorbis_file.as_mut_ptr(),
 				ptr::null(),
 				0,
@@ -83,7 +87,13 @@ impl VorbisDecoder {
 					},
 					tell_func: None
 				}
-			))?;
+			)) {
+				// According to the documented contract for ov_open_callbacks, the
+				// application is responsible for cleaning up the data source on
+				// failure. This is reiterated in the docs for OggVorbis_File
+				drop(Box::from_raw(source as *mut Box<dyn Read>));
+				return Err(err);
+			}
 
 			Ok(Self {
 				ogg_vorbis_file: assume_init_box(ogg_vorbis_file),
