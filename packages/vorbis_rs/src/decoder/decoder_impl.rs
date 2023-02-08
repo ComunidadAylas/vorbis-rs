@@ -40,7 +40,7 @@ impl<R: Read> VorbisDecoder<R> {
 		// OggVorbis_File must be boxed because the C code assumes it doesn't
 		// move around in memory
 		unsafe {
-			if let Err(err) = vorbisfile_return_value_to_result!(ov_open_callbacks(
+			match vorbisfile_return_value_to_result!(ov_open_callbacks(
 				source as *mut c_void,
 				ogg_vorbis_file.as_mut_ptr(),
 				ptr::null(),
@@ -88,18 +88,19 @@ impl<R: Read> VorbisDecoder<R> {
 					tell_func: None
 				}
 			)) {
-				// According to the documented contract for ov_open_callbacks, the
-				// application is responsible for cleaning up the data source on
-				// failure. This is reiterated in the docs for OggVorbis_File
-				drop(Box::from_raw(source as *mut R));
-				return Err(err);
+				Ok(_) => Ok(Self {
+					ogg_vorbis_file: assume_init_box(ogg_vorbis_file),
+					source: PhantomData,
+					last_audio_block: None
+				}),
+				Err(err) => {
+					// According to the documented contract for ov_open_callbacks, the
+					// application is responsible for cleaning up the data source on
+					// failure. This is reiterated in the docs for OggVorbis_File
+					drop(Box::from_raw(source as *mut R));
+					Err(err)
+				}
 			}
-
-			Ok(Self {
-				ogg_vorbis_file: assume_init_box(ogg_vorbis_file),
-				source: PhantomData,
-				last_audio_block: None
-			})
 		}
 	}
 
