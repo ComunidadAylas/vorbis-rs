@@ -98,9 +98,11 @@ fn main() {
 		.file(vorbis_vendor_path.join("lib/vorbisenc.c"))
 		// Avoid warning flood from upstream code we'd rather not touch
 		.warnings(false)
-		.flag_if_supported("-Wno-discarded-qualifiers")
-		.flag_if_supported("-Wno-int-conversion")
-		.flag_if_supported("-Wno-implicit-int")
+		.flag_if_supported("-Wno-discarded-qualifiers") // GCC
+		.flag_if_supported("-Wno-incompatible-pointer-types-discards-qualifiers") // Clang
+		.flag_if_supported("-Wno-int-conversion") // GCC and Clang
+		.flag_if_supported("-Wno-implicit-int") // GCC
+		.flag_if_supported("-Wno-return-type") // Clang
 		// libogg headers
 		.include(env::var_os("DEP_OGG_INCLUDE").unwrap())
 		.include(vorbis_vendor_path.join("lib"))
