@@ -18,12 +18,13 @@ and this project adheres to
   ```rs
 	let vorbis_data = /* Create some Vec<u8> */;
 
-	let mut decoder = VorbisDecoder::new(&*vorbis_data).unwrap();
+	// VorbisDecoder::new borrows vorbis_data for the duration of the function invocation
+	let mut decoder = VorbisDecoder::new::<&[u8], _>(&*vorbis_data).unwrap();
 
-	// Free the Vorbis data buffer used as a source for decoding...
+	// The Vorbis data buffer used as a source for decoding may be freed later...
 	drop(vorbis_data);
 
-	// ...but VorbisDecoder still can read from it!
+	// ... but safe code still can read from a deallocated buffer!
 	while let Ok(Some(_)) = decoder.decode_audio_block() {
 		eprintln!("Undefined behavior!");
 	}

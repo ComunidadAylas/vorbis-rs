@@ -82,7 +82,7 @@ impl VorbisInfo {
 	/// Like [`encode_init_vbr`](Self::encode_init_vbr), but selects the quality mode
 	/// directly from the specified quality factor, without internally converting a
 	/// target bitrate to a quality factor. The valid range for this factor is
-	/// [-0.1, 1].
+	/// [-0.2, 1].
 	///
 	/// This encoding strategy fixes the output subjective quality level, but lets
 	/// Vorbis vary the target bitrate depending on the qualities of the input signal.
