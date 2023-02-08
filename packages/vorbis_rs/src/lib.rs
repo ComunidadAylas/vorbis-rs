@@ -11,9 +11,9 @@
 //!
 //! # Known limitations
 //!
-//! Chained Ogg Vorbis streams (i.e., with several consecutive logical bitstreams) are not supported for
-//! now. These are seldom found, however. Feel free to file an issue or open a pull request if you are
-//! interested in chained stream support.
+//! Decoding chained Ogg Vorbis streams (i.e., with several consecutive logical bitstreams) is not
+//! supported for now. These are seldom found, however. Feel free to file an issue or open a pull
+//! request if you are interested in chained stream support.
 //!
 //! Seeking is also not supported, although it'd be a welcome addition.
 //!
@@ -107,6 +107,13 @@ pub use aotuv_lancer_vorbis_sys::OV_FALSE;
 /// A constant whose numeric value represents a libvorbis `OV_HOLE` error, which may be
 /// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
 pub use aotuv_lancer_vorbis_sys::OV_HOLE;
+#![warn(
+	let_underscore_drop,
+	missing_abi,
+	missing_docs,
+	unused_crate_dependencies,
+	unused_import_braces
+)]
 
 #[macro_use]
 mod common;
