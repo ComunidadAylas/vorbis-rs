@@ -65,48 +65,6 @@
 //! # }
 //! ```
 
-/// A constant whose numeric value represents a libvorbis `OV_EBADHEADER` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EBADHEADER;
-/// A constant whose numeric value represents a libvorbis `OV_EBADLINK` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EBADLINK;
-/// A constant whose numeric value represents a libvorbis `OV_EBADPACKET` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EBADPACKET;
-/// A constant whose numeric value represents a libvorbis `OV_EFAULT` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EFAULT;
-/// A constant whose numeric value represents a libvorbis `OV_EIMPL` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EIMPL;
-/// A constant whose numeric value represents a libvorbis `OV_EINVAL` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EINVAL;
-/// A constant whose numeric value represents a libvorbis `OV_ENOSEEK` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_ENOSEEK;
-/// A constant whose numeric value represents a libvorbis `OV_ENOTAUDIO` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_ENOTAUDIO;
-/// A constant whose numeric value represents a libvorbis `OV_ENOTVORBIS` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_ENOTVORBIS;
-/// A constant whose numeric value represents a libvorbis `OV_EOF` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EOF;
-/// A constant whose numeric value represents a libvorbis `OV_EREAD` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EREAD;
-/// A constant whose numeric value represents a libvorbis `OV_EVERSION` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_EVERSION;
-/// A constant whose numeric value represents a libvorbis `OV_FALSE` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_FALSE;
-/// A constant whose numeric value represents a libvorbis `OV_HOLE` error, which may be
-/// returned as a [`LibraryError`](VorbisError::LibraryError) error code.
-pub use aotuv_lancer_vorbis_sys::OV_HOLE;
 #![warn(
 	let_underscore_drop,
 	missing_abi,
@@ -117,7 +75,7 @@ pub use aotuv_lancer_vorbis_sys::OV_HOLE;
 
 #[macro_use]
 mod common;
-pub use common::VorbisError;
+pub use common::{VorbisError, VorbisLibrary, VorbisLibraryError, VorbisLibraryErrorKind};
 
 mod encoder;
 pub use encoder::{VorbisBitrateManagementStrategy, VorbisEncoder};

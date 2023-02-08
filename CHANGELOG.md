@@ -34,6 +34,7 @@ and this project adheres to
 
 ### Changed
 
+- More idiomatic Rust representation of C library errors by using enums (#7)
 - Optimized `VorbisDecoder` implementation to get rid of double indirection for the Vorbis stream source accross the FFI boundary
 - Removed unnecessary reference to Minecraft in a rustdoc comment
 - Explicitly document the audio block format expected by the `encode_audio_block` method

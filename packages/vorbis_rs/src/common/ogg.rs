@@ -7,7 +7,6 @@ use std::io::Write;
 use std::mem::MaybeUninit;
 use std::slice;
 
-use crate::common::vorbis_error_code_to_string;
 use crate::VorbisError;
 
 /// A high-level abstraction for an Ogg stream.

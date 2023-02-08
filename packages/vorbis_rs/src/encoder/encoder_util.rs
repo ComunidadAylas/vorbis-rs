@@ -6,10 +6,7 @@ use aotuv_lancer_vorbis_sys::{
 use std::mem::MaybeUninit;
 use std::num::NonZeroU32;
 
-use crate::common::{
-	assume_init_box, vorbis_error_code_to_string, OggPacket, VorbisComments, VorbisError,
-	VorbisInfo
-};
+use crate::common::{assume_init_box, OggPacket, VorbisComments, VorbisError, VorbisInfo};
 
 /// A high-level abstraction that holds all the needed state for a Vorbis encoder.
 pub struct VorbisEncodingState {

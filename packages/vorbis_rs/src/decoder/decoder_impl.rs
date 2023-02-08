@@ -12,7 +12,7 @@ use aotuv_lancer_vorbis_sys::{
 	ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File
 };
 
-use crate::common::{assume_init_box, vorbis_error_code_to_string, VorbisError};
+use crate::common::{assume_init_box, VorbisError};
 use crate::decoder::VorbisAudioSamples;
 
 /// A decoder that turns a perceptually-encoded, non-chained Ogg Vorbis stream into
