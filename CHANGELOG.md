@@ -37,6 +37,7 @@ and this project adheres to
 - Optimized `VorbisDecoder` implementation to get rid of double indirection for the Vorbis stream source accross the FFI boundary
 - Removed unnecessary reference to Minecraft in a rustdoc comment
 - Explicitly document the audio block format expected by the `encode_audio_block` method
+- Document I/O side effects of `Vorbis{Decoder,Encoder}::new`
 
 ## [0.1.0] - 2022-10-21
 
