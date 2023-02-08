@@ -28,6 +28,10 @@ impl<W: Write> VorbisEncoder<W> {
 	/// Creates a new Vorbis encoder with the specified metadata, for the
 	/// specified signal, using some bitrate management strategy and minimum
 	/// Ogg page size, that will write data to the provided sink.
+	///
+	/// This method validates input parameters, initializes the encoder, and
+	/// writes header data to the specified sink. Therefore, it may fail even
+	/// if the input parameters are valid due to I/O errors.
 	pub fn new<'tags, 'values, T: Into<Cow<'tags, str>>, V: Into<Cow<'values, str>>>(
 		stream_serial: i32,
 		comment_tags: impl IntoIterator<Item = (T, V)>,

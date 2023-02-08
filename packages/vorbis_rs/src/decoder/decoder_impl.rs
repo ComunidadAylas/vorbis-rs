@@ -9,7 +9,7 @@ use std::os::raw::c_int;
 use std::ptr;
 
 use aotuv_lancer_vorbis_sys::{
-	ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File
+	ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File,
 };
 
 use crate::common::{assume_init_box, vorbis_error_code_to_string, VorbisError};
@@ -20,12 +20,17 @@ use crate::decoder::VorbisAudioSamples;
 pub struct VorbisDecoder<R: Read> {
 	ogg_vorbis_file: Box<OggVorbis_File>,
 	source: PhantomData<R>,
-	last_audio_block: Option<VorbisAudioSamples>
+	last_audio_block: Option<VorbisAudioSamples>,
 }
 
 impl<R: Read> VorbisDecoder<R> {
 	/// Creates a new Vorbis decoder that will read an Ogg Vorbis stream from the
 	/// specified source.
+	///
+	/// This method reads Vorbis header data from the source, validating it as an
+	/// Ogg Vorbis stream and setting up internal data structures for audio decode.
+	/// I/O errors that might happen during that operation will be returned to the
+	/// caller.
 	pub fn new<S: Into<Box<R>>>(source: S) -> Result<Self, VorbisError> {
 		// NOTE: stable-friendly version of Box::new_uninit
 		let mut ogg_vorbis_file = Box::new(MaybeUninit::uninit());
@@ -91,7 +96,7 @@ impl<R: Read> VorbisDecoder<R> {
 				Ok(_) => Ok(Self {
 					ogg_vorbis_file: assume_init_box(ogg_vorbis_file),
 					source: PhantomData,
-					last_audio_block: None
+					last_audio_block: None,
 				}),
 				Err(err) => {
 					// According to the documented contract for ov_open_callbacks, the
@@ -133,7 +138,7 @@ impl<R: Read> VorbisDecoder<R> {
 				self.last_audio_block = Some(VorbisAudioSamples::new(
 					sample_buf.assume_init(),
 					(*self.ogg_vorbis_file.vi).channels as usize,
-					samples_read as usize
+					samples_read as usize,
 				));
 
 				Ok(Some(self.last_audio_block.as_ref().unwrap()))
