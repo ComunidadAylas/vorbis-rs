@@ -1,7 +1,7 @@
 [package]
 name = "ogg_next_sys"
 description = "Updated low-level FFI bindings for the upstream libogg C library"
-authors = ["Alejandro González <AlexTMjugador@users.noreply.github.com>"]
+authors = ["Alejandro González <me@alegon.dev>"]
 license = "BSD-3-Clause"
 version = "0.1.1"
 readme = "../../README.md"
