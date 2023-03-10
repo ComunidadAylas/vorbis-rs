@@ -8,7 +8,9 @@ on:
       - synchronize
 
 env:
-  MSRV: '1.60.0'
+  MSRV: 1.60.0
+
+  CARGO_REGISTRIES_CRATES_IO_PROTOCOL: sparse
 
 jobs:
   msrv_check:
