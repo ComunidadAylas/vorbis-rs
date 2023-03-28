@@ -16,9 +16,8 @@ jobs:
 
     runs-on: ubuntu-20.04
 
-    # Only run if this is not a pull request, or for pull requests on forks
-    if: github.event_name != 'pull_request' ||
-      github.event.pull_request.head.repo.full_name != 'ComunidadAylas/vorbis-rs'
+    # Exclude in-repo PRs from running this job
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork
 
     steps:
       - name: 📥 Checkout source
@@ -65,9 +64,8 @@ jobs:
     name: CI (${{ matrix.target }})
     runs-on: ${{ matrix.runner }}
 
-    # Only run if this is not a pull request, or for pull requests on forks
-    if: github.event_name != 'pull_request' ||
-      github.event.pull_request.head.repo.full_name != 'ComunidadAylas/vorbis-rs'
+    # Exclude in-repo PRs from running this job
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.fork
 
     steps:
       - name: 📥 Checkout source
