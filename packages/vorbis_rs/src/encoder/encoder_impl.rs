@@ -17,7 +17,7 @@ use aotuv_lancer_vorbis_sys::{
 pub struct VorbisEncoder<W: Write> {
 	ogg_stream: OggStream,
 	vorbis_encoding_state: VorbisEncodingState,
-	sink: W,
+	sink: Option<W>,
 	minimum_page_data_size: Option<u16>,
 	finished: bool
 }
@@ -78,7 +78,7 @@ impl<W: Write> VorbisEncoder<W> {
 		Ok(Self {
 			ogg_stream,
 			vorbis_encoding_state,
-			sink,
+			sink: Some(sink),
 			minimum_page_data_size,
 			finished: false
 		})
@@ -174,8 +174,9 @@ impl<W: Write> VorbisEncoder<W> {
 				{
 					OggPacket::new(ogg_packet.assume_init()).submit(&mut self.ogg_stream)?;
 
+					let sink = self.sink.as_mut().expect("sink while decoder is alive");
 					self.ogg_stream
-						.write_pending_pages(&mut self.sink, self.minimum_page_data_size)?;
+						.write_pending_pages(sink, self.minimum_page_data_size)?;
 				}
 			}
 		}
@@ -188,7 +189,9 @@ impl<W: Write> VorbisEncoder<W> {
 	///
 	/// This is automatically done when the encoder is dropped, but calling `finish`
 	/// explicitly is recommended for cases where handling errors here is necessary.
-	pub fn finish(mut self) -> Result<(), VorbisError> {
+	///
+	/// Returns the owned writer back to the caller.
+	pub fn finish(mut self) -> Result<W, VorbisError> {
 		// SAFETY: we assume that vorbis_analysis_wrote follows its documented contract
 		unsafe {
 			libvorbis_return_value_to_result!(vorbis_analysis_wrote(
@@ -199,7 +202,8 @@ impl<W: Write> VorbisEncoder<W> {
 
 		let write_pending_result = self.write_pending_blocks();
 		self.finished = true; // Avoids implicit finish on drop
-		write_pending_result
+		let sink = self.sink.take().unwrap();
+		write_pending_result.map(move |_| sink)
 	}
 }
 
