@@ -66,7 +66,6 @@
 //! ```
 
 #![warn(
-	let_underscore_drop,
 	missing_abi,
 	missing_docs,
 	unused_crate_dependencies,
