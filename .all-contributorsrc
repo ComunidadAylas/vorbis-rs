@@ -32,6 +32,15 @@
         "code",
         "ideas"
       ]
+    },
+    {
+      "login": "algesten",
+      "name": "Martin Algesten",
+      "avatar_url": "https://avatars.githubusercontent.com/u/227204?v=4",
+      "profile": "https://dulc.es/@martin",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
