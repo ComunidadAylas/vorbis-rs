@@ -12,12 +12,13 @@ src="https://github.com/ComunidadAylas/vorbis-rs/actions/workflows/ci.yml/badge.
 <img alt="crates.io downloads" src="https://img.shields.io/crates/d/vorbis_rs?label=crates.io%20downloads">
 </div>
 
-In particular, the `vorbis_rs` package in this repository provides updated, well-documented and ergonomic bindings for a modified version of the latest reference Vorbis encoder, available
-[here](https://github.com/enzo1982/vorbis-aotuv-lancer), with the
-[aoTuV](https://github.com/AO-Yumi/vorbis_aotuv) and
+The `vorbis_rs` package in this repository provides updated, well-documented and
+ergonomic bindings for a modified version of the latest reference Vorbis
+encoder, available [here](https://github.com/enzo1982/vorbis-aotuv-lancer), with
+the [aoTuV](https://github.com/AO-Yumi/vorbis_aotuv) and
 [Lancer](https://web.archive.org/web/20160408055651/http://homepage3.nifty.com/blacksword/index.htm)
-patchsets applied to it. These patches are considered to implement significant encoding
-quality and performance improvements by the community.
+patchsets applied to it. These patches are considered to implement significant
+encoding quality and performance improvements by the community.
 
 The supporting `aotuv_lancer_vorbis_sys` and `ogg_next_sys` packages provide
 automatically-generated low-level bindings used by `vorbis_rs`.
