@@ -3,7 +3,7 @@ name = "aotuv_lancer_vorbis_sys"
 description = "Low-level FFI bindings for libvorbis, vorbisfile, and libvorbisenc C libraries with the aoTuV and Lancer patches"
 authors = ["Alejandro González <me@alegon.dev>"]
 license = "BSD-3-Clause"
-version = "0.1.0"
+version = "0.1.1"
 readme = "../../README.md"
 repository = "https://github.com/ComunidadAylas/vorbis-rs"
 edition = "2021"
@@ -17,7 +17,7 @@ exclude = [
 ]
 
 [dependencies]
-ogg_next_sys = { version = "0.1.1", path = "../ogg_next_sys" }
+ogg_next_sys = { version = "0.1.2", path = "../ogg_next_sys" }
 
 [build-dependencies]
 cc = "1.0.79"
