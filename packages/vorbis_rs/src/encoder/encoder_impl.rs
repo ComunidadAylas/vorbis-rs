@@ -200,8 +200,14 @@ impl<W: Write> VorbisEncoder<W> {
 			))?
 		};
 
-		let sink = self.sink.take().unwrap(); // Bind to variable to drop it on error too
-		self.write_pending_blocks().map(|_| sink)
+		// Explicit match to drop the sink on error too
+		match self.write_pending_blocks() {
+			Ok(_) => Ok(self.sink.take().unwrap()),
+			Err(error) => {
+				self.sink.take();
+				Err(error)
+			}
+		}
 	}
 }
 
