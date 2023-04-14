@@ -18,8 +18,7 @@ pub struct VorbisEncoder<W: Write> {
 	ogg_stream: OggStream,
 	vorbis_encoding_state: VorbisEncodingState,
 	sink: Option<W>,
-	minimum_page_data_size: Option<u16>,
-	finished: bool
+	minimum_page_data_size: Option<u16>
 }
 
 impl<W: Write> VorbisEncoder<W> {
@@ -79,8 +78,7 @@ impl<W: Write> VorbisEncoder<W> {
 			ogg_stream,
 			vorbis_encoding_state,
 			sink: Some(sink),
-			minimum_page_data_size,
-			finished: false
+			minimum_page_data_size
 		})
 	}
 
@@ -148,8 +146,11 @@ impl<W: Write> VorbisEncoder<W> {
 	}
 
 	/// Asks the low-level Vorbis encoder for pending packets, and writes them out
-	/// to Ogg pages as they become available.
+	/// to Ogg pages as they become available. This method expects that `self.sink`
+	/// is `Some` (i.e., `finish` was not run).
 	fn write_pending_blocks(&mut self) -> Result<(), VorbisError> {
+		let sink = self.sink.as_mut().unwrap();
+
 		// SAFETY: we assume the functions inside this unsafe block follow their
 		// documented contract
 		unsafe {
@@ -174,9 +175,8 @@ impl<W: Write> VorbisEncoder<W> {
 				{
 					OggPacket::new(ogg_packet.assume_init()).submit(&mut self.ogg_stream)?;
 
-					let sink = self.sink.as_mut().expect("sink while decoder is alive");
 					self.ogg_stream
-						.write_pending_pages(sink, self.minimum_page_data_size)?;
+						.write_pending_pages(&mut *sink, self.minimum_page_data_size)?;
 				}
 			}
 		}
@@ -188,9 +188,9 @@ impl<W: Write> VorbisEncoder<W> {
 	/// data to the configured sink.
 	///
 	/// This is automatically done when the encoder is dropped, but calling `finish`
-	/// explicitly is recommended for cases where handling errors here is necessary.
+	/// explicitly is necessary for handling errors on finish explicitly.
 	///
-	/// Returns the owned writer back to the caller.
+	/// Returns the owned sink back to the caller.
 	pub fn finish(mut self) -> Result<W, VorbisError> {
 		// SAFETY: we assume that vorbis_analysis_wrote follows its documented contract
 		unsafe {
@@ -200,18 +200,17 @@ impl<W: Write> VorbisEncoder<W> {
 			))?
 		};
 
-		let write_pending_result = self.write_pending_blocks();
-		self.finished = true; // Avoids implicit finish on drop
-		let sink = self.sink.take().unwrap();
-		write_pending_result.map(move |_| sink)
+		let sink = self.sink.take().unwrap(); // Bind to variable to drop it on error too
+		self.write_pending_blocks().map(|_| sink)
 	}
 }
 
 impl<W: Write> Drop for VorbisEncoder<W> {
 	fn drop(&mut self) {
-		// Finishing the stream after it has been already finished generates two
-		// EOS packets, which is illegal
-		if !self.finished {
+		// Finishing the stream twice generates two EOS packets, which is illegal,
+		// so check whether we have a sink to finish: the sink is set to None if
+		// and only if the stream was finished explicitly
+		if self.sink.is_some() {
 			// SAFETY: we assume that vorbis_analysis_wrote follows its documented contract
 			if unsafe {
 				libvorbis_return_value_to_result!(vorbis_analysis_wrote(
