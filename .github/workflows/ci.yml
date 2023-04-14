@@ -92,6 +92,7 @@ jobs:
         with:
           clippy_flags: --no-deps -- -D warnings
           reporter: github-check
+          fail_on_error: true
 
       - name: '🔍 Static analysis: run rustfmt'
         if: matrix.target == 'x86_64-unknown-linux-gnu'
