@@ -12,6 +12,7 @@ and this project adheres to
 
 - `VorbisEncoder::finish` now returns the sink it was created with
   ([#8](https://github.com/ComunidadAylas/vorbis-rs/pull/8), thanks @algesten)
+- Updated author contact metadata for every crate in the repository
 
 ## [0.2.0] - 2023-02-08
 
