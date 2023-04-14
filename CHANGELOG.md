@@ -8,7 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Changed
+
+- `VorbisEncoder::finish` now returns the sink it was created with
+  ([#8](https://github.com/ComunidadAylas/vorbis-rs/pull/8), thanks @algesten)
 
 ## [0.2.0] - 2023-02-08
 
