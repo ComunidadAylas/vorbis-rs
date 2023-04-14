@@ -12,13 +12,13 @@ use aotuv_lancer_vorbis_sys::{
 	ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File
 };
 
-use crate::common::{assume_init_box, VorbisError};
+use crate::common::VorbisError;
 use crate::decoder::VorbisAudioSamples;
 
 /// A decoder that turns a perceptually-encoded, non-chained Ogg Vorbis stream into
 /// blocks of planar, single-precision float audio samples.
 pub struct VorbisDecoder<R: Read> {
-	ogg_vorbis_file: Box<OggVorbis_File>,
+	ogg_vorbis_file: OggVorbis_File,
 	source: PhantomData<R>,
 	last_audio_block: Option<VorbisAudioSamples>
 }
@@ -32,8 +32,7 @@ impl<R: Read> VorbisDecoder<R> {
 	/// I/O errors that might happen during that operation will be returned to the
 	/// caller.
 	pub fn new<S: Into<Box<R>>>(source: S) -> Result<Self, VorbisError> {
-		// NOTE: stable-friendly version of Box::new_uninit
-		let mut ogg_vorbis_file = Box::new(MaybeUninit::uninit());
+		let mut ogg_vorbis_file = MaybeUninit::uninit();
 
 		// The source read needs to be allocated in the heap (i.e., boxed) to have a
 		// constant memory address. Then leak it to a raw pointer to hand its ownership
@@ -41,9 +40,7 @@ impl<R: Read> VorbisDecoder<R> {
 		// https://adventures.michaelfbryan.com/posts/ffi-safe-polymorphism-in-rust/
 		let source = Box::into_raw(source.into());
 
-		// SAFETY: we assume ov_open_callbacks follows its documented contract.
-		// OggVorbis_File must be boxed because the C code assumes it doesn't
-		// move around in memory
+		// SAFETY: we assume ov_open_callbacks follows its documented contract
 		unsafe {
 			match vorbisfile_return_value_to_result!(ov_open_callbacks(
 				source as *mut c_void,
@@ -94,7 +91,7 @@ impl<R: Read> VorbisDecoder<R> {
 				}
 			)) {
 				Ok(_) => Ok(Self {
-					ogg_vorbis_file: assume_init_box(ogg_vorbis_file),
+					ogg_vorbis_file: ogg_vorbis_file.assume_init(),
 					source: PhantomData,
 					last_audio_block: None
 				}),
@@ -121,7 +118,7 @@ impl<R: Read> VorbisDecoder<R> {
 		// VorbisAudioSamples implementation for more safety information
 		unsafe {
 			let samples_read = vorbisfile_return_value_to_result!(ov_read_float(
-				&mut *self.ogg_vorbis_file,
+				&mut self.ogg_vorbis_file,
 				sample_buf.as_mut_ptr(),
 				2048, // Most stereo Ogg Vorbis files in the wild use a maximum block size of 2048 samples
 				current_bitstream.as_mut_ptr()
@@ -165,7 +162,7 @@ impl<R: Read> VorbisDecoder<R> {
 
 impl<R: Read> Drop for VorbisDecoder<R> {
 	fn drop(&mut self) {
-		unsafe { ov_clear(&mut *self.ogg_vorbis_file) };
+		unsafe { ov_clear(&mut self.ogg_vorbis_file) };
 	}
 }
 

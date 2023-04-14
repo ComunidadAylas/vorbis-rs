@@ -8,7 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Changed
+
+- Removed unnecessary internal allocation in `VorbisDecoder`
 
 ## [0.3.0] - 2023-04-14
 
