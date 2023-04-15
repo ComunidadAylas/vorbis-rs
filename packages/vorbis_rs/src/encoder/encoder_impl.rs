@@ -33,15 +33,20 @@ impl<W: Write> VorbisEncoder<W> {
 	/// This method validates input parameters, initializes the encoder, and
 	/// writes header data to the specified sink. Therefore, it may fail even
 	/// if the input parameters are valid due to I/O errors.
-	pub fn new<'tags, 'values, T: Into<Cow<'tags, str>>, V: Into<Cow<'values, str>>>(
+	pub fn new<'tags, 'values, T, V, TagsIter>(
 		stream_serial: i32,
-		comment_tags: impl IntoIterator<Item = (T, V)>,
+		comment_tags: TagsIter,
 		sampling_frequency: NonZeroU32,
 		channels: NonZeroU8,
 		bitrate_management_strategy: VorbisBitrateManagementStrategy,
 		minimum_page_data_size: Option<u16>,
-		mut sink: W
-	) -> Result<Self, VorbisError> {
+		mut sink: W,
+	) -> Result<Self, VorbisError>
+	where
+		T: Into<Cow<'tags, str>>,
+		V: Into<Cow<'values, str>>,
+		TagsIter: IntoIterator<Item = (T, V)>,
+	{
 		// Tear up the Ogg stream
 		let mut ogg_stream = OggStream::new(stream_serial)?;
 
