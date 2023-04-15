@@ -1,5 +1,4 @@
-use std::env;
-use std::env::current_dir;
+use std::{env, env::current_dir};
 
 fn main() {
 	#[cfg(feature = "build-time-bindgen")]

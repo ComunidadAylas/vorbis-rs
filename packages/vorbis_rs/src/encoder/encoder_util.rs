@@ -1,10 +1,9 @@
+use std::{mem::MaybeUninit, num::NonZeroU32};
+
 use aotuv_lancer_vorbis_sys::{
 	vorbis_analysis_headerout, vorbis_analysis_init, vorbis_block, vorbis_block_clear,
 	vorbis_block_init, vorbis_dsp_clear, vorbis_dsp_state
 };
-
-use std::mem::MaybeUninit;
-use std::num::NonZeroU32;
 
 use crate::common::{assume_init_box, OggPacket, VorbisComments, VorbisError, VorbisInfo};
 

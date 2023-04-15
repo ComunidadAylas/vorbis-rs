@@ -1,15 +1,19 @@
-use crate::common::{OggPacket, OggStream, VorbisComments, VorbisError, VorbisInfo};
-use crate::encoder::{VorbisBitrateManagementStrategy, VorbisEncodingState};
-
-use std::borrow::Cow;
-use std::io::Write;
-use std::mem::MaybeUninit;
-use std::num::{NonZeroU32, NonZeroU8};
-use std::{ptr, slice};
+use std::{
+	borrow::Cow,
+	io::Write,
+	mem::MaybeUninit,
+	num::{NonZeroU32, NonZeroU8},
+	ptr, slice
+};
 
 use aotuv_lancer_vorbis_sys::{
 	vorbis_analysis, vorbis_analysis_blockout, vorbis_analysis_buffer, vorbis_analysis_wrote,
 	vorbis_bitrate_addblock, vorbis_bitrate_flushpacket
+};
+
+use crate::{
+	common::{OggPacket, OggStream, VorbisComments, VorbisError, VorbisInfo},
+	encoder::{VorbisBitrateManagementStrategy, VorbisEncodingState}
 };
 
 /// An encoder that transforms blocks of planar, single-precision float audio

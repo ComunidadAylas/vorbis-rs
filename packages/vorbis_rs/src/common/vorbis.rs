@@ -1,16 +1,18 @@
+use std::{
+	borrow::Cow,
+	ffi::CString,
+	mem::MaybeUninit,
+	num::{NonZeroU32, NonZeroU8},
+	os::raw::{c_int, c_long},
+	ptr
+};
+
 use aotuv_lancer_vorbis_sys::{
 	vorbis_comment, vorbis_comment_add_tag, vorbis_comment_clear, vorbis_comment_init,
 	vorbis_encode_ctl, vorbis_encode_init, vorbis_encode_init_vbr, vorbis_encode_setup_init,
 	vorbis_encode_setup_managed, vorbis_info, vorbis_info_clear, vorbis_info_init,
 	OV_ECTL_RATEMANAGE2_SET
 };
-
-use std::borrow::Cow;
-use std::ffi::CString;
-use std::mem::MaybeUninit;
-use std::num::{NonZeroU32, NonZeroU8};
-use std::os::raw::{c_int, c_long};
-use std::ptr;
 
 use crate::common::{assume_init_box, VorbisError};
 

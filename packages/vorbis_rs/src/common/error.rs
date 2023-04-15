@@ -1,9 +1,12 @@
-use std::convert::Infallible;
-use std::ffi::NulError;
-use std::fmt::{self, Display, Formatter};
-use std::hint::unreachable_unchecked;
-use std::io;
-use std::num::TryFromIntError;
+use std::{
+	convert::Infallible,
+	ffi::NulError,
+	fmt::{self, Display, Formatter},
+	hint::unreachable_unchecked,
+	io,
+	num::TryFromIntError
+};
+
 use thiserror::Error;
 
 /// An error condition that may happen during an encoding or decoding operation.

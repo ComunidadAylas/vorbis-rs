@@ -7,11 +7,13 @@ include!("bindings.rs");
 
 #[cfg(test)]
 mod test {
-	use std::ffi::CStr;
-	use std::io::{Cursor, Read, Write};
-	use std::mem::MaybeUninit;
-	use std::os::raw::{c_int, c_long, c_void};
-	use std::{ptr, slice};
+	use std::{
+		ffi::CStr,
+		io::{Cursor, Read, Write},
+		mem::MaybeUninit,
+		os::raw::{c_int, c_long, c_void},
+		ptr, slice
+	};
 
 	use ogg_next_sys::{ogg_stream_init, ogg_stream_packetin};
 

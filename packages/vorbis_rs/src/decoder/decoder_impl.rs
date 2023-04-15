@@ -1,19 +1,20 @@
 use core::slice;
-use errno::{set_errno, Errno};
-use std::ffi::c_void;
-use std::io::Read;
-use std::marker::PhantomData;
-use std::mem::MaybeUninit;
-use std::num::{NonZeroU32, NonZeroU8};
-use std::os::raw::c_int;
-use std::ptr;
+use std::{
+	ffi::c_void,
+	io::Read,
+	marker::PhantomData,
+	mem::MaybeUninit,
+	num::{NonZeroU32, NonZeroU8},
+	os::raw::c_int,
+	ptr
+};
 
 use aotuv_lancer_vorbis_sys::{
 	ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File
 };
+use errno::{set_errno, Errno};
 
-use crate::common::VorbisError;
-use crate::decoder::VorbisAudioSamples;
+use crate::{common::VorbisError, decoder::VorbisAudioSamples};
 
 /// A decoder that turns a perceptually-encoded, non-chained Ogg Vorbis stream into
 /// blocks of planar, single-precision float audio samples.
@@ -168,9 +169,10 @@ impl<R: Read> Drop for VorbisDecoder<R> {
 
 #[cfg(test)]
 mod test {
+	use std::io::{self, ErrorKind, Read};
+
 	use super::VorbisDecoder;
 	use crate::{VorbisError, VorbisLibraryError, VorbisLibraryErrorKind};
-	use std::io::{self, ErrorKind, Read};
 
 	#[test]
 	fn decoder_handles_io_failures() {
