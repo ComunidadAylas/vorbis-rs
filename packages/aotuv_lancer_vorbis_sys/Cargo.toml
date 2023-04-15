@@ -13,7 +13,8 @@ keywords = ["libvorbis", "vorbisfile", "libvorbisenc", "aotuv", "lancer"]
 categories = ["external-ffi-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
 exclude = [
     "/ogg_vendor/**/.*", "/ogg_vendor/cmake", "/ogg_vendor/doc", "/ogg_vendor/README.md",
-    "/vorbis_vendor/**/.*", "/vorbis_vendor/cmake", "/vorbis_vendor/doc", "/vorbis_vendor/README.md"
+    "/vorbis_vendor/**/.*", "/vorbis_vendor/cmake", "/vorbis_vendor/doc", "/vorbis_vendor/test/**/*", "/vorbis_vendor/README.md",
+    "/src/*.ogg"
 ]
 
 [dependencies]
