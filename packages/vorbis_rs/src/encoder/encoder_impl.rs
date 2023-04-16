@@ -40,12 +40,12 @@ impl<W: Write> VorbisEncoder<W> {
 		channels: NonZeroU8,
 		bitrate_management_strategy: VorbisBitrateManagementStrategy,
 		minimum_page_data_size: Option<u16>,
-		mut sink: W,
+		mut sink: W
 	) -> Result<Self, VorbisError>
 	where
 		T: Into<Cow<'tags, str>>,
 		V: Into<Cow<'values, str>>,
-		TagsIter: IntoIterator<Item = (T, V)>,
+		TagsIter: IntoIterator<Item = (T, V)>
 	{
 		// Tear up the Ogg stream
 		let mut ogg_stream = OggStream::new(stream_serial)?;
