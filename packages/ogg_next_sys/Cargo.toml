@@ -15,7 +15,7 @@ exclude = ["/ogg_vendor/**/.*", "/ogg_vendor/cmake", "/ogg_vendor/doc", "/ogg_ve
 
 [build-dependencies]
 cc = "1.0.79"
-bindgen = { version = "0.65.1", optional = true }
+bindgen = { version = "0.66.0", optional = true }
 
 [features]
 # Requires Clang and slows down the build, but guarantees that the bindings are up to date.
