@@ -1,5 +1,6 @@
 [workspace]
 members = ["packages/*"]
+resolver = "2"
 
 [profile.release]
 # Add debug symbols on release mode to allow debugging upstream code.
