@@ -140,3 +140,12 @@ pub enum VorbisBitrateManagementStrategy {
 		maximum_bitrate: NonZeroU32
 	}
 }
+
+impl Default for VorbisBitrateManagementStrategy {
+	fn default() -> Self {
+		Self::QualityVbr {
+			// ~ 80 kbit/s for stereo, 44.1 kHz signals
+			target_quality: 0.5
+		}
+	}
+}

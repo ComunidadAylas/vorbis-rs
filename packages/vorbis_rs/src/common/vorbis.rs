@@ -211,7 +211,7 @@ impl VorbisComments {
 		}
 	}
 
-	/// Adds the specified pair of tags to the list of user comments held by this struct.
+	/// Adds the specified tag-value pair to the list of user comments held by this struct.
 	pub fn add_tag<'tag, 'value>(
 		&mut self,
 		tag: impl Into<Cow<'tag, str>>,

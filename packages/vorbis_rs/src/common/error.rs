@@ -10,7 +10,10 @@ use std::{
 use thiserror::Error;
 
 /// An error condition that may happen during an encoding or decoding operation.
+///
+/// New error condition types may be added over time.
 #[derive(Error, Debug)]
+#[non_exhaustive]
 pub enum VorbisError {
 	/// A Vorbis C library function informed about an error condition.
 	#[error("Library error: {0}")]
@@ -42,7 +45,13 @@ pub enum VorbisError {
 	RangeExceeded(#[from] TryFromIntError),
 	/// An I/O error occurred.
 	#[error("I/O error: {0}")]
-	Io(#[from] io::Error)
+	Io(#[from] io::Error),
+	/// A necessary random number could not be generated due to an error. Currently, this error
+	/// may only happen during automatic Ogg stream serial generation, but this is subject to
+	/// change in the future.
+	#[cfg(feature = "stream-serial-rng")]
+	#[error("RNG error: {0}")]
+	Rng(#[from] getrandom::Error)
 }
 
 #[doc(hidden)] // Implementation detail to allow for ergonomic usage of ?

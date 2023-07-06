@@ -1,7 +1,8 @@
 use std::{
 	borrow::Cow,
+	cmp,
 	io::Write,
-	mem::MaybeUninit,
+	mem::{size_of, MaybeUninit},
 	num::{NonZeroU32, NonZeroU8},
 	ptr, slice
 };
@@ -16,8 +17,203 @@ use crate::{
 	encoder::{VorbisBitrateManagementStrategy, VorbisEncodingState}
 };
 
+/// Builds a [`VorbisEncoder`] with configurable Vorbis encoding and
+/// Ogg stream encapsulation options.
+pub struct VorbisEncoderBuilder<W: Write> {
+	sampling_frequency: NonZeroU32,
+	channels: NonZeroU8,
+	sink: W,
+	stream_serial: i32,
+	bitrate_management_strategy: VorbisBitrateManagementStrategy,
+	comments: VorbisComments,
+	minimum_page_data_size: Option<u16>
+}
+
+impl<W: Write> VorbisEncoderBuilder<W> {
+	/// Creates a new Vorbis encoder builder for a signal with the specified sampling frequency
+	/// and channels that will be encoded to the specified sink.
+	///
+	/// The serial of the generated Ogg Vorbis stream will be randomly generated, as dictated
+	/// by the Ogg specification. If this behavior is not desirable, please use
+	/// [`new_with_serial`](Self::new_with_serial) instead.
+	#[cfg(feature = "stream-serial-rng")]
+	pub fn new(
+		sampling_frequency: NonZeroU32,
+		channels: NonZeroU8,
+		sink: W
+	) -> Result<Self, VorbisError> {
+		// We use a RNG seeded with an unknown seed to minimize unintended metadata leakage:
+		// if we set the seed to a value from a better-known source (e.g., the current timestamp),
+		// an attacker could more practically make educated guesses about the seed value range
+		// and the RNG algorithm used to bruteforce the seed value from the serial. Note that
+		// the security in this scenario comes from how costly and unpredictable the RNG is,
+		// not whether it's cryptographically-secure
+		Ok(Self::_new(sampling_frequency, channels, sink, {
+			let mut stream_serial_buf = [MaybeUninit::uninit(); size_of::<i32>()];
+			i32::from_ne_bytes(
+				getrandom::getrandom_uninit(&mut stream_serial_buf)?
+					.try_into()
+					.unwrap()
+			)
+		}))
+	}
+
+	/// Creates a new Vorbis encoder builder for a signal with the specified sampling frequency
+	/// and channels that will be encoded to the specified sink. The serial of the generated Ogg
+	/// Vorbis stream will be set to `stream_serial`.
+	pub fn new_with_serial(
+		sampling_frequency: NonZeroU32,
+		channels: NonZeroU8,
+		sink: W,
+		stream_serial: i32
+	) -> Self {
+		Self::_new(sampling_frequency, channels, sink, stream_serial)
+	}
+
+	/// Common initialization code for [`VorbisEncoderBuilder`] constructors.
+	fn _new(
+		sampling_frequency: NonZeroU32,
+		channels: NonZeroU8,
+		sink: W,
+		stream_serial: i32
+	) -> Self {
+		Self {
+			sampling_frequency,
+			channels,
+			sink,
+			stream_serial,
+			bitrate_management_strategy: Default::default(),
+			comments: VorbisComments::new(),
+			minimum_page_data_size: None
+		}
+	}
+
+	/// Sets the sampling frequency of the signal to encode, in Hertz (Hz).
+	pub fn sampling_frequency(&mut self, sampling_frequency: NonZeroU32) -> &mut Self {
+		self.sampling_frequency = sampling_frequency;
+		self
+	}
+
+	/// Sets the number of channels of the signal to encode.
+	pub fn channels(&mut self, channels: NonZeroU8) -> &mut Self {
+		self.channels = channels;
+		self
+	}
+
+	/// Sets the serial of the Ogg Vorbis stream to be generated.
+	///
+	/// The [Ogg specification] states that stream serials are to be
+	/// randomly generated, but the only hard requirement is that they
+	/// are unique within a physical bitstream (i.e., file). Failure to
+	/// use random serials will not cause invalid streams to be generated,
+	/// but it will be more difficult to [properly chain them by using
+	/// generic tools such as `cat`](https://linux.die.net/man/1/oggz-merge),
+	/// as serial number collisions will be much more likely to occur.
+	///
+	/// [Ogg specification]: https://www.xiph.org/ogg/doc/rfc3533.txt
+	pub fn stream_serial(&mut self, stream_serial: i32) -> &mut Self {
+		self.stream_serial = stream_serial;
+		self
+	}
+
+	/// Sets the bitrate management strategy to use, determining the tradeoff
+	/// between audio quality and stream size and bandwidth requirements.
+	pub fn bitrate_management_strategy(
+		&mut self,
+		bitrate_management_strategy: VorbisBitrateManagementStrategy
+	) -> &mut Self {
+		self.bitrate_management_strategy = bitrate_management_strategy;
+		self
+	}
+
+	/// Adds a single comment tag to the Vorbis comments header that will be
+	/// generated.
+	///
+	/// By default, no Vorbis comments are generated.
+	pub fn comment_tag<'tag, 'value>(
+		&mut self,
+		tag: impl Into<Cow<'tag, str>>,
+		value: impl Into<Cow<'value, str>>
+	) -> Result<&mut Self, VorbisError> {
+		self.comment_tags([(tag, value)])
+	}
+
+	/// Adds several comment tags to the Vorbis comments header that will be
+	/// generated.
+	///
+	/// By default, no Vorbis comments are generated.
+	pub fn comment_tags<'tag, 'value, T: Into<Cow<'tag, str>>, V: Into<Cow<'value, str>>>(
+		&mut self,
+		tags: impl IntoIterator<Item = (T, V)>
+	) -> Result<&mut Self, VorbisError> {
+		for (tag, value) in tags {
+			self.comments.add_tag(tag, value)?;
+		}
+
+		Ok(self)
+	}
+
+	/// Specifies the minimum size of Vorbis stream data to put into each Ogg page, except
+	/// for some header pages, which have to be cut short to conform to the Ogg Vorbis
+	/// specification.
+	///
+	/// This value controls the tradeoff between Ogg encapsulation overhead and ease of
+	/// seeking and packet loss concealment. By default, it is set to `None`, which lets
+	/// the encoder decide.
+	pub fn minimum_page_data_size(&mut self, minimum_page_data_size: Option<u16>) -> &mut Self {
+		self.minimum_page_data_size = minimum_page_data_size;
+		self
+	}
+
+	/// Consumes this builder to create the configured [`VorbisEncoder`], validating all the
+	/// parameters and writing header data to the specified sink. Errors may be returned when
+	/// either the parameters are invalid or an I/O failure happens.
+	pub fn build(mut self) -> Result<VorbisEncoder<W>, VorbisError> {
+		// Tear up the Ogg stream
+		let mut ogg_stream = OggStream::new(self.stream_serial)?;
+
+		// Tear up the Vorbis encoder
+		let mut vorbis_info = VorbisInfo::new();
+		match self.bitrate_management_strategy {
+			VorbisBitrateManagementStrategy::Vbr { target_bitrate } => {
+				vorbis_info.encode_init_vbr(self.sampling_frequency, self.channels, target_bitrate)
+			}
+			VorbisBitrateManagementStrategy::QualityVbr { target_quality } => vorbis_info
+				.encode_init_quality_vbr(self.sampling_frequency, self.channels, target_quality),
+			VorbisBitrateManagementStrategy::Abr { average_bitrate } => {
+				vorbis_info.encode_init_abr(self.sampling_frequency, self.channels, average_bitrate)
+			}
+			VorbisBitrateManagementStrategy::ConstrainedAbr { maximum_bitrate } => vorbis_info
+				.encode_init_constrained_abr(
+					self.sampling_frequency,
+					self.channels,
+					maximum_bitrate
+				)
+		}?;
+
+		let mut vorbis_encoding_state = VorbisEncodingState::new(vorbis_info)?;
+
+		// Get the Vorbis header packets and submit them for encapsulation
+		for mut header_packet in vorbis_encoding_state.get_header_packets(&mut self.comments)? {
+			header_packet.submit(&mut ogg_stream)?;
+		}
+
+		// Force the header packets we submitted to be written, and the first audio packet to begin
+		// on its own page, as mandated by the Vorbis I spec
+		ogg_stream.flush(&mut self.sink)?;
+
+		Ok(VorbisEncoder {
+			ogg_stream,
+			vorbis_encoding_state,
+			sink: Some(self.sink),
+			minimum_page_data_size: self.minimum_page_data_size
+		})
+	}
+}
+
 /// An encoder that transforms blocks of planar, single-precision float audio
-/// samples to a perceptually-encoded Ogg Vorbis stream.
+/// samples to a perceptually-encoded Ogg Vorbis stream. Instances of this
+/// encoder can be obtained from a [`VorbisEncoderBuilder`].
 pub struct VorbisEncoder<W: Write> {
 	ogg_stream: OggStream,
 	vorbis_encoding_state: VorbisEncodingState,
@@ -26,66 +222,6 @@ pub struct VorbisEncoder<W: Write> {
 }
 
 impl<W: Write> VorbisEncoder<W> {
-	/// Creates a new Vorbis encoder with the specified metadata, for the
-	/// specified signal, using some bitrate management strategy and minimum
-	/// Ogg page size, that will write data to the provided sink.
-	///
-	/// This method validates input parameters, initializes the encoder, and
-	/// writes header data to the specified sink. Therefore, it may fail even
-	/// if the input parameters are valid due to I/O errors.
-	pub fn new<'tags, 'values, T: Into<Cow<'tags, str>>, V: Into<Cow<'values, str>>>(
-		stream_serial: i32,
-		comment_tags: impl IntoIterator<Item = (T, V)>,
-		sampling_frequency: NonZeroU32,
-		channels: NonZeroU8,
-		bitrate_management_strategy: VorbisBitrateManagementStrategy,
-		minimum_page_data_size: Option<u16>,
-		mut sink: W
-	) -> Result<Self, VorbisError> {
-		// Tear up the Ogg stream
-		let mut ogg_stream = OggStream::new(stream_serial)?;
-
-		// Tear up the Vorbis encoder
-		let mut vorbis_info = VorbisInfo::new();
-		match bitrate_management_strategy {
-			VorbisBitrateManagementStrategy::Vbr { target_bitrate } => {
-				vorbis_info.encode_init_vbr(sampling_frequency, channels, target_bitrate)
-			}
-			VorbisBitrateManagementStrategy::QualityVbr { target_quality } => {
-				vorbis_info.encode_init_quality_vbr(sampling_frequency, channels, target_quality)
-			}
-			VorbisBitrateManagementStrategy::Abr { average_bitrate } => {
-				vorbis_info.encode_init_abr(sampling_frequency, channels, average_bitrate)
-			}
-			VorbisBitrateManagementStrategy::ConstrainedAbr { maximum_bitrate } => vorbis_info
-				.encode_init_constrained_abr(sampling_frequency, channels, maximum_bitrate)
-		}?;
-
-		let mut vorbis_encoding_state = VorbisEncodingState::new(vorbis_info)?;
-
-		// Store our user comments, if any
-		let mut vorbis_comments = VorbisComments::new();
-		for (tag, value) in comment_tags {
-			vorbis_comments.add_tag(tag, value)?;
-		}
-
-		// Get the Vorbis header packets and submit them for encapsulation
-		for mut header_packet in vorbis_encoding_state.get_header_packets(&mut vorbis_comments)? {
-			header_packet.submit(&mut ogg_stream)?;
-		}
-
-		// Force the header packets we submitted to be written, and the first audio packet to begin
-		// on its own page, as mandated by the Vorbis I spec
-		ogg_stream.flush(&mut sink)?;
-
-		Ok(Self {
-			ogg_stream,
-			vorbis_encoding_state,
-			sink: Some(sink),
-			minimum_page_data_size
-		})
-	}
-
 	/// Submits the specified audio block for encoding by Vorbis. Encoded data will be written
 	/// to the configured sink automatically as it becomes available.
 	///

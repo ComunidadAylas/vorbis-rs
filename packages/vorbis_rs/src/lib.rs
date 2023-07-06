@@ -17,6 +17,13 @@
 //!
 //! Seeking is also not supported, although it'd be a welcome addition.
 //!
+//! # Features
+//!
+//! - `stream-serial-rng` (enabled by default): adds the [`VorbisEncoderBuilder::new`] convenience
+//!                       method, which automatically configures such a builder with suitable random
+//!                       Ogg stream serial numbers. This feature pulls dependencies on random number
+//!                       generation crates.
+//!
 //! # Examples
 //!
 //! The following example transcodes an Ogg Vorbis file to another in-memory Ogg Vorbis stream,
@@ -26,7 +33,7 @@
 //! # fn main() -> Result<(), Box<dyn std::error::Error>> {
 //! # use std::fs::File;
 //! # use std::io::Cursor;
-//! # use vorbis_rs::{VorbisBitrateManagementStrategy, VorbisDecoder, VorbisEncoder};
+//! # use vorbis_rs::{VorbisBitrateManagementStrategy, VorbisDecoder, VorbisEncoderBuilder};
 //! #
 //! # let mut source_ogg = &include_bytes!("../../aotuv_lancer_vorbis_sys/src/8khz_500ms_mono_400hz_sine_wave.ogg")[..];
 //! # #[cfg(__example_only)]
@@ -34,19 +41,12 @@
 //! let mut transcoded_ogg = vec![];
 //!
 //! let mut decoder = VorbisDecoder::new(&mut source_ogg)?;
-//! let mut encoder = VorbisEncoder::new(
-//!     0, // Stream serial. Please consider generating a random one for production use
-//!     [("", ""); 0], // No comments
+//! let mut encoder = VorbisEncoderBuilder::new(
 //!     decoder.sampling_frequency(),
 //!     decoder.channels(),
-//!     VorbisBitrateManagementStrategy::QualityVbr {
-//!         // This is a very low quality factor, meant to generate the smallest files and
-//!         // showcase aoTuV features. You maybe not want to use it
-//!         target_quality: -0.2
-//!     },
-//!     None, // Let the libraries choose a minimum Ogg page size
 //!     &mut transcoded_ogg
-//! )?;
+//! )?
+//! .build()?;
 //!
 //! while let Some(decoded_block) = decoder.decode_audio_block()? {
 //!     encoder.encode_audio_block(decoded_block.samples())?;
@@ -71,13 +71,14 @@
 	unused_crate_dependencies,
 	unused_import_braces
 )]
+#![cfg_attr(docsrs, feature(doc_auto_cfg))]
 
 #[macro_use]
 mod common;
 pub use common::{VorbisError, VorbisLibrary, VorbisLibraryError, VorbisLibraryErrorKind};
 
 mod encoder;
-pub use encoder::{VorbisBitrateManagementStrategy, VorbisEncoder};
+pub use encoder::{VorbisBitrateManagementStrategy, VorbisEncoder, VorbisEncoderBuilder};
 
 mod decoder;
 pub use decoder::{VorbisAudioSamples, VorbisDecoder};

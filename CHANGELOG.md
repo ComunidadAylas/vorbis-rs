@@ -8,6 +8,16 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- The `VorbisEncoderBuilder` struct was added for more ergonomic `VorbisEncoder`
+  instantiation. The now obsolete `VorbisEncoder::new` method was removed
+- When the new default feature `stream-serial-rng` is enabled,
+  `VorbisEncoderBuilder` can now automatically generate a random Ogg stream
+  serial
+- `VorbisBitrateManagementStrategy` now has a `Default` implementation that
+  targets a medium, usually transparent audio quality
+
 ### Changed
 
 - Removed unnecessary internal allocation in `VorbisDecoder`
