@@ -100,7 +100,7 @@ impl<R: Read> VorbisDecoder<R> {
 					// According to the documented contract for ov_open_callbacks, the
 					// application is responsible for cleaning up the data source on
 					// failure. This is reiterated in the docs for OggVorbis_File
-					drop(Box::from_raw(source as *mut R));
+					drop(Box::from_raw(source));
 					Err(err)
 				}
 			}
