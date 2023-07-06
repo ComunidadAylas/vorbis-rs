@@ -185,7 +185,7 @@ mod test {
 
 				let bitstream_id = *bitstream_id.assume_init_mut();
 				assert!(
-					previous_bitstream_id == None || previous_bitstream_id == Some(bitstream_id),
+					previous_bitstream_id.is_none() || previous_bitstream_id == Some(bitstream_id),
 					"Chained Ogg Vorbis files are not supported"
 				);
 				previous_bitstream_id = Some(bitstream_id);
