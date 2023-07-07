@@ -1,6 +1,5 @@
 use std::{
 	borrow::Cow,
-	cmp,
 	io::Write,
 	mem::{size_of, MaybeUninit},
 	num::{NonZeroU32, NonZeroU8},
