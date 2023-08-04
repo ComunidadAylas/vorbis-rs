@@ -51,7 +51,11 @@ pub enum VorbisError {
 	/// change in the future.
 	#[cfg(feature = "stream-serial-rng")]
 	#[error("RNG error: {0}")]
-	Rng(#[from] getrandom::Error)
+	Rng(#[from] getrandom::Error),
+	/// The output sink was already consumed by a previous `VorbisEncoderBuilder::build`
+	/// operation. A new one must be set up to keep using the builder to create new encoders.
+	#[error("The output sink was already consumed by a previous build operation")]
+	ConsumedEncoderBuilderSink
 }
 
 #[doc(hidden)] // Implementation detail to allow for ergonomic usage of ?

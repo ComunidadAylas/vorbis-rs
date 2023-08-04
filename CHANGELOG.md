@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- The `VorbisEncoderBuilder::build` method now has a mutable reference receiver,
+  making its usage more ergonomic and enabling more use cases. (Related issue:
+  [#11](https://github.com/ComunidadAylas/vorbis-rs/issues/11))
+
+## [0.4.0] - 2023-07-29
+
 ### Added
 
 - The `VorbisEncoderBuilder` struct was added for more ergonomic `VorbisEncoder`
@@ -70,7 +78,8 @@ and this project adheres to
 
 - First public release
 
-[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.3.0...HEAD
+[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.4.0...HEAD
+[0.4.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.4.0
 [0.3.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.3.0
 [0.2.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.2.0
 [0.1.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.1.0

@@ -21,7 +21,7 @@ use crate::{
 pub struct VorbisEncoderBuilder<W: Write> {
 	sampling_frequency: NonZeroU32,
 	channels: NonZeroU8,
-	sink: W,
+	sink: Option<W>,
 	stream_serial: i32,
 	bitrate_management_strategy: VorbisBitrateManagementStrategy,
 	comments: VorbisComments,
@@ -79,7 +79,7 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 		Self {
 			sampling_frequency,
 			channels,
-			sink,
+			sink: Some(sink),
 			stream_serial,
 			bitrate_management_strategy: Default::default(),
 			comments: VorbisComments::new(),
@@ -96,6 +96,17 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 	/// Sets the number of channels of the signal to encode.
 	pub fn channels(&mut self, channels: NonZeroU8) -> &mut Self {
 		self.channels = channels;
+		self
+	}
+
+	/// Sets the sink to encode the audio signal to.
+	///
+	/// It is necessary to set a sink to build an encoder after using this
+	/// builder to build an encoder (i.e., after the
+	/// [`build`](VorbisEncoderBuilder::build) method is called, before
+	/// the next [`build`](VorbisEncoderBuilder::build) call).
+	pub fn sink(&mut self, sink: W) -> &mut Self {
+		self.sink = Some(sink);
 		self
 	}
 
@@ -164,10 +175,19 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 		self
 	}
 
-	/// Consumes this builder to create the configured [`VorbisEncoder`], validating all the
-	/// parameters and writing header data to the specified sink. Errors may be returned when
-	/// either the parameters are invalid or an I/O failure happens.
-	pub fn build(mut self) -> Result<VorbisEncoder<W>, VorbisError> {
+	/// Creates the configured [`VorbisEncoder`], validating all the parameters and writing
+	/// header data to the specified sink. Errors may be returned when either the parameters
+	/// are invalid or an I/O failure happens.
+	///
+	/// The sink this builder was configured with will be consumed, so you must set up a new
+	/// one via the [`sink`](Self::sink) method if you intend to continue building encoders
+	/// with this builder. Failure to do so will cause errors to be returned.
+	pub fn build(&mut self) -> Result<VorbisEncoder<W>, VorbisError> {
+		let mut sink = self
+			.sink
+			.take()
+			.ok_or(VorbisError::ConsumedEncoderBuilderSink)?;
+
 		// Tear up the Ogg stream
 		let mut ogg_stream = OggStream::new(self.stream_serial)?;
 
@@ -199,12 +219,12 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 
 		// Force the header packets we submitted to be written, and the first audio packet to begin
 		// on its own page, as mandated by the Vorbis I spec
-		ogg_stream.flush(&mut self.sink)?;
+		ogg_stream.flush(&mut sink)?;
 
 		Ok(VorbisEncoder {
 			ogg_stream,
 			vorbis_encoding_state,
-			sink: Some(self.sink),
+			sink: Some(sink),
 			minimum_page_data_size: self.minimum_page_data_size
 		})
 	}
