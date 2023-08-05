@@ -54,18 +54,20 @@ impl VorbisEncodingState {
 	/// metadata to it, in the form of user comments.
 	pub fn get_header_packets(
 		&mut self,
-		vorbis_comments: &mut VorbisComments
+		vorbis_comments: &VorbisComments
 	) -> Result<[OggPacket; 3], VorbisError> {
 		let mut identification_header = MaybeUninit::uninit();
 		let mut comment_header = MaybeUninit::uninit();
 		let mut setup_header = MaybeUninit::uninit();
 
-		// SAFETY: we assume vorbis_analysis_headerout follows its documented contract
-		// and that the returned packets do not reference data from vorbis_comments
+		// SAFETY: we assume vorbis_analysis_headerout follows its documented contract,
+		// that the returned packets do not reference data from vorbis_comments, and
+		// that vorbis_analysis_headerout does not write to the
+		// vorbis_comments.vorbis_comment field reference
 		unsafe {
 			libvorbis_return_value_to_result!(vorbis_analysis_headerout(
 				&mut *self.vorbis_dsp_state,
-				&mut vorbis_comments.vorbis_comment,
+				&vorbis_comments.vorbis_comment as *const _ as *mut _,
 				identification_header.as_mut_ptr(),
 				comment_header.as_mut_ptr(),
 				setup_header.as_mut_ptr()
