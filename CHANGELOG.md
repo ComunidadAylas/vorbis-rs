@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+No changes yet.
+
+## [0.5.0] - 2023-08-06
+
 ### Changed
 
 - The `VorbisEncoderBuilder::build` method now has a mutable reference receiver,
@@ -85,7 +89,8 @@ and this project adheres to
 
 - First public release
 
-[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.4.0...HEAD
+[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.0...HEAD
+[0.5.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.0
 [0.4.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.4.0
 [0.3.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.3.0
 [0.2.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.2.0
