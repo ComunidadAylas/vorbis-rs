@@ -1,7 +1,7 @@
 use std::{
 	borrow::Cow,
 	io::Write,
-	mem::{size_of, MaybeUninit},
+	mem::MaybeUninit,
 	num::{NonZeroU32, NonZeroU8},
 	ptr, slice
 };
@@ -23,6 +23,9 @@ pub struct VorbisEncoderBuilder<W: Write> {
 	channels: NonZeroU8,
 	sink: Option<W>,
 	stream_serial: i32,
+	stream_serial_is_fresh: bool,
+	#[cfg(feature = "stream-serial-rng")]
+	randomize_stream_serials: bool,
 	bitrate_management_strategy: VorbisBitrateManagementStrategy,
 	comments: VorbisComments,
 	minimum_page_data_size: Option<u16>
@@ -32,7 +35,7 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 	/// Creates a new Vorbis encoder builder for a signal with the specified sampling frequency
 	/// and channels that will be encoded to the specified sink.
 	///
-	/// The serial of the generated Ogg Vorbis stream will be randomly generated, as dictated
+	/// The serials for the generated Ogg Vorbis streams will be randomly generated, as dictated
 	/// by the Ogg specification. If this behavior is not desirable, please use
 	/// [`new_with_serial`](Self::new_with_serial) instead.
 	#[cfg(feature = "stream-serial-rng")]
@@ -41,46 +44,51 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 		channels: NonZeroU8,
 		sink: W
 	) -> Result<Self, VorbisError> {
-		// We use a RNG seeded with an unknown seed to minimize unintended metadata leakage:
-		// if we set the seed to a value from a better-known source (e.g., the current timestamp),
-		// an attacker could more practically make educated guesses about the seed value range
-		// and the RNG algorithm used to bruteforce the seed value from the serial. Note that
-		// the security in this scenario comes from how costly and unpredictable the RNG is,
-		// not whether it's cryptographically-secure
-		Ok(Self::_new(sampling_frequency, channels, sink, {
-			let mut stream_serial_buf = [MaybeUninit::uninit(); size_of::<i32>()];
-			i32::from_ne_bytes(
-				getrandom::getrandom_uninit(&mut stream_serial_buf)?
-					.try_into()
-					.unwrap()
-			)
-		}))
+		Ok(Self::__new(
+			sampling_frequency,
+			channels,
+			sink,
+			Self::generate_random_stream_serial()?,
+			true
+		))
 	}
 
 	/// Creates a new Vorbis encoder builder for a signal with the specified sampling frequency
 	/// and channels that will be encoded to the specified sink. The serial of the generated Ogg
-	/// Vorbis stream will be set to `stream_serial`.
+	/// Vorbis stream will be set to `stream_serial`, and no further serials will be randomly
+	/// generated.
 	pub fn new_with_serial(
 		sampling_frequency: NonZeroU32,
 		channels: NonZeroU8,
 		sink: W,
 		stream_serial: i32
 	) -> Self {
-		Self::_new(sampling_frequency, channels, sink, stream_serial)
+		Self::__new(
+			sampling_frequency,
+			channels,
+			sink,
+			stream_serial,
+			#[cfg(feature = "stream-serial-rng")]
+			false
+		)
 	}
 
 	/// Common initialization code for [`VorbisEncoderBuilder`] constructors.
-	fn _new(
+	fn __new(
 		sampling_frequency: NonZeroU32,
 		channels: NonZeroU8,
 		sink: W,
-		stream_serial: i32
+		stream_serial: i32,
+		#[cfg(feature = "stream-serial-rng")] randomize_stream_serials: bool
 	) -> Self {
 		Self {
 			sampling_frequency,
 			channels,
 			sink: Some(sink),
 			stream_serial,
+			stream_serial_is_fresh: true,
+			#[cfg(feature = "stream-serial-rng")]
+			randomize_stream_serials,
 			bitrate_management_strategy: Default::default(),
 			comments: VorbisComments::new(),
 			minimum_page_data_size: None
@@ -120,9 +128,22 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 	/// generic tools such as `cat`](https://linux.die.net/man/1/oggz-merge),
 	/// as serial number collisions will be much more likely to occur.
 	///
+	/// Setting a serial with this method will disable their random
+	/// generation on renewal, which is the default behavior when this
+	/// builder is created with the [`new`](Self::new) method. The serial
+	/// will also be considered fresh and not renew itself the next time
+	/// the [`build`](Self::build) method is called.
+	///
 	/// [Ogg specification]: https://www.xiph.org/ogg/doc/rfc3533.txt
 	pub fn stream_serial(&mut self, stream_serial: i32) -> &mut Self {
 		self.stream_serial = stream_serial;
+
+		self.stream_serial_is_fresh = true;
+		#[cfg(feature = "stream-serial-rng")]
+		{
+			self.randomize_stream_serials = false;
+		}
+
 		self
 	}
 
@@ -182,11 +203,18 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 	/// The sink this builder was configured with will be consumed, so you must set up a new
 	/// one via the [`sink`](Self::sink) method if you intend to continue building encoders
 	/// with this builder. Failure to do so will cause errors to be returned.
+	///
+	/// In addition, the used Ogg Vorbis stream serial is marked for renewal, triggering
+	/// its automatic replacement by another serial the next time this method is called.
+	/// This behavior can be controlled by calling the [`stream_serial`](Self::stream_serial)
+	/// method with a custom serial.
 	pub fn build(&mut self) -> Result<VorbisEncoder<W>, VorbisError> {
 		let mut sink = self
 			.sink
 			.take()
 			.ok_or(VorbisError::ConsumedEncoderBuilderSink)?;
+
+		self.renew_stream_serial();
 
 		// Tear up the Ogg stream
 		let mut ogg_stream = OggStream::new(self.stream_serial)?;
@@ -221,12 +249,55 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 		// on its own page, as mandated by the Vorbis I spec
 		ogg_stream.flush(&mut sink)?;
 
+		// The Ogg stream serial we've just used is no longer fresh: it must be renewed
+		// for the next encoder we build
+		self.stream_serial_is_fresh = false;
+
 		Ok(VorbisEncoder {
 			ogg_stream,
 			vorbis_encoding_state,
 			sink: Some(sink),
 			minimum_page_data_size: self.minimum_page_data_size
 		})
+	}
+
+	/// Generates a random serial for a logical Ogg bitstream.
+	#[cfg(feature = "stream-serial-rng")]
+	fn generate_random_stream_serial() -> Result<i32, getrandom::Error> {
+		// We use a RNG seeded with an unknown seed to minimize unintended metadata leakage:
+		// if we set the seed to a value from a better-known source (e.g., the current timestamp),
+		// an attacker could more practically make educated guesses about the seed value range
+		// and the RNG algorithm used to bruteforce the seed value from the serial. Note that
+		// the security in this scenario comes from how costly and unpredictable the RNG is,
+		// not whether it's cryptographically-secure
+		let mut stream_serial_buf = [MaybeUninit::uninit(); std::mem::size_of::<i32>()];
+		Ok(i32::from_ne_bytes(
+			getrandom::getrandom_uninit(&mut stream_serial_buf)?
+				.try_into()
+				.unwrap()
+		))
+	}
+
+	/// Replaces the current stream serial with a new one if the current stream serial
+	/// was marked as not fresh (i.e., `self.stream_serial_is_fresh` is `false`). The
+	/// new stream serial will be marked as fresh.
+	fn renew_stream_serial(&mut self) {
+		if !self.stream_serial_is_fresh {
+			self.stream_serial_is_fresh = true;
+
+			#[cfg(feature = "stream-serial-rng")]
+			if self.randomize_stream_serials {
+				if let Ok(random_stream_serial) = Self::generate_random_stream_serial() {
+					self.stream_serial = random_stream_serial;
+					return;
+				}
+			}
+			// Fallback to incrementing the previous serial when not randomizing them,
+			// if their random generation is build-time disabled, or if a RNG error
+			// happens. Do addition with overflow to handle numeric limits as
+			// gracefully as possible
+			self.stream_serial = self.stream_serial.wrapping_add(1);
+		}
 	}
 }
 
@@ -382,5 +453,43 @@ impl<W: Write> Drop for VorbisEncoder<W> {
 				self.write_pending_blocks().ok();
 			}
 		}
+	}
+}
+
+#[cfg(test)]
+mod test {
+	use std::{
+		io,
+		num::{NonZeroU32, NonZeroU8}
+	};
+
+	use super::VorbisEncoderBuilder;
+
+	#[cfg(feature = "stream-serial-rng")]
+	#[test]
+	fn encoder_builder_renews_stream_serials() {
+		let mut builder = VorbisEncoderBuilder::new(
+			NonZeroU32::new(8000).unwrap(),
+			NonZeroU8::new(1).unwrap(),
+			io::sink()
+		)
+		.unwrap();
+
+		let first_stream_serial = builder.stream_serial;
+
+		// Disable serial randomization on renewal
+		builder.stream_serial(first_stream_serial);
+
+		builder.build().unwrap(); // Should not renew the serial
+		builder.sink(io::sink());
+		builder.build().unwrap(); // Should renew the serial
+
+		let second_stream_serial = builder.stream_serial;
+
+		assert_eq!(
+			first_stream_serial + 1,
+			second_stream_serial,
+			"Unexpected renewed serial after encoder building: {second_stream_serial} != {first_stream_serial} + 1"
+		);
 	}
 }

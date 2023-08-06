@@ -13,6 +13,13 @@ and this project adheres to
 - The `VorbisEncoderBuilder::build` method now has a mutable reference receiver,
   making its usage more ergonomic and enabling more use cases. (Related issue:
   [#11](https://github.com/ComunidadAylas/vorbis-rs/issues/11))
+- Due to the above change, `VorbisEncoderBuilder` now automatically marks the
+  stream serials it uses to build encoders for renewal, triggering their
+  automatic replacement with different ones when `VorbisEncoderBuilder::build`
+  is called. This behavior is meant to provide a reasonable default when using
+  the same builder to build multiple encoders, but it can be customized by
+  calling `VorbisEncoderBuilder::stream_serial` method before
+  `VorbisEncoderBuilder::build`.
 
 ## [0.4.0] - 2023-07-29
 
