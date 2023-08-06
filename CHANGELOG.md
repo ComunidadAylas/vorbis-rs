@@ -15,8 +15,8 @@ No changes yet.
 ### Changed
 
 - The `VorbisEncoderBuilder::build` method now has a mutable reference receiver,
-  making its usage more ergonomic and enabling more use cases. (Related issue:
-  [#11](https://github.com/ComunidadAylas/vorbis-rs/issues/11))
+  making its usage more ergonomic and enabling more use cases.
+  ([#11](https://github.com/ComunidadAylas/vorbis-rs/issues/11))
 - Due to the above change, `VorbisEncoderBuilder` now automatically marks the
   stream serials it uses to build encoders for renewal, triggering their
   automatic replacement with different ones when `VorbisEncoderBuilder::build`
@@ -30,24 +30,24 @@ No changes yet.
 ### Added
 
 - The `VorbisEncoderBuilder` struct was added for more ergonomic `VorbisEncoder`
-  instantiation. The now obsolete `VorbisEncoder::new` method was removed
+  instantiation. The now obsolete `VorbisEncoder::new` method was removed.
 - When the new default feature `stream-serial-rng` is enabled,
   `VorbisEncoderBuilder` can now automatically generate a random Ogg stream
-  serial
+  serial.
 - `VorbisBitrateManagementStrategy` now has a `Default` implementation that
-  targets a medium, usually transparent audio quality
+  targets a medium, usually transparent audio quality.
 
 ### Changed
 
-- Removed unnecessary internal allocation in `VorbisDecoder`
+- Removed unnecessary internal allocation in `VorbisDecoder`.
 
 ## [0.3.0] - 2023-04-14
 
 ### Changed
 
-- `VorbisEncoder::finish` now returns the sink it was created with
+- `VorbisEncoder::finish` now returns the sink it was created with.
   ([#8](https://github.com/ComunidadAylas/vorbis-rs/pull/8), thanks @algesten)
-- Updated author contact metadata for every crate in the repository
+- Updated author contact metadata for every crate in the repository.
 
 ## [0.2.0] - 2023-02-08
 
@@ -73,21 +73,21 @@ No changes yet.
 	}
   ```
 
-- Fixed a memory leak that occurred when `VorbisDecoder::new` returned unsuccessfully
+- Fixed a memory leak that occurred when `VorbisDecoder::new` returned unsuccessfully.
 
 ### Changed
 
-- More idiomatic Rust representation of C library errors by using enums ([#7](https://github.com/ComunidadAylas/vorbis-rs/issues/7))
-- Optimized `VorbisDecoder` implementation to get rid of double indirection for the Vorbis stream source across the FFI boundary
-- Removed unnecessary reference to Minecraft in a rustdoc comment
-- Explicitly document the audio block format expected by the `encode_audio_block` method
-- Document I/O side effects of `Vorbis{Decoder,Encoder}::new`
+- More idiomatic Rust representation of C library errors by using enums. ([#7](https://github.com/ComunidadAylas/vorbis-rs/issues/7))
+- Optimized `VorbisDecoder` implementation to get rid of double indirection for the Vorbis stream source across the FFI boundary.
+- Removed unnecessary reference to Minecraft in a rustdoc comment.
+- Explicitly document the audio block format expected by the `encode_audio_block` method.
+- Document I/O side effects of `Vorbis{Decoder,Encoder}::new`.
 
 ## [0.1.0] - 2022-10-21
 
 ### Added
 
-- First public release
+- First public release.
 
 [Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.0...HEAD
 [0.5.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.0
