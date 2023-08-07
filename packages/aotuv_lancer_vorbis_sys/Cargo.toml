@@ -21,7 +21,7 @@ exclude = [
 ogg_next_sys = { version = "0.1.2", path = "../ogg_next_sys" }
 
 [build-dependencies]
-cc = "1.0.81"
+cc = "1.0.82"
 bindgen = { version = "0.66.1", optional = true }
 
 [features]

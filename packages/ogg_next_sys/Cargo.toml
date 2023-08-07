@@ -14,7 +14,7 @@ categories = ["external-ffi-bindings", "multimedia", "multimedia::audio", "multi
 exclude = ["/ogg_vendor/**/.*", "/ogg_vendor/cmake", "/ogg_vendor/doc", "/ogg_vendor/README.md"]
 
 [build-dependencies]
-cc = "1.0.81"
+cc = "1.0.82"
 bindgen = { version = "0.66.1", optional = true }
 
 [features]
