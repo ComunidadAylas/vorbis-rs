@@ -21,17 +21,17 @@ jobs:
 
     steps:
       - name: 📥 Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           submodules: recursive
 
       - name: 🧰 Install MSRV toolchain
-        uses: dtolnay/rust-toolchain@v1
+        uses: dtolnay/rust-toolchain@0e66bd3e6b38ec0ad5312288c83e47c143e6b09e # v1
         with:
           toolchain: ${{ env.MSRV }}
 
       - name: 💨 Cache Rust artifacts
-        uses: Swatinem/rust-cache@v2
+        uses: Swatinem/rust-cache@e207df5d269b42b69c8bc5101da26f7d31feddb4 # v2
 
       - name: ⚙️ Run tests
         run: cargo test -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
@@ -69,7 +69,7 @@ jobs:
 
     steps:
       - name: 📥 Checkout source
-        uses: actions/checkout@v3
+        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3
         with:
           submodules: recursive
 
@@ -84,10 +84,10 @@ jobs:
         run: sudo apt update && sudo apt install -yq gcc-aarch64-linux-gnu libc6-arm64-cross qemu-user
 
       - name: 💨 Cache Rust artifacts
-        uses: Swatinem/rust-cache@v2
+        uses: Swatinem/rust-cache@e207df5d269b42b69c8bc5101da26f7d31feddb4 # v2
 
       - name: '🔍 Static analysis: run Clippy'
-        uses: giraffate/clippy-action@v1
+        uses: giraffate/clippy-action@13b9d32482f25d29ead141b79e7e04e7900281e0 # v1
         if: matrix.target == 'x86_64-unknown-linux-gnu'
         with:
           clippy_flags: --no-deps -- -D warnings
