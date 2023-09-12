@@ -31,7 +31,7 @@ jobs:
           toolchain: ${{ env.MSRV }}
 
       - name: 💨 Cache Rust artifacts
-        uses: Swatinem/rust-cache@e207df5d269b42b69c8bc5101da26f7d31feddb4 # v2
+        uses: Swatinem/rust-cache@a95ba195448af2da9b00fb742d14ffaaf3c21f43 # v2
 
       - name: ⚙️ Run tests
         run: cargo test -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
@@ -84,7 +84,7 @@ jobs:
         run: sudo apt update && sudo apt install -yq gcc-aarch64-linux-gnu libc6-arm64-cross qemu-user
 
       - name: 💨 Cache Rust artifacts
-        uses: Swatinem/rust-cache@e207df5d269b42b69c8bc5101da26f7d31feddb4 # v2
+        uses: Swatinem/rust-cache@a95ba195448af2da9b00fb742d14ffaaf3c21f43 # v2
 
       - name: '🔍 Static analysis: run Clippy'
         uses: giraffate/clippy-action@13b9d32482f25d29ead141b79e7e04e7900281e0 # v1
