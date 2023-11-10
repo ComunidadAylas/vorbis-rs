@@ -22,7 +22,7 @@ pub struct VorbisInfo {
 }
 
 impl VorbisInfo {
-	/// Performs basic initialization of a new VorbisInfo struct. Most client code
+	/// Performs basic initialization of a new `VorbisInfo` struct. Most client code
 	/// interested in encoding audio will want to complete this initialization by
 	/// calling more methods on the returned struct, such as
 	/// [`encode_init_vbr`](Self::encode_init_vbr).
@@ -232,7 +232,7 @@ impl VorbisComments {
 				&mut self.vorbis_comment,
 				tag_c_string.as_ptr(),
 				value_c_string.as_ptr()
-			)
+			);
 		};
 
 		Ok(())

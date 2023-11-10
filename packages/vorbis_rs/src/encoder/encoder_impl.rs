@@ -89,7 +89,7 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 			stream_serial_is_fresh: true,
 			#[cfg(feature = "stream-serial-rng")]
 			randomize_stream_serials,
-			bitrate_management_strategy: Default::default(),
+			bitrate_management_strategy: VorbisBitrateManagementStrategy::default(),
 			comments: VorbisComments::new(),
 			minimum_page_data_size: None
 		}
@@ -241,7 +241,7 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 		let mut vorbis_encoding_state = VorbisEncodingState::new(vorbis_info)?;
 
 		// Get the Vorbis header packets and submit them for encapsulation
-		for mut header_packet in vorbis_encoding_state.get_header_packets(&self.comments)? {
+		for mut header_packet in vorbis_encoding_state.get_header_packets(&mut self.comments)? {
 			header_packet.submit(&mut ogg_stream)?;
 		}
 
@@ -431,7 +431,7 @@ impl<W: Write> VorbisEncoder<W> {
 		};
 
 		self.write_pending_blocks()
-			.map(|_| self.sink.take().unwrap())
+			.map(|()| self.sink.take().unwrap())
 	}
 }
 

@@ -25,5 +25,5 @@ pub use self::vorbis::{VorbisComments, VorbisInfo};
 /// tracked by [issue 63291](https://github.com/rust-lang/rust/issues/63291).
 // FIXME refactor this out once Box::assume_init is made stable, if ever
 pub(crate) unsafe fn assume_init_box<T>(boxed: Box<MaybeUninit<T>>) -> Box<T> {
-	Box::from_raw(Box::into_raw(boxed) as *mut T)
+	Box::from_raw(Box::into_raw(boxed).cast::<T>())
 }

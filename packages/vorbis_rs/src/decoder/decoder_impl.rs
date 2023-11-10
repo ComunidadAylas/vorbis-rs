@@ -44,7 +44,7 @@ impl<R: Read> VorbisDecoder<R> {
 		// SAFETY: we assume ov_open_callbacks follows its documented contract
 		unsafe {
 			match vorbisfile_return_value_to_result!(ov_open_callbacks(
-				source as *mut c_void,
+				source.cast(),
 				ogg_vorbis_file.as_mut_ptr(),
 				ptr::null(),
 				0,
@@ -58,8 +58,8 @@ impl<R: Read> VorbisDecoder<R> {
 							count: usize,
 							datasource: *mut c_void
 						) -> usize {
-							let source = &mut *(datasource as *mut R);
-							let buf = slice::from_raw_parts_mut(ptr as *mut u8, size * count);
+							let source = &mut *(datasource.cast::<R>());
+							let buf = slice::from_raw_parts_mut(ptr.cast(), size * count);
 							match source.read(buf) {
 								Ok(n) => n / size,
 								Err(err) => {
@@ -82,7 +82,7 @@ impl<R: Read> VorbisDecoder<R> {
 						unsafe extern "C" fn close_func<R: Read>(datasource: *mut c_void) -> c_int {
 							// Drop the Read when it's no longer needed by vorbisfile.
 							// This is called by ov_clear
-							drop(Box::from_raw(datasource as *mut R));
+							drop(Box::from_raw(datasource.cast::<R>()));
 
 							0
 						}

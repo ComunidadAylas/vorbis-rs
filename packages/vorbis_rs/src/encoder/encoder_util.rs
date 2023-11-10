@@ -1,4 +1,4 @@
-use std::{mem::MaybeUninit, num::NonZeroU32};
+use std::{mem::MaybeUninit, num::NonZeroU32, ptr};
 
 use aotuv_lancer_vorbis_sys::{
 	vorbis_analysis_headerout, vorbis_analysis_init, vorbis_block, vorbis_block_clear,
@@ -54,7 +54,7 @@ impl VorbisEncodingState {
 	/// metadata to it, in the form of user comments.
 	pub fn get_header_packets(
 		&mut self,
-		vorbis_comments: &VorbisComments
+		vorbis_comments: &mut VorbisComments
 	) -> Result<[OggPacket; 3], VorbisError> {
 		let mut identification_header = MaybeUninit::uninit();
 		let mut comment_header = MaybeUninit::uninit();
@@ -67,7 +67,7 @@ impl VorbisEncodingState {
 		unsafe {
 			libvorbis_return_value_to_result!(vorbis_analysis_headerout(
 				&mut *self.vorbis_dsp_state,
-				&vorbis_comments.vorbis_comment as *const _ as *mut _,
+				ptr::addr_of_mut!(vorbis_comments.vorbis_comment),
 				identification_header.as_mut_ptr(),
 				comment_header.as_mut_ptr(),
 				setup_header.as_mut_ptr()

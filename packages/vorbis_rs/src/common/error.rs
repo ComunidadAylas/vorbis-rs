@@ -252,6 +252,7 @@ impl From<i32> for VorbisLibraryErrorKind {
 /// Converts the status code returned by a bound C function to an idiomatic [`VorbisError`].
 macro_rules! return_value_to_result {
 	( $func:ident ( $($arg:expr),* ), $lib:ident ) => {{
+		#[allow(clippy::unnecessary_fallible_conversions)]
 		let return_value = $func($($arg),*) as i32;
 		if return_value >= 0 {
 			Ok(return_value)

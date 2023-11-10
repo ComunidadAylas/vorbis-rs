@@ -8,7 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Changed
+
+- Corrected some minor pedantic Clippy lints.
 
 ## [0.5.0] - 2023-08-06
 
