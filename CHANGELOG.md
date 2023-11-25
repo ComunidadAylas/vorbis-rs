@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+No changes yet.
+
+## [0.5.1] - 2023-11-25
+
 ### Fixed
 
 - `VorbisEncoder::encode_audio_block` no longer causes a stack overflow in
@@ -102,7 +106,8 @@ and this project adheres to
 
 - First public release.
 
-[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.1...HEAD
+[0.5.1]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.1
 [0.5.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.0
 [0.4.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.4.0
 [0.3.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.3.0
