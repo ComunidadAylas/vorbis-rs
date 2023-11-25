@@ -216,6 +216,7 @@ pub struct vorbis_dsp_state {
 	pub vi: *mut vorbis_info,
 	pub pcm: *mut *mut f32,
 	pub pcmret: *mut *mut f32,
+	pub preextrapolate_work: *mut f32,
 	pub pcm_storage: ::std::os::raw::c_int,
 	pub pcm_current: ::std::os::raw::c_int,
 	pub pcm_returned: ::std::os::raw::c_int,
@@ -239,7 +240,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	let ptr = UNINIT.as_ptr();
 	assert_eq!(
 		::std::mem::size_of::<vorbis_dsp_state>(),
-		144usize,
+		152usize,
 		concat!("Size of: ", stringify!(vorbis_dsp_state))
 	);
 	assert_eq!(
@@ -288,8 +289,18 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 		)
 	);
 	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).pcm_storage) as usize - ptr as usize },
+		unsafe { ::std::ptr::addr_of!((*ptr).preextrapolate_work) as usize - ptr as usize },
 		32usize,
+		concat!(
+			"Offset of field: ",
+			stringify!(vorbis_dsp_state),
+			"::",
+			stringify!(preextrapolate_work)
+		)
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcm_storage) as usize - ptr as usize },
+		40usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -299,7 +310,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).pcm_current) as usize - ptr as usize },
-		36usize,
+		44usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -309,7 +320,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).pcm_returned) as usize - ptr as usize },
-		40usize,
+		48usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -319,7 +330,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).preextrapolate) as usize - ptr as usize },
-		44usize,
+		52usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -329,7 +340,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).eofflag) as usize - ptr as usize },
-		48usize,
+		56usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -339,7 +350,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).lW) as usize - ptr as usize },
-		56usize,
+		64usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -349,7 +360,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).W) as usize - ptr as usize },
-		64usize,
+		72usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -359,7 +370,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).nW) as usize - ptr as usize },
-		72usize,
+		80usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -369,7 +380,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).centerW) as usize - ptr as usize },
-		80usize,
+		88usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -379,7 +390,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).granulepos) as usize - ptr as usize },
-		88usize,
+		96usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -389,7 +400,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).sequence) as usize - ptr as usize },
-		96usize,
+		104usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -399,7 +410,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).glue_bits) as usize - ptr as usize },
-		104usize,
+		112usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -409,7 +420,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).time_bits) as usize - ptr as usize },
-		112usize,
+		120usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -419,7 +430,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).floor_bits) as usize - ptr as usize },
-		120usize,
+		128usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -429,7 +440,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).res_bits) as usize - ptr as usize },
-		128usize,
+		136usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -439,7 +450,7 @@ fn bindgen_test_layout_vorbis_dsp_state() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).backend_state) as usize - ptr as usize },
-		136usize,
+		144usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(vorbis_dsp_state),
@@ -979,30 +990,7 @@ extern "C" {
 	pub fn vorbis_synthesis_halfrate_p(v: *mut vorbis_info) -> ::std::os::raw::c_int;
 }
 extern "C" {
-	#[doc = " This is the primary function within libvorbisenc for setting up managed"]
-	#[doc = " bitrate modes."]
-	#[doc = ""]
-	#[doc = " Before this function is called, the \\ref vorbis_info"]
-	#[doc = " struct should be initialized by using vorbis_info_init() from the libvorbis"]
-	#[doc = " API.  After encoding, vorbis_info_clear() should be called."]
-	#[doc = ""]
-	#[doc = " The max_bitrate, nominal_bitrate, and min_bitrate settings are used to set"]
-	#[doc = " constraints for the encoded file.  This function uses these settings to"]
-	#[doc = " select the appropriate encoding mode and set it up."]
-	#[doc = ""]
-	#[doc = " \\param vi               Pointer to an initialized \\ref vorbis_info struct."]
-	#[doc = " \\param channels         The number of channels to be encoded."]
-	#[doc = " \\param rate             The sampling rate of the source audio."]
-	#[doc = " \\param max_bitrate      Desired maximum bitrate (limit). -1 indicates unset."]
-	#[doc = " \\param nominal_bitrate  Desired average, or central, bitrate. -1 indicates unset."]
-	#[doc = " \\param min_bitrate      Desired minimum bitrate. -1 indicates unset."]
-	#[doc = ""]
-	#[doc = " \\return Zero for success, and negative values for failure."]
-	#[doc = ""]
-	#[doc = " \\retval 0          Success."]
-	#[doc = " \\retval OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption."]
-	#[doc = " \\retval OV_EINVAL  Invalid setup request, eg, out of range argument."]
-	#[doc = " \\retval OV_EIMPL   Unimplemented mode; unable to comply with bitrate request."]
+	#[doc = " This is the primary function within libvorbisenc for setting up managed\n bitrate modes.\n\n Before this function is called, the \\ref vorbis_info\n struct should be initialized by using vorbis_info_init() from the libvorbis\n API.  After encoding, vorbis_info_clear() should be called.\n\n The max_bitrate, nominal_bitrate, and min_bitrate settings are used to set\n constraints for the encoded file.  This function uses these settings to\n select the appropriate encoding mode and set it up.\n\n \\param vi               Pointer to an initialized \\ref vorbis_info struct.\n \\param channels         The number of channels to be encoded.\n \\param rate             The sampling rate of the source audio.\n \\param max_bitrate      Desired maximum bitrate (limit). -1 indicates unset.\n \\param nominal_bitrate  Desired average, or central, bitrate. -1 indicates unset.\n \\param min_bitrate      Desired minimum bitrate. -1 indicates unset.\n\n \\return Zero for success, and negative values for failure.\n\n \\retval 0          Success.\n \\retval OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption.\n \\retval OV_EINVAL  Invalid setup request, eg, out of range argument.\n \\retval OV_EIMPL   Unimplemented mode; unable to comply with bitrate request."]
 	pub fn vorbis_encode_init(
 		vi: *mut vorbis_info,
 		channels: ::std::os::raw::c_long,
@@ -1013,33 +1001,7 @@ extern "C" {
 	) -> ::std::os::raw::c_int;
 }
 extern "C" {
-	#[doc = " This function performs step-one of a three-step bitrate-managed encode"]
-	#[doc = " setup.  It functions similarly to the one-step setup performed by \\ref"]
-	#[doc = " vorbis_encode_init but allows an application to make further encode setup"]
-	#[doc = " tweaks using \\ref vorbis_encode_ctl before finally calling \\ref"]
-	#[doc = " vorbis_encode_setup_init to complete the setup process."]
-	#[doc = ""]
-	#[doc = " Before this function is called, the \\ref vorbis_info struct should be"]
-	#[doc = " initialized by using vorbis_info_init() from the libvorbis API.  After"]
-	#[doc = " encoding, vorbis_info_clear() should be called."]
-	#[doc = ""]
-	#[doc = " The max_bitrate, nominal_bitrate, and min_bitrate settings are used to set"]
-	#[doc = " constraints for the encoded file.  This function uses these settings to"]
-	#[doc = " select the appropriate encoding mode and set it up."]
-	#[doc = ""]
-	#[doc = " \\param vi                Pointer to an initialized vorbis_info struct."]
-	#[doc = " \\param channels          The number of channels to be encoded."]
-	#[doc = " \\param rate              The sampling rate of the source audio."]
-	#[doc = " \\param max_bitrate       Desired maximum bitrate (limit). -1 indicates unset."]
-	#[doc = " \\param nominal_bitrate   Desired average, or central, bitrate. -1 indicates unset."]
-	#[doc = " \\param min_bitrate       Desired minimum bitrate. -1 indicates unset."]
-	#[doc = ""]
-	#[doc = " \\return Zero for success, and negative for failure."]
-	#[doc = ""]
-	#[doc = " \\retval 0           Success"]
-	#[doc = " \\retval OV_EFAULT   Internal logic fault; indicates a bug or heap/stack corruption."]
-	#[doc = " \\retval OV_EINVAL   Invalid setup request, eg, out of range argument."]
-	#[doc = " \\retval OV_EIMPL    Unimplemented mode; unable to comply with bitrate request."]
+	#[doc = " This function performs step-one of a three-step bitrate-managed encode\n setup.  It functions similarly to the one-step setup performed by \\ref\n vorbis_encode_init but allows an application to make further encode setup\n tweaks using \\ref vorbis_encode_ctl before finally calling \\ref\n vorbis_encode_setup_init to complete the setup process.\n\n Before this function is called, the \\ref vorbis_info struct should be\n initialized by using vorbis_info_init() from the libvorbis API.  After\n encoding, vorbis_info_clear() should be called.\n\n The max_bitrate, nominal_bitrate, and min_bitrate settings are used to set\n constraints for the encoded file.  This function uses these settings to\n select the appropriate encoding mode and set it up.\n\n \\param vi                Pointer to an initialized vorbis_info struct.\n \\param channels          The number of channels to be encoded.\n \\param rate              The sampling rate of the source audio.\n \\param max_bitrate       Desired maximum bitrate (limit). -1 indicates unset.\n \\param nominal_bitrate   Desired average, or central, bitrate. -1 indicates unset.\n \\param min_bitrate       Desired minimum bitrate. -1 indicates unset.\n\n \\return Zero for success, and negative for failure.\n\n \\retval 0           Success\n \\retval OV_EFAULT   Internal logic fault; indicates a bug or heap/stack corruption.\n \\retval OV_EINVAL   Invalid setup request, eg, out of range argument.\n \\retval OV_EIMPL    Unimplemented mode; unable to comply with bitrate request."]
 	pub fn vorbis_encode_setup_managed(
 		vi: *mut vorbis_info,
 		channels: ::std::os::raw::c_long,
@@ -1050,28 +1012,7 @@ extern "C" {
 	) -> ::std::os::raw::c_int;
 }
 extern "C" {
-	#[doc = " This function performs step-one of a three-step variable bitrate"]
-	#[doc = " (quality-based) encode setup.  It functions similarly to the one-step setup"]
-	#[doc = " performed by \\ref vorbis_encode_init_vbr() but allows an application to"]
-	#[doc = " make further encode setup tweaks using \\ref vorbis_encode_ctl() before"]
-	#[doc = " finally calling \\ref vorbis_encode_setup_init to complete the setup"]
-	#[doc = " process."]
-	#[doc = ""]
-	#[doc = " Before this function is called, the \\ref vorbis_info struct should be"]
-	#[doc = " initialized by using \\ref vorbis_info_init() from the libvorbis API.  After"]
-	#[doc = " encoding, vorbis_info_clear() should be called."]
-	#[doc = ""]
-	#[doc = " \\param vi        Pointer to an initialized vorbis_info struct."]
-	#[doc = " \\param channels  The number of channels to be encoded."]
-	#[doc = " \\param rate      The sampling rate of the source audio."]
-	#[doc = " \\param quality   Desired quality level, currently from -0.1 to 1.0 (lo to hi)."]
-	#[doc = ""]
-	#[doc = " \\return Zero for success, and negative values for failure."]
-	#[doc = ""]
-	#[doc = " \\retval  0          Success"]
-	#[doc = " \\retval  OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption."]
-	#[doc = " \\retval  OV_EINVAL  Invalid setup request, eg, out of range argument."]
-	#[doc = " \\retval  OV_EIMPL   Unimplemented mode; unable to comply with quality level request."]
+	#[doc = " This function performs step-one of a three-step variable bitrate\n (quality-based) encode setup.  It functions similarly to the one-step setup\n performed by \\ref vorbis_encode_init_vbr() but allows an application to\n make further encode setup tweaks using \\ref vorbis_encode_ctl() before\n finally calling \\ref vorbis_encode_setup_init to complete the setup\n process.\n\n Before this function is called, the \\ref vorbis_info struct should be\n initialized by using \\ref vorbis_info_init() from the libvorbis API.  After\n encoding, vorbis_info_clear() should be called.\n\n \\param vi        Pointer to an initialized vorbis_info struct.\n \\param channels  The number of channels to be encoded.\n \\param rate      The sampling rate of the source audio.\n \\param quality   Desired quality level, currently from -0.1 to 1.0 (lo to hi).\n\n \\return Zero for success, and negative values for failure.\n\n \\retval  0          Success\n \\retval  OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption.\n \\retval  OV_EINVAL  Invalid setup request, eg, out of range argument.\n \\retval  OV_EIMPL   Unimplemented mode; unable to comply with quality level request."]
 	pub fn vorbis_encode_setup_vbr(
 		vi: *mut vorbis_info,
 		channels: ::std::os::raw::c_long,
@@ -1080,26 +1021,7 @@ extern "C" {
 	) -> ::std::os::raw::c_int;
 }
 extern "C" {
-	#[doc = " This is the primary function within libvorbisenc for setting up variable"]
-	#[doc = " bitrate (\"quality\" based) modes."]
-	#[doc = ""]
-	#[doc = ""]
-	#[doc = " Before this function is called, the vorbis_info struct should be"]
-	#[doc = " initialized by using vorbis_info_init() from the libvorbis API. After"]
-	#[doc = " encoding, vorbis_info_clear() should be called."]
-	#[doc = ""]
-	#[doc = " \\param vi           Pointer to an initialized vorbis_info struct."]
-	#[doc = " \\param channels     The number of channels to be encoded."]
-	#[doc = " \\param rate         The sampling rate of the source audio."]
-	#[doc = " \\param base_quality Desired quality level, currently from -0.1 to 1.0 (lo to hi)."]
-	#[doc = ""]
-	#[doc = ""]
-	#[doc = " \\return Zero for success, or a negative number for failure."]
-	#[doc = ""]
-	#[doc = " \\retval 0           Success"]
-	#[doc = " \\retval OV_EFAULT   Internal logic fault; indicates a bug or heap/stack corruption."]
-	#[doc = " \\retval OV_EINVAL   Invalid setup request, eg, out of range argument."]
-	#[doc = " \\retval OV_EIMPL    Unimplemented mode; unable to comply with quality level request."]
+	#[doc = " This is the primary function within libvorbisenc for setting up variable\n bitrate (\"quality\" based) modes.\n\n\n Before this function is called, the vorbis_info struct should be\n initialized by using vorbis_info_init() from the libvorbis API. After\n encoding, vorbis_info_clear() should be called.\n\n \\param vi           Pointer to an initialized vorbis_info struct.\n \\param channels     The number of channels to be encoded.\n \\param rate         The sampling rate of the source audio.\n \\param base_quality Desired quality level, currently from -0.1 to 1.0 (lo to hi).\n\n\n \\return Zero for success, or a negative number for failure.\n\n \\retval 0           Success\n \\retval OV_EFAULT   Internal logic fault; indicates a bug or heap/stack corruption.\n \\retval OV_EINVAL   Invalid setup request, eg, out of range argument.\n \\retval OV_EIMPL    Unimplemented mode; unable to comply with quality level request."]
 	pub fn vorbis_encode_init_vbr(
 		vi: *mut vorbis_info,
 		channels: ::std::os::raw::c_long,
@@ -1108,101 +1030,36 @@ extern "C" {
 	) -> ::std::os::raw::c_int;
 }
 extern "C" {
-	#[doc = " This function performs the last stage of three-step encoding setup, as"]
-	#[doc = " described in the API overview under managed bitrate modes."]
-	#[doc = ""]
-	#[doc = " Before this function is called, the \\ref vorbis_info struct should be"]
-	#[doc = " initialized by using vorbis_info_init() from the libvorbis API, one of"]
-	#[doc = " \\ref vorbis_encode_setup_managed() or \\ref vorbis_encode_setup_vbr() called to"]
-	#[doc = " initialize the high-level encoding setup, and \\ref vorbis_encode_ctl()"]
-	#[doc = " called if necessary to make encoding setup changes."]
-	#[doc = " vorbis_encode_setup_init() finalizes the highlevel encoding structure into"]
-	#[doc = " a complete encoding setup after which the application may make no further"]
-	#[doc = " setup changes."]
-	#[doc = ""]
-	#[doc = " After encoding, vorbis_info_clear() should be called."]
-	#[doc = ""]
-	#[doc = " \\param vi Pointer to an initialized \\ref vorbis_info struct."]
-	#[doc = ""]
-	#[doc = " \\return Zero for success, and negative values for failure."]
-	#[doc = ""]
-	#[doc = " \\retval  0           Success."]
-	#[doc = " \\retval  OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption."]
-	#[doc = ""]
-	#[doc = " \\retval OV_EINVAL   Attempt to use vorbis_encode_setup_init() without first"]
-	#[doc = " calling one of vorbis_encode_setup_managed() or vorbis_encode_setup_vbr() to"]
-	#[doc = " initialize the high-level encoding setup"]
-	#[doc = ""]
+	#[doc = " This function performs the last stage of three-step encoding setup, as\n described in the API overview under managed bitrate modes.\n\n Before this function is called, the \\ref vorbis_info struct should be\n initialized by using vorbis_info_init() from the libvorbis API, one of\n \\ref vorbis_encode_setup_managed() or \\ref vorbis_encode_setup_vbr() called to\n initialize the high-level encoding setup, and \\ref vorbis_encode_ctl()\n called if necessary to make encoding setup changes.\n vorbis_encode_setup_init() finalizes the highlevel encoding structure into\n a complete encoding setup after which the application may make no further\n setup changes.\n\n After encoding, vorbis_info_clear() should be called.\n\n \\param vi Pointer to an initialized \\ref vorbis_info struct.\n\n \\return Zero for success, and negative values for failure.\n\n \\retval  0           Success.\n \\retval  OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption.\n\n \\retval OV_EINVAL   Attempt to use vorbis_encode_setup_init() without first\n calling one of vorbis_encode_setup_managed() or vorbis_encode_setup_vbr() to\n initialize the high-level encoding setup\n"]
 	pub fn vorbis_encode_setup_init(vi: *mut vorbis_info) -> ::std::os::raw::c_int;
 }
 extern "C" {
-	#[doc = " This function implements a generic interface to miscellaneous encoder"]
-	#[doc = " settings similar to the classic UNIX 'ioctl()' system call.  Applications"]
-	#[doc = " may use vorbis_encode_ctl() to query or set bitrate management or quality"]
-	#[doc = " mode details by using one of several \\e request arguments detailed below."]
-	#[doc = " vorbis_encode_ctl() must be called after one of"]
-	#[doc = " vorbis_encode_setup_managed() or vorbis_encode_setup_vbr().  When used"]
-	#[doc = " to modify settings, \\ref vorbis_encode_ctl() must be called before \\ref"]
-	#[doc = " vorbis_encode_setup_init()."]
-	#[doc = ""]
-	#[doc = " \\param vi      Pointer to an initialized vorbis_info struct."]
-	#[doc = ""]
-	#[doc = " \\param number Specifies the desired action; See \\ref encctlcodes \"the list"]
-	#[doc = " of available requests\"."]
-	#[doc = ""]
-	#[doc = " \\param arg void * pointing to a data structure matching the request"]
-	#[doc = " argument."]
-	#[doc = ""]
-	#[doc = " \\retval 0          Success. Any further return information (such as the result of a"]
-	#[doc = " query) is placed into the storage pointed to by *arg."]
-	#[doc = ""]
-	#[doc = " \\retval OV_EINVAL  Invalid argument, or an attempt to modify a setting after"]
-	#[doc = " calling vorbis_encode_setup_init()."]
-	#[doc = ""]
-	#[doc = " \\retval OV_EIMPL   Unimplemented or unknown request"]
+	#[doc = " This function implements a generic interface to miscellaneous encoder\n settings similar to the classic UNIX 'ioctl()' system call.  Applications\n may use vorbis_encode_ctl() to query or set bitrate management or quality\n mode details by using one of several \\e request arguments detailed below.\n vorbis_encode_ctl() must be called after one of\n vorbis_encode_setup_managed() or vorbis_encode_setup_vbr().  When used\n to modify settings, \\ref vorbis_encode_ctl() must be called before \\ref\n vorbis_encode_setup_init().\n\n \\param vi      Pointer to an initialized vorbis_info struct.\n\n \\param number Specifies the desired action; See \\ref encctlcodes \"the list\n of available requests\".\n\n \\param arg void * pointing to a data structure matching the request\n argument.\n\n \\retval 0          Success. Any further return information (such as the result of a\n query) is placed into the storage pointed to by *arg.\n\n \\retval OV_EINVAL  Invalid argument, or an attempt to modify a setting after\n calling vorbis_encode_setup_init().\n\n \\retval OV_EIMPL   Unimplemented or unknown request"]
 	pub fn vorbis_encode_ctl(
 		vi: *mut vorbis_info,
 		number: ::std::os::raw::c_int,
 		arg: *mut ::std::os::raw::c_void
 	) -> ::std::os::raw::c_int;
 }
-#[doc = " \\deprecated This is a deprecated interface. Please use vorbis_encode_ctl()"]
-#[doc = " with the \\ref ovectl_ratemanage2_arg struct and \\ref"]
-#[doc = " OV_ECTL_RATEMANAGE2_GET and \\ref OV_ECTL_RATEMANAGE2_SET calls in new code."]
-#[doc = ""]
-#[doc = " The \\ref ovectl_ratemanage_arg structure is used with vorbis_encode_ctl()"]
-#[doc = " and the \\ref OV_ECTL_RATEMANAGE_GET, \\ref OV_ECTL_RATEMANAGE_SET, \\ref"]
-#[doc = " OV_ECTL_RATEMANAGE_AVG, \\ref OV_ECTL_RATEMANAGE_HARD calls in order to"]
-#[doc = " query and modify specifics of the encoder's bitrate management"]
-#[doc = " configuration."]
+#[doc = " \\deprecated This is a deprecated interface. Please use vorbis_encode_ctl()\n with the \\ref ovectl_ratemanage2_arg struct and \\ref\n OV_ECTL_RATEMANAGE2_GET and \\ref OV_ECTL_RATEMANAGE2_SET calls in new code.\n\n The \\ref ovectl_ratemanage_arg structure is used with vorbis_encode_ctl()\n and the \\ref OV_ECTL_RATEMANAGE_GET, \\ref OV_ECTL_RATEMANAGE_SET, \\ref\n OV_ECTL_RATEMANAGE_AVG, \\ref OV_ECTL_RATEMANAGE_HARD calls in order to\n query and modify specifics of the encoder's bitrate management\n configuration."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ovectl_ratemanage_arg {
 	#[doc = "< nonzero if bitrate management is active"]
 	pub management_active: ::std::os::raw::c_int,
-	#[doc = " hard lower limit (in kilobits per second) below which the stream bitrate"]
-	#[doc = "will never be allowed for any given bitrate_hard_window seconds of time."]
+	#[doc = " hard lower limit (in kilobits per second) below which the stream bitrate\nwill never be allowed for any given bitrate_hard_window seconds of time."]
 	pub bitrate_hard_min: ::std::os::raw::c_long,
-	#[doc = " hard upper limit (in kilobits per second) above which the stream bitrate"]
-	#[doc = "will never be allowed for any given bitrate_hard_window seconds of time."]
+	#[doc = " hard upper limit (in kilobits per second) above which the stream bitrate\nwill never be allowed for any given bitrate_hard_window seconds of time."]
 	pub bitrate_hard_max: ::std::os::raw::c_long,
-	#[doc = " the window period (in seconds) used to regulate the hard bitrate minimum"]
-	#[doc = "and maximum"]
+	#[doc = " the window period (in seconds) used to regulate the hard bitrate minimum\nand maximum"]
 	pub bitrate_hard_window: f64,
-	#[doc = " soft lower limit (in kilobits per second) below which the average bitrate"]
-	#[doc = "tracker will start nudging the bitrate higher."]
+	#[doc = " soft lower limit (in kilobits per second) below which the average bitrate\ntracker will start nudging the bitrate higher."]
 	pub bitrate_av_lo: ::std::os::raw::c_long,
-	#[doc = " soft upper limit (in kilobits per second) above which the average bitrate"]
-	#[doc = "tracker will start nudging the bitrate lower."]
+	#[doc = " soft upper limit (in kilobits per second) above which the average bitrate\ntracker will start nudging the bitrate lower."]
 	pub bitrate_av_hi: ::std::os::raw::c_long,
-	#[doc = " the window period (in seconds) used to regulate the average bitrate"]
-	#[doc = "minimum and maximum."]
+	#[doc = " the window period (in seconds) used to regulate the average bitrate\nminimum and maximum."]
 	pub bitrate_av_window: f64,
-	#[doc = " Regulates the relative centering of the average and hard windows; in"]
-	#[doc = "libvorbis 1.0 and 1.0.1, the hard window regulation overlapped but"]
-	#[doc = "followed the average window regulation. In libvorbis 1.1 a bit-reservoir"]
-	#[doc = "interface replaces the old windowing interface; the older windowing"]
-	#[doc = "interface is simulated and this field has no effect."]
+	#[doc = " Regulates the relative centering of the average and hard windows; in\nlibvorbis 1.0 and 1.0.1, the hard window regulation overlapped but\nfollowed the average window regulation. In libvorbis 1.1 a bit-reservoir\ninterface replaces the old windowing interface; the older windowing\ninterface is simulated and this field has no effect."]
 	pub bitrate_av_window_center: f64
 }
 #[test]
@@ -1301,12 +1158,7 @@ fn bindgen_test_layout_ovectl_ratemanage_arg() {
 		)
 	);
 }
-#[doc = " \\name struct ovectl_ratemanage2_arg"]
-#[doc = ""]
-#[doc = " The ovectl_ratemanage2_arg structure is used with vorbis_encode_ctl() and"]
-#[doc = " the OV_ECTL_RATEMANAGE2_GET and OV_ECTL_RATEMANAGE2_SET calls in order to"]
-#[doc = " query and modify specifics of the encoder's bitrate management"]
-#[doc = " configuration."]
+#[doc = " \\name struct ovectl_ratemanage2_arg\n\n The ovectl_ratemanage2_arg structure is used with vorbis_encode_ctl() and\n the OV_ECTL_RATEMANAGE2_GET and OV_ECTL_RATEMANAGE2_SET calls in order to\n query and modify specifics of the encoder's bitrate management\n configuration."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ovectl_ratemanage2_arg {
@@ -1318,16 +1170,11 @@ pub struct ovectl_ratemanage2_arg {
 	pub bitrate_limit_max_kbps: ::std::os::raw::c_long,
 	#[doc = "<Size of the bitrate reservoir in bits"]
 	pub bitrate_limit_reservoir_bits: ::std::os::raw::c_long,
-	#[doc = " Regulates the bitrate reservoir's preferred fill level in a range from 0.0"]
-	#[doc = " to 1.0; 0.0 tries to bank bits to buffer against future bitrate spikes, 1.0"]
-	#[doc = " buffers against future sudden drops in instantaneous bitrate. Default is"]
-	#[doc = " 0.1"]
+	#[doc = " Regulates the bitrate reservoir's preferred fill level in a range from 0.0\n to 1.0; 0.0 tries to bank bits to buffer against future bitrate spikes, 1.0\n buffers against future sudden drops in instantaneous bitrate. Default is\n 0.1"]
 	pub bitrate_limit_reservoir_bias: f64,
 	#[doc = " Average bitrate setting in kilobits per second"]
 	pub bitrate_average_kbps: ::std::os::raw::c_long,
-	#[doc = " Slew rate limit setting for average bitrate adjustment; sets the minimum"]
-	#[doc = "  time in seconds the bitrate tracker may swing from one extreme to the"]
-	#[doc = "  other when boosting or damping average bitrate."]
+	#[doc = " Slew rate limit setting for average bitrate adjustment; sets the minimum\n  time in seconds the bitrate tracker may swing from one extreme to the\n  other when boosting or damping average bitrate."]
 	pub bitrate_average_damping: f64
 }
 #[test]
@@ -1531,7 +1378,7 @@ fn bindgen_test_layout_OggVorbis_File() {
 	let ptr = UNINIT.as_ptr();
 	assert_eq!(
 		::std::mem::size_of::<OggVorbis_File>(),
-		944usize,
+		952usize,
 		concat!("Size of: ", stringify!(OggVorbis_File))
 	);
 	assert_eq!(
@@ -1741,7 +1588,7 @@ fn bindgen_test_layout_OggVorbis_File() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).vb) as usize - ptr as usize },
-		720usize,
+		728usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(OggVorbis_File),
@@ -1751,7 +1598,7 @@ fn bindgen_test_layout_OggVorbis_File() {
 	);
 	assert_eq!(
 		unsafe { ::std::ptr::addr_of!((*ptr).callbacks) as usize - ptr as usize },
-		912usize,
+		920usize,
 		concat!(
 			"Offset of field: ",
 			stringify!(OggVorbis_File),

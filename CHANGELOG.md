@@ -8,6 +8,14 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Fixed
+
+- `VorbisEncoder::encode_audio_block` no longer causes a stack overflow in
+  practical scenarios when encoding a large sample buffer. TThis overflow
+  occurred when the available stack space was too small to handle the buffer,
+  and usually caused segmentation faults.
+  ([#17](https://github.com/ComunidadAylas/vorbis-rs/issues/17), thanks @emoon)
+
 ### Changed
 
 - Corrected some minor pedantic Clippy lints.
