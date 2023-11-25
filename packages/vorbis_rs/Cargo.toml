@@ -12,7 +12,7 @@ keywords = ["vorbis", "aotuv", "lancer", "ogg", "xiph"]
 categories = ["api-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
 
 [dependencies]
-aotuv_lancer_vorbis_sys = { version = "0.1.1", path = "../aotuv_lancer_vorbis_sys" }
+aotuv_lancer_vorbis_sys = { version = "0.1.2", path = "../aotuv_lancer_vorbis_sys" }
 ogg_next_sys = { version = "0.1.2", path = "../ogg_next_sys" }
 
 errno = { version = "0.3.7", default-features = false }
