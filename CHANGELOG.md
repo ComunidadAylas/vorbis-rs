@@ -10,12 +10,19 @@ and this project adheres to
 
 No changes yet.
 
+## [0.5.2] - 2023-11-25
+
+### Fixed
+
+- Corrected an errata in the `libvorbis` patch for the stack overflow fix of
+  [0.5.1].
+
 ## [0.5.1] - 2023-11-25
 
 ### Fixed
 
 - `VorbisEncoder::encode_audio_block` no longer causes a stack overflow in
-  practical scenarios when encoding a large sample buffer. TThis overflow
+  practical scenarios when encoding a large sample buffer. This overflow
   occurred when the available stack space was too small to handle the buffer,
   and usually caused segmentation faults.
   ([#17](https://github.com/ComunidadAylas/vorbis-rs/issues/17), thanks @emoon)
@@ -106,7 +113,8 @@ No changes yet.
 
 - First public release.
 
-[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.1...HEAD
+[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.2...HEAD
+[0.5.2]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.2
 [0.5.1]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.1
 [0.5.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.0
 [0.4.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.4.0

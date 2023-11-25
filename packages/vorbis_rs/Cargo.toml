@@ -3,7 +3,7 @@ name = "vorbis_rs"
 description = "Ogg Vorbis stream encoding and decoding powered by high-level bindings for best-in-breed C libraries"
 authors = ["Alejandro González <me@alegon.dev>"]
 license = "BSD-3-Clause"
-version = "0.5.1"
+version = "0.5.2"
 readme = "../../README.md"
 repository = "https://github.com/ComunidadAylas/vorbis-rs"
 edition = "2021"
@@ -12,7 +12,7 @@ keywords = ["vorbis", "aotuv", "lancer", "ogg", "xiph"]
 categories = ["api-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
 
 [dependencies]
-aotuv_lancer_vorbis_sys = { version = "0.1.2", path = "../aotuv_lancer_vorbis_sys" }
+aotuv_lancer_vorbis_sys = { version = "0.1.3", path = "../aotuv_lancer_vorbis_sys" }
 ogg_next_sys = { version = "0.1.2", path = "../ogg_next_sys" }
 
 errno = { version = "0.3.7", default-features = false }
