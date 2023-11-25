@@ -50,6 +50,15 @@
       "contributions": [
         "ideas"
       ]
+    },
+    {
+      "login": "emoon",
+      "name": "Daniel Collin",
+      "avatar_url": "https://avatars.githubusercontent.com/u/350822?v=4",
+      "profile": "https://mastodon.gamedev.place/@daniel_collin",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7
