@@ -8,7 +8,7 @@ use crate::VorbisDecoder;
 /// Contains a block of audio samples. This struct is returned by a [`VorbisDecoder`].
 pub struct VorbisAudioSamples {
 	// This static lifetime is not really accurate. See safety comments below for more details
-	audio_samples: TinyVec<[&'static [f32]; 2]>
+	audio_samples: TinyVec<[&'static [f32]; 8]>
 }
 
 impl VorbisAudioSamples {
@@ -39,7 +39,7 @@ impl VorbisAudioSamples {
 		// call other mutable methods on the decoder, or the VorbisDecoder whose lifetime we're
 		// linked with is being dropped: we can't outlive it. We can assume all of this only
 		// because the trusted code in VorbisDecoder instantiates us
-		let mut audio_samples = tiny_vec!([&[f32]; 2]);
+		let mut audio_samples = tiny_vec!([&[f32]; 8]);
 		unsafe {
 			audio_samples.extend(
 				slice::from_raw_parts(buf, channels)

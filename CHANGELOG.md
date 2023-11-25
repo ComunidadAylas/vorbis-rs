@@ -11,6 +11,8 @@ and this project adheres to
 ### Changed
 
 - Corrected some minor pedantic Clippy lints.
+- Slightly reduced heap allocations when decoding signals with more than two
+  audio channels.
 
 ## [0.5.0] - 2023-08-06
 

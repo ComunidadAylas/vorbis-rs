@@ -54,7 +54,7 @@ impl OggStream {
 					ogg_stream_pageout_fill(
 						&mut self.ogg_stream,
 						ogg_page.as_mut_ptr(),
-						minimum_page_data_size as i32
+						minimum_page_data_size.try_into()?
 					)
 				} else {
 					ogg_stream_pageout(&mut self.ogg_stream, ogg_page.as_mut_ptr())
