@@ -8,6 +8,13 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Added a section to the `VorbisEncoder::encode_audio_block` documentation
+  explaining important details about sample block size and encoding performance.
+- Added a remark to the `VorbisEncoder::encode_audio_block` documentation about
+  the usual numeric range of the input sample values.
+
 ### Fixed
 
 - Corrected another errata in the `libvorbis` patch for the stack overflow

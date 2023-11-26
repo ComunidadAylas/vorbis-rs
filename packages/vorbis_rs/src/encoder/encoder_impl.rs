@@ -316,7 +316,33 @@ impl<W: Write> VorbisEncoder<W> {
 	/// to the configured sink automatically as it becomes available.
 	///
 	/// The audio block is expected to be in planar format (i.e., one vector of samples per
-	/// channel). The order of channels is defined by the Vorbis I specification.
+	/// channel). The order of channels is defined by the Vorbis I specification. Conventionally,
+	/// samples are in the [0, 1] interval, but Vorbis does not enforce this.
+	///
+	/// ## Block size and performance
+	///
+	/// Although the Vorbis encoder is meant to support blocks of any size, there are some
+	/// performance considerations that users should bear in mind when choosing an optimal block
+	/// size for their application:
+	///
+	/// - Blocks that are too small (as a rough guideline, between one and 16 samples in size)
+	///   result in more CPU overhead, which translates into slower execution times due to more
+	///   repetitions of the per-block encoding setup logic. However, Vorbis is quite well optimized
+	///   to handle small block sizes: in practice, no slowdowns greater than 2x have been observed
+	///   even when using a single sample per channel and block, but your mileage may vary.
+	/// - Too large blocks (e.g., from 2<sup>18</sup> = 262144 samples) have apparently not been
+	///   tested much, and lead to a sharp degradation of the encoding runtime and much higher
+	///   maximum memory usage as the block size increases. Slowdowns of several orders of magnitude
+	///   have been observed when encoding minutes of audio as a single block.
+	///
+	/// As a rule of thumb, a pretty good block size is at most a few seconds of audio, or no orders
+	/// of magnitude larger than the maximum Vorbis encoding window size, 2<sup>13</sup> = 8192, and
+	/// does not require your application to do any chunking (i.e., splitting of larger blocks into
+	/// smaller ones) or buffering (i.e., combining smaller blocks into larger ones). When in doubt,
+	/// use smaller block sizes. The [libvorbis documentation] states that "1024 is a reasonable
+	/// choice" for a block size.
+	///
+	/// [libvorbis documentation]: https://xiph.org/vorbis/doc/libvorbis/vorbis_analysis_buffer.html
 	pub fn encode_audio_block<B: AsRef<[S]>, S: AsRef<[f32]>>(
 		&mut self,
 		audio_block: B
