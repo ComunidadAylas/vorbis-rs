@@ -8,7 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Fixed
+
+- Corrected another errata in the `libvorbis` patch for the stack overflow
+  fix of [0.5.1].
 
 ## [0.5.2] - 2023-11-25
 
