@@ -8,10 +8,21 @@ and this project adheres to
 
 ## [Unreleased]
 
+No changes yet.
+
+## [0.5.4] - 2023-12-10
+
 ### Changed
 
 - Added `documentation` metadata to the project workspace packages to make the
   documentation slightly more discoverable on `crates.io`.
+
+### Fixed
+
+- Fixed `libvorbis` patch errata corrections not applying due to
+  `aotuv_lancer_vorbis_sys` not being bumped in concert with `vorbis_rs`.
+  `aotuv_lancer_vorbis_sys` and `ogg_next_sys` had their version bumped to
+  apply this patch and other project README and metadata changes.
 
 ## [0.5.3] - 2023-12-10
 
@@ -136,7 +147,8 @@ and this project adheres to
 
 - First public release.
 
-[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.3...HEAD
+[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.4...HEAD
+[0.5.4]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.4
 [0.5.3]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.3
 [0.5.2]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.2
 [0.5.1]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.1

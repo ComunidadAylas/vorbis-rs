@@ -10,8 +10,8 @@ edition = "2021"
 rust-version = "1.64.0"
 
 [workspace.dependencies]
-aotuv_lancer_vorbis_sys = { version = "0.1.3", path = "packages/aotuv_lancer_vorbis_sys" }
-ogg_next_sys = { version = "0.1.2", path = "packages/ogg_next_sys" }
+aotuv_lancer_vorbis_sys = { version = "0.1.4", path = "packages/aotuv_lancer_vorbis_sys" }
+ogg_next_sys = { version = "0.1.3", path = "packages/ogg_next_sys" }
 
 cc = "1.0.83"
 bindgen = "0.69.1"
