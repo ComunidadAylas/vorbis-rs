@@ -1,4 +1,5 @@
 <div align="center">
+<img src="https://github.com/ComunidadAylas/vorbis-rs/assets/7822554/c12d850c-8924-41fa-b2f3-9d00e18bd7bc" alt="vorbis-rs logo" width="300" height="300">
 <h1>vorbis-rs</h1>
 
 <i>Rust bindings for the best-in-breed C libraries of the Vorbis audio codec and

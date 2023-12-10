@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Added
+
+- Added a logo for `vorbis-rs` in the project README.
+
 ### Changed
 
 - Added a section to the `VorbisEncoder::encode_audio_block` documentation
