@@ -1,21 +1,21 @@
 [package]
 name = "ogg_next_sys"
 description = "Updated low-level FFI bindings for the upstream libogg C library"
-authors = ["Alejandro González <me@alegon.dev>"]
-license = "BSD-3-Clause"
+authors.workspace = true
+license.workspace = true
 version = "0.1.2"
 readme = "../../README.md"
-repository = "https://github.com/ComunidadAylas/vorbis-rs"
-edition = "2021"
+repository.workspace = true
+edition.workspace = true
 links = "ogg"
-rust-version = "1.60.0"
+rust-version.workspace = true
 keywords = ["libogg", "xiph"]
 categories = ["external-ffi-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
 exclude = ["/ogg_vendor/**/.*", "/ogg_vendor/cmake", "/ogg_vendor/doc", "/ogg_vendor/README.md"]
 
 [build-dependencies]
-cc = "1.0.83"
-bindgen = { version = "0.69.1", optional = true }
+cc.workspace = true
+bindgen = { workspace = true, optional = true }
 
 [features]
 # Requires Clang and slows down the build, but guarantees that the bindings are up to date.

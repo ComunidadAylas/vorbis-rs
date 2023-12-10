@@ -25,7 +25,7 @@ The supporting `aotuv_lancer_vorbis_sys` and `ogg_next_sys` packages provide
 automatically-generated low-level bindings used by `vorbis_rs`.
 
 The minimum supported Rust version (MSRV) for every package in this repository
-is 1.60. Bumping this version is not considered a breaking change for semantic
+is 1.64. Bumping this version is not considered a breaking change for semantic
 versioning purposes. We will try to do it only when we estimate that such a bump
 would not cause widespread inconvenience or breakage.
 

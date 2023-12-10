@@ -18,6 +18,8 @@ and this project adheres to
   explaining important details about sample block size and encoding performance.
 - Added a remark to the `VorbisEncoder::encode_audio_block` documentation about
   the usual numeric range of the input sample values.
+- Bumped MSRV to 1.64 due to the new usage of workspace property inheritance
+  features introduced in that Rust version.
 
 ### Fixed
 
