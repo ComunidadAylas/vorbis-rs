@@ -6,3 +6,7 @@ resolver = "2"
 # Add debug symbols on release mode to allow debugging upstream code.
 # This does not affect library users
 debug = true
+
+[workspace.lints.clippy]
+cargo = "warn"
+pedantic = "warn"
