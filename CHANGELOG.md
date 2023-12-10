@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+No changes yet.
+
+## [0.5.3] - 2023-12-10
+
 ### Added
 
 - Added a logo for `vorbis-rs` in the project README.
@@ -129,7 +133,8 @@ and this project adheres to
 
 - First public release.
 
-[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.2...HEAD
+[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.3...HEAD
+[0.5.3]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.3
 [0.5.2]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.2
 [0.5.1]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.1
 [0.5.0]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.0
