@@ -102,6 +102,10 @@ the binding crates with the latest upstream changes should be easy:
 When cloning the repository, remember to also check out the submodules with the
 vendor code. You can do this by running `git submodule update --init --recursive`.
 
+Each time vendor code is updated, it will be necessary to release a new version
+of `aotuv_lancer_vorbis_sys` and/or `ogg_next_sys`, so that users of `vorbis_rs`
+can download binding crates with the updated vendor code.
+
 # 🤝 Contact
 
 We welcome friendly talk about the project, including questions,
