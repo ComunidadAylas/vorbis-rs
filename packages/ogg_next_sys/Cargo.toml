@@ -6,6 +6,7 @@ license.workspace = true
 version = "0.1.2"
 readme = "../../README.md"
 repository.workspace = true
+documentation = "https://docs.rs/ogg_next_sys"
 edition.workspace = true
 links = "ogg"
 rust-version.workspace = true

@@ -6,6 +6,7 @@ license.workspace = true
 version = "0.5.3"
 readme = "../../README.md"
 repository.workspace = true
+documentation = "https://docs.rs/vorbis_rs"
 edition.workspace = true
 rust-version.workspace = true
 keywords = ["vorbis", "aotuv", "lancer", "ogg", "xiph"]

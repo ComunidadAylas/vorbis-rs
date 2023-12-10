@@ -8,7 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Changed
+
+- Added `documentation` metadata to the project workspace packages to make the
+  documentation slightly more discoverable on `crates.io`.
 
 ## [0.5.3] - 2023-12-10
 
