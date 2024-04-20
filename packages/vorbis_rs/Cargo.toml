@@ -18,7 +18,7 @@ ogg_next_sys.workspace = true
 
 errno = { version = "0.3.8", default-features = false }
 tinyvec = { version = "1.6.0", default-features = false, features = ["alloc", "rustc_1_57"] }
-thiserror = "1.0.58"
+thiserror = "1.0.59"
 
 getrandom = { version = "0.2.14", features = ["std"], optional = true }
 
