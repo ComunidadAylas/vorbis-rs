@@ -10,6 +10,10 @@ on:
 env:
   MSRV: '1.64.0'
 
+  # Set up sccache with GitHub Actions cache
+  RUSTC_WRAPPER: sccache
+  SCCACHE_GHA_ENABLED: true
+
 jobs:
   msrv_check:
     name: MSRV check
@@ -30,8 +34,8 @@ jobs:
         with:
           toolchain: ${{ env.MSRV }}
 
-      - name: 💨 Cache Rust artifacts
-        uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2
+      - name: 💨 Set up sccache
+        uses: mozilla-actions/sccache-action@v0.0.5
 
       - name: ⚙️ Run tests
         run: cargo test -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
@@ -58,7 +62,7 @@ jobs:
             # on Windows
             packages-to-test: -p vorbis_rs
           - target: x86_64-apple-darwin
-            runner: macos-11
+            runner: macos-13
             packages-to-test: -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
 
     name: CI (${{ matrix.target }})
@@ -83,8 +87,8 @@ jobs:
         if: matrix.target == 'aarch64-unknown-linux-gnu'
         run: sudo apt update && sudo apt install -yq gcc-aarch64-linux-gnu libc6-arm64-cross qemu-user
 
-      - name: 💨 Cache Rust artifacts
-        uses: Swatinem/rust-cache@23bce251a8cd2ffc3c1075eaa2367cf899916d84 # v2
+      - name: 💨 Set up sccache
+        uses: mozilla-actions/sccache-action@v0.0.5
 
       - name: '🔍 Static analysis: run Clippy'
         uses: giraffate/clippy-action@13b9d32482f25d29ead141b79e7e04e7900281e0 # v1
