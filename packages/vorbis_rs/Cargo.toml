@@ -16,11 +16,11 @@ categories = ["api-bindings", "multimedia", "multimedia::audio", "multimedia::en
 aotuv_lancer_vorbis_sys.workspace = true
 ogg_next_sys.workspace = true
 
-errno = { version = "0.3.8", default-features = false }
+errno = { version = "0.3.9", default-features = false }
 tinyvec = { version = "1.6.0", default-features = false, features = ["alloc", "rustc_1_57"] }
-thiserror = "1.0.59"
+thiserror = "1.0.61"
 
-getrandom = { version = "0.2.14", features = ["std"], optional = true }
+getrandom = { version = "0.2.15", features = ["std"], optional = true }
 
 [features]
 default = ["stream-serial-rng"]
