@@ -36,7 +36,7 @@
 //! # use vorbis_rs::{VorbisBitrateManagementStrategy, VorbisDecoder, VorbisEncoderBuilder};
 //! #
 //! # let mut source_ogg = &include_bytes!("../../aotuv_lancer_vorbis_sys/src/8khz_500ms_mono_400hz_sine_wave.ogg")[..];
-//! # #[cfg(__example_only)]
+//! # #[cfg(all(unix, windows))] // Always false to not run it on doctests, but show it on docs
 //! let mut source_ogg = File::open("audio.ogg")?;
 //! let mut transcoded_ogg = vec![];
 //!
