@@ -35,7 +35,7 @@ jobs:
           toolchain: ${{ env.MSRV }}
 
       - name: 💨 Set up sccache
-        uses: mozilla-actions/sccache-action@89e9040de88b577a072e3760aaf59f585da083af # v0.0.5
+        uses: mozilla-actions/sccache-action@9e326ebed976843c9932b3aa0e021c6f50310eb4 # v0.0.6
 
       - name: ⚙️ Run tests
         run: cargo test -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
@@ -88,7 +88,7 @@ jobs:
         run: sudo apt update && sudo apt install -yq gcc-aarch64-linux-gnu libc6-arm64-cross qemu-user
 
       - name: 💨 Set up sccache
-        uses: mozilla-actions/sccache-action@89e9040de88b577a072e3760aaf59f585da083af # v0.0.5
+        uses: mozilla-actions/sccache-action@9e326ebed976843c9932b3aa0e021c6f50310eb4 # v0.0.6
 
       - name: '🔍 Static analysis: run Clippy'
         uses: giraffate/clippy-action@13b9d32482f25d29ead141b79e7e04e7900281e0 # v1
