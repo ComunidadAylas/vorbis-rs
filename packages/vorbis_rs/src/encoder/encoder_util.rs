@@ -89,7 +89,7 @@ impl VorbisEncodingState {
 		unsafe {
 			libvorbis_return_value_to_result!(vorbis_analysis_headerout(
 				self.vorbis_dsp_state,
-				ptr::addr_of_mut!(vorbis_comments.vorbis_comment),
+				&raw mut vorbis_comments.vorbis_comment,
 				identification_header.as_mut_ptr(),
 				comment_header.as_mut_ptr(),
 				setup_header.as_mut_ptr()
