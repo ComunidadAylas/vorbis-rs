@@ -64,7 +64,8 @@ fn main() {
 		.blocklist_item("FILE")
 		.blocklist_item("ogg_.*")
 		.blocklist_item("__.*")
-		.rust_target(RustTarget::Stable_1_73)
+		.rust_target(RustTarget::Stable_1_77)
+		.layout_tests(false) // Type layout is platform-specific
 		.generate()
 		.expect("Unable to generate bindings")
 		.write_to_file("src/bindings.rs")

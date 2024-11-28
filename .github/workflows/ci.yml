@@ -57,10 +57,6 @@ jobs:
             packages-to-test: -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs
           - target: x86_64-pc-windows-gnu
             runner: windows-2022
-            # Low-level FFI binding crates mostly contain layout tests
-            # that assume a Unix-like platform, so they won't work
-            # on Windows
-            packages-to-test: -p vorbis_rs
           - target: x86_64-apple-darwin
             runner: macos-13
             packages-to-test: -p ogg_next_sys -p aotuv_lancer_vorbis_sys -p vorbis_rs

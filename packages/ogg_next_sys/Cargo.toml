@@ -19,6 +19,6 @@ cc.workspace = true
 bindgen = { workspace = true, optional = true }
 
 [features]
-# Requires Clang and slows down the build, but guarantees that the bindings are up to date.
-# It usually is better to run the generate-bindings.sh script instead
+# Requires Clang and slows down the build, but guarantees that the bindings are tailored for the platform and up to date.
+# It is usually better to run the generate-bindings.sh script instead
 build-time-bindgen = ["bindgen"]
