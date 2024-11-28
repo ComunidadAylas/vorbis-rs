@@ -11,8 +11,23 @@ edition.workspace = true
 links = "ogg"
 rust-version.workspace = true
 keywords = ["libogg", "xiph"]
-categories = ["external-ffi-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
-exclude = ["/ogg_vendor/**/.*", "/ogg_vendor/cmake", "/ogg_vendor/doc", "/ogg_vendor/README.md"]
+categories = [
+  "external-ffi-bindings",
+  "multimedia",
+  "multimedia::audio",
+  "multimedia::encoding",
+]
+exclude = [
+  "/ogg_vendor/**/.*",
+  "/ogg_vendor/cmake",
+  "/ogg_vendor/doc",
+  "/ogg_vendor/win32",
+  "/ogg_vendor/README.md",
+  "/ogg_vendor/**/*.ac",
+  "/ogg_vendor/**/*.m4",
+  "/ogg_vendor/**/*.in",
+  "/ogg_vendor/**/*.am",
+]
 
 [build-dependencies]
 cc.workspace = true

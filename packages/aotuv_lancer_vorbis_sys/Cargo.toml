@@ -11,11 +11,33 @@ edition.workspace = true
 links = "vorbis"
 rust-version.workspace = true
 keywords = ["libvorbis", "vorbisfile", "libvorbisenc", "aotuv", "lancer"]
-categories = ["external-ffi-bindings", "multimedia", "multimedia::audio", "multimedia::encoding"]
+categories = [
+  "external-ffi-bindings",
+  "multimedia",
+  "multimedia::audio",
+  "multimedia::encoding",
+]
 exclude = [
-    "/ogg_vendor/**/.*", "/ogg_vendor/cmake", "/ogg_vendor/doc", "/ogg_vendor/README.md",
-    "/vorbis_vendor/**/.*", "/vorbis_vendor/cmake", "/vorbis_vendor/doc", "/vorbis_vendor/test/**/*", "/vorbis_vendor/README.md",
-    "/src/*.ogg"
+  "/ogg_vendor/**/.*",
+  "/ogg_vendor/cmake",
+  "/ogg_vendor/doc",
+  "/ogg_vendor/win32",
+  "/ogg_vendor/README.md",
+  "/ogg_vendor/**/*.ac",
+  "/ogg_vendor/**/*.m4",
+  "/ogg_vendor/**/*.in",
+  "/ogg_vendor/**/*.am",
+  "/vorbis_vendor/**/.*",
+  "/vorbis_vendor/cmake",
+  "/vorbis_vendor/doc",
+  "/vorbis_vendor/win32",
+  "/vorbis_vendor/test/**/*",
+  "/vorbis_vendor/README.md",
+  "/vorbis_vendor/**/*.ac",
+  "/vorbis_vendor/**/*.m4",
+  "/vorbis_vendor/**/*.in",
+  "/vorbis_vendor/**/*.am",
+  "/src/*.ogg",
 ]
 
 [dependencies]
