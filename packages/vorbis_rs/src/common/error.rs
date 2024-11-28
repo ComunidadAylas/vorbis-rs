@@ -170,7 +170,7 @@ pub enum VorbisLibraryErrorKind {
 	///
 	/// Corresponds to the low-level [`OV_EBADHEADER`](aotuv_lancer_vorbis_sys::OV_EBADHEADER) result code.
 	BadHeader,
-	/// Vorbis version mistmatch, caused by the input stream declaring an unknown or incompatible Vorbis
+	/// Vorbis version mismatch, caused by the input stream declaring an unknown or incompatible Vorbis
 	/// version.
 	///
 	/// Corresponds to the low-level [`OV_EVERSION`](aotuv_lancer_vorbis_sys::OV_EVERSION) result code.
