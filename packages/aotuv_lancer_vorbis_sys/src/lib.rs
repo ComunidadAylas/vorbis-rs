@@ -1,6 +1,11 @@
 #![allow(non_camel_case_types)]
 #![allow(non_snake_case)]
 
+// This `extern crate` is required for the linker to honor the linker flags `ogg_next_sys` sets on
+// its build script, and therefore make the Ogg library symbols available at runtime. See:
+// https://doc.rust-lang.org/nightly/reference/items/extern-crates.html#r-items.extern-crate.lookup
+extern crate ogg_next_sys;
+
 use ogg_next_sys::*;
 
 include!("bindings.rs");

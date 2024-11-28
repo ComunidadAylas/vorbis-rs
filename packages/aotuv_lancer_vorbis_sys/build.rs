@@ -13,10 +13,6 @@ fn main() {
 		.expect("Could not get current working directory")
 		.join("vorbis_vendor");
 
-	// libvorbis depends on libogg. libogg is built first due to our Cargo.toml dependency on ogg_next_sys,
-	// but the Cargo linking instructions in its build script do not affect us
-	println!("cargo:rustc-link-lib=static=ogg");
-
 	println!(
 		"cargo:rerun-if-changed={}",
 		vorbis_vendor_path
