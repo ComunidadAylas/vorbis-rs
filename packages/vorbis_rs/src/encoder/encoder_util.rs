@@ -1,4 +1,4 @@
-use std::{mem::MaybeUninit, num::NonZeroU32, ptr};
+use std::{mem::MaybeUninit, num::NonZeroU32};
 
 use aotuv_lancer_vorbis_sys::{
 	vorbis_analysis_headerout, vorbis_analysis_init, vorbis_block, vorbis_block_clear,
