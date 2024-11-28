@@ -61,7 +61,6 @@ fn main() {
 		.blocklist_item("FILE")
 		.blocklist_item("ogg_.*")
 		.blocklist_item("__.*")
-		.size_t_is_usize(true)
 		.generate()
 		.expect("Unable to generate bindings")
 		.write_to_file("src/bindings.rs")

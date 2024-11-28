@@ -11,7 +11,7 @@ trap 'rm -f "$vorbis_header_wrapper"' EXIT INT QUIT TERM
 bindgen --disable-header-comment --allowlist-function='ogg.*' \
 --allowlist-type='ogg.*' \
 --blocklist-item='__.*' \
---size_t-is-usize vendor/ogg/include/ogg/ogg.h -- -Ivendor/ogg/include \
+vendor/ogg/include/ogg/ogg.h -- -Ivendor/ogg/include \
 > packages/ogg_next_sys/src/bindings.rs
 
 bindgen --disable-header-comment \
@@ -23,6 +23,6 @@ bindgen --disable-header-comment \
 --blocklist-item='_IO.*' --blocklist-item='FILE' \
 --blocklist-item='ogg_.*' \
 --blocklist-item='__.*' \
---size_t-is-usize "$vorbis_header_wrapper" \
+"$vorbis_header_wrapper" \
 -- -Ivendor/vorbis/include -Ivendor/vorbis/lib -Ivendor/ogg/include -DOV_EXCLUDE_STATIC_CALLBACKS \
 > packages/aotuv_lancer_vorbis_sys/src/bindings.rs

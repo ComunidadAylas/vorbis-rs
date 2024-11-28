@@ -18,7 +18,6 @@ fn main() {
 		.header(include_path.join("ogg/ogg.h").to_str().unwrap())
 		.disable_header_comment()
 		.clang_arg(format!("-I{}/include", ogg_vendor_path.to_str().unwrap()))
-		.size_t_is_usize(true)
 		.allowlist_function("ogg.*")
 		.allowlist_type("ogg.*")
 		.blocklist_item("__.*")

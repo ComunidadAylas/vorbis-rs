@@ -10,41 +10,15 @@ pub struct ogg_iovec_t {
 	pub iov_base: *mut ::std::os::raw::c_void,
 	pub iov_len: usize
 }
-#[test]
-fn bindgen_test_layout_ogg_iovec_t() {
-	const UNINIT: ::std::mem::MaybeUninit<ogg_iovec_t> = ::std::mem::MaybeUninit::uninit();
-	let ptr = UNINIT.as_ptr();
-	assert_eq!(
-		::std::mem::size_of::<ogg_iovec_t>(),
-		16usize,
-		concat!("Size of: ", stringify!(ogg_iovec_t))
-	);
-	assert_eq!(
-		::std::mem::align_of::<ogg_iovec_t>(),
-		8usize,
-		concat!("Alignment of ", stringify!(ogg_iovec_t))
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).iov_base) as usize - ptr as usize },
-		0usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_iovec_t),
-			"::",
-			stringify!(iov_base)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).iov_len) as usize - ptr as usize },
-		8usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_iovec_t),
-			"::",
-			stringify!(iov_len)
-		)
-	);
-}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+	["Size of ogg_iovec_t"][::std::mem::size_of::<ogg_iovec_t>() - 16usize];
+	["Alignment of ogg_iovec_t"][::std::mem::align_of::<ogg_iovec_t>() - 8usize];
+	["Offset of field: ogg_iovec_t::iov_base"]
+		[::std::mem::offset_of!(ogg_iovec_t, iov_base) - 0usize];
+	["Offset of field: ogg_iovec_t::iov_len"]
+		[::std::mem::offset_of!(ogg_iovec_t, iov_len) - 8usize];
+};
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct oggpack_buffer {
@@ -54,71 +28,20 @@ pub struct oggpack_buffer {
 	pub ptr: *mut ::std::os::raw::c_uchar,
 	pub storage: ::std::os::raw::c_long
 }
-#[test]
-fn bindgen_test_layout_oggpack_buffer() {
-	const UNINIT: ::std::mem::MaybeUninit<oggpack_buffer> = ::std::mem::MaybeUninit::uninit();
-	let ptr = UNINIT.as_ptr();
-	assert_eq!(
-		::std::mem::size_of::<oggpack_buffer>(),
-		40usize,
-		concat!("Size of: ", stringify!(oggpack_buffer))
-	);
-	assert_eq!(
-		::std::mem::align_of::<oggpack_buffer>(),
-		8usize,
-		concat!("Alignment of ", stringify!(oggpack_buffer))
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).endbyte) as usize - ptr as usize },
-		0usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(oggpack_buffer),
-			"::",
-			stringify!(endbyte)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).endbit) as usize - ptr as usize },
-		8usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(oggpack_buffer),
-			"::",
-			stringify!(endbit)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).buffer) as usize - ptr as usize },
-		16usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(oggpack_buffer),
-			"::",
-			stringify!(buffer)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).ptr) as usize - ptr as usize },
-		24usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(oggpack_buffer),
-			"::",
-			stringify!(ptr)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).storage) as usize - ptr as usize },
-		32usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(oggpack_buffer),
-			"::",
-			stringify!(storage)
-		)
-	);
-}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+	["Size of oggpack_buffer"][::std::mem::size_of::<oggpack_buffer>() - 40usize];
+	["Alignment of oggpack_buffer"][::std::mem::align_of::<oggpack_buffer>() - 8usize];
+	["Offset of field: oggpack_buffer::endbyte"]
+		[::std::mem::offset_of!(oggpack_buffer, endbyte) - 0usize];
+	["Offset of field: oggpack_buffer::endbit"]
+		[::std::mem::offset_of!(oggpack_buffer, endbit) - 8usize];
+	["Offset of field: oggpack_buffer::buffer"]
+		[::std::mem::offset_of!(oggpack_buffer, buffer) - 16usize];
+	["Offset of field: oggpack_buffer::ptr"][::std::mem::offset_of!(oggpack_buffer, ptr) - 24usize];
+	["Offset of field: oggpack_buffer::storage"]
+		[::std::mem::offset_of!(oggpack_buffer, storage) - 32usize];
+};
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ogg_page {
@@ -127,61 +50,16 @@ pub struct ogg_page {
 	pub body: *mut ::std::os::raw::c_uchar,
 	pub body_len: ::std::os::raw::c_long
 }
-#[test]
-fn bindgen_test_layout_ogg_page() {
-	const UNINIT: ::std::mem::MaybeUninit<ogg_page> = ::std::mem::MaybeUninit::uninit();
-	let ptr = UNINIT.as_ptr();
-	assert_eq!(
-		::std::mem::size_of::<ogg_page>(),
-		32usize,
-		concat!("Size of: ", stringify!(ogg_page))
-	);
-	assert_eq!(
-		::std::mem::align_of::<ogg_page>(),
-		8usize,
-		concat!("Alignment of ", stringify!(ogg_page))
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).header) as usize - ptr as usize },
-		0usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_page),
-			"::",
-			stringify!(header)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).header_len) as usize - ptr as usize },
-		8usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_page),
-			"::",
-			stringify!(header_len)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).body) as usize - ptr as usize },
-		16usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_page),
-			"::",
-			stringify!(body)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).body_len) as usize - ptr as usize },
-		24usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_page),
-			"::",
-			stringify!(body_len)
-		)
-	);
-}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+	["Size of ogg_page"][::std::mem::size_of::<ogg_page>() - 32usize];
+	["Alignment of ogg_page"][::std::mem::align_of::<ogg_page>() - 8usize];
+	["Offset of field: ogg_page::header"][::std::mem::offset_of!(ogg_page, header) - 0usize];
+	["Offset of field: ogg_page::header_len"]
+		[::std::mem::offset_of!(ogg_page, header_len) - 8usize];
+	["Offset of field: ogg_page::body"][::std::mem::offset_of!(ogg_page, body) - 16usize];
+	["Offset of field: ogg_page::body_len"][::std::mem::offset_of!(ogg_page, body_len) - 24usize];
+};
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ogg_stream_state {
@@ -204,201 +82,47 @@ pub struct ogg_stream_state {
 	pub packetno: ogg_int64_t,
 	pub granulepos: ogg_int64_t
 }
-#[test]
-fn bindgen_test_layout_ogg_stream_state() {
-	const UNINIT: ::std::mem::MaybeUninit<ogg_stream_state> = ::std::mem::MaybeUninit::uninit();
-	let ptr = UNINIT.as_ptr();
-	assert_eq!(
-		::std::mem::size_of::<ogg_stream_state>(),
-		408usize,
-		concat!("Size of: ", stringify!(ogg_stream_state))
-	);
-	assert_eq!(
-		::std::mem::align_of::<ogg_stream_state>(),
-		8usize,
-		concat!("Alignment of ", stringify!(ogg_stream_state))
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).body_data) as usize - ptr as usize },
-		0usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(body_data)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).body_storage) as usize - ptr as usize },
-		8usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(body_storage)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).body_fill) as usize - ptr as usize },
-		16usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(body_fill)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).body_returned) as usize - ptr as usize },
-		24usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(body_returned)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).lacing_vals) as usize - ptr as usize },
-		32usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(lacing_vals)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).granule_vals) as usize - ptr as usize },
-		40usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(granule_vals)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).lacing_storage) as usize - ptr as usize },
-		48usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(lacing_storage)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).lacing_fill) as usize - ptr as usize },
-		56usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(lacing_fill)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).lacing_packet) as usize - ptr as usize },
-		64usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(lacing_packet)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).lacing_returned) as usize - ptr as usize },
-		72usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(lacing_returned)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).header) as usize - ptr as usize },
-		80usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(header)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).header_fill) as usize - ptr as usize },
-		364usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(header_fill)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).e_o_s) as usize - ptr as usize },
-		368usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(e_o_s)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).b_o_s) as usize - ptr as usize },
-		372usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(b_o_s)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).serialno) as usize - ptr as usize },
-		376usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(serialno)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).pageno) as usize - ptr as usize },
-		384usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(pageno)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).packetno) as usize - ptr as usize },
-		392usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(packetno)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).granulepos) as usize - ptr as usize },
-		400usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_stream_state),
-			"::",
-			stringify!(granulepos)
-		)
-	);
-}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+	["Size of ogg_stream_state"][::std::mem::size_of::<ogg_stream_state>() - 408usize];
+	["Alignment of ogg_stream_state"][::std::mem::align_of::<ogg_stream_state>() - 8usize];
+	["Offset of field: ogg_stream_state::body_data"]
+		[::std::mem::offset_of!(ogg_stream_state, body_data) - 0usize];
+	["Offset of field: ogg_stream_state::body_storage"]
+		[::std::mem::offset_of!(ogg_stream_state, body_storage) - 8usize];
+	["Offset of field: ogg_stream_state::body_fill"]
+		[::std::mem::offset_of!(ogg_stream_state, body_fill) - 16usize];
+	["Offset of field: ogg_stream_state::body_returned"]
+		[::std::mem::offset_of!(ogg_stream_state, body_returned) - 24usize];
+	["Offset of field: ogg_stream_state::lacing_vals"]
+		[::std::mem::offset_of!(ogg_stream_state, lacing_vals) - 32usize];
+	["Offset of field: ogg_stream_state::granule_vals"]
+		[::std::mem::offset_of!(ogg_stream_state, granule_vals) - 40usize];
+	["Offset of field: ogg_stream_state::lacing_storage"]
+		[::std::mem::offset_of!(ogg_stream_state, lacing_storage) - 48usize];
+	["Offset of field: ogg_stream_state::lacing_fill"]
+		[::std::mem::offset_of!(ogg_stream_state, lacing_fill) - 56usize];
+	["Offset of field: ogg_stream_state::lacing_packet"]
+		[::std::mem::offset_of!(ogg_stream_state, lacing_packet) - 64usize];
+	["Offset of field: ogg_stream_state::lacing_returned"]
+		[::std::mem::offset_of!(ogg_stream_state, lacing_returned) - 72usize];
+	["Offset of field: ogg_stream_state::header"]
+		[::std::mem::offset_of!(ogg_stream_state, header) - 80usize];
+	["Offset of field: ogg_stream_state::header_fill"]
+		[::std::mem::offset_of!(ogg_stream_state, header_fill) - 364usize];
+	["Offset of field: ogg_stream_state::e_o_s"]
+		[::std::mem::offset_of!(ogg_stream_state, e_o_s) - 368usize];
+	["Offset of field: ogg_stream_state::b_o_s"]
+		[::std::mem::offset_of!(ogg_stream_state, b_o_s) - 372usize];
+	["Offset of field: ogg_stream_state::serialno"]
+		[::std::mem::offset_of!(ogg_stream_state, serialno) - 376usize];
+	["Offset of field: ogg_stream_state::pageno"]
+		[::std::mem::offset_of!(ogg_stream_state, pageno) - 384usize];
+	["Offset of field: ogg_stream_state::packetno"]
+		[::std::mem::offset_of!(ogg_stream_state, packetno) - 392usize];
+	["Offset of field: ogg_stream_state::granulepos"]
+		[::std::mem::offset_of!(ogg_stream_state, granulepos) - 400usize];
+};
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ogg_packet {
@@ -409,81 +133,19 @@ pub struct ogg_packet {
 	pub granulepos: ogg_int64_t,
 	pub packetno: ogg_int64_t
 }
-#[test]
-fn bindgen_test_layout_ogg_packet() {
-	const UNINIT: ::std::mem::MaybeUninit<ogg_packet> = ::std::mem::MaybeUninit::uninit();
-	let ptr = UNINIT.as_ptr();
-	assert_eq!(
-		::std::mem::size_of::<ogg_packet>(),
-		48usize,
-		concat!("Size of: ", stringify!(ogg_packet))
-	);
-	assert_eq!(
-		::std::mem::align_of::<ogg_packet>(),
-		8usize,
-		concat!("Alignment of ", stringify!(ogg_packet))
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).packet) as usize - ptr as usize },
-		0usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_packet),
-			"::",
-			stringify!(packet)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).bytes) as usize - ptr as usize },
-		8usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_packet),
-			"::",
-			stringify!(bytes)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).b_o_s) as usize - ptr as usize },
-		16usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_packet),
-			"::",
-			stringify!(b_o_s)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).e_o_s) as usize - ptr as usize },
-		24usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_packet),
-			"::",
-			stringify!(e_o_s)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).granulepos) as usize - ptr as usize },
-		32usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_packet),
-			"::",
-			stringify!(granulepos)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).packetno) as usize - ptr as usize },
-		40usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_packet),
-			"::",
-			stringify!(packetno)
-		)
-	);
-}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+	["Size of ogg_packet"][::std::mem::size_of::<ogg_packet>() - 48usize];
+	["Alignment of ogg_packet"][::std::mem::align_of::<ogg_packet>() - 8usize];
+	["Offset of field: ogg_packet::packet"][::std::mem::offset_of!(ogg_packet, packet) - 0usize];
+	["Offset of field: ogg_packet::bytes"][::std::mem::offset_of!(ogg_packet, bytes) - 8usize];
+	["Offset of field: ogg_packet::b_o_s"][::std::mem::offset_of!(ogg_packet, b_o_s) - 16usize];
+	["Offset of field: ogg_packet::e_o_s"][::std::mem::offset_of!(ogg_packet, e_o_s) - 24usize];
+	["Offset of field: ogg_packet::granulepos"]
+		[::std::mem::offset_of!(ogg_packet, granulepos) - 32usize];
+	["Offset of field: ogg_packet::packetno"]
+		[::std::mem::offset_of!(ogg_packet, packetno) - 40usize];
+};
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ogg_sync_state {
@@ -495,91 +157,25 @@ pub struct ogg_sync_state {
 	pub headerbytes: ::std::os::raw::c_int,
 	pub bodybytes: ::std::os::raw::c_int
 }
-#[test]
-fn bindgen_test_layout_ogg_sync_state() {
-	const UNINIT: ::std::mem::MaybeUninit<ogg_sync_state> = ::std::mem::MaybeUninit::uninit();
-	let ptr = UNINIT.as_ptr();
-	assert_eq!(
-		::std::mem::size_of::<ogg_sync_state>(),
-		32usize,
-		concat!("Size of: ", stringify!(ogg_sync_state))
-	);
-	assert_eq!(
-		::std::mem::align_of::<ogg_sync_state>(),
-		8usize,
-		concat!("Alignment of ", stringify!(ogg_sync_state))
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).data) as usize - ptr as usize },
-		0usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_sync_state),
-			"::",
-			stringify!(data)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).storage) as usize - ptr as usize },
-		8usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_sync_state),
-			"::",
-			stringify!(storage)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).fill) as usize - ptr as usize },
-		12usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_sync_state),
-			"::",
-			stringify!(fill)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).returned) as usize - ptr as usize },
-		16usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_sync_state),
-			"::",
-			stringify!(returned)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).unsynced) as usize - ptr as usize },
-		20usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_sync_state),
-			"::",
-			stringify!(unsynced)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).headerbytes) as usize - ptr as usize },
-		24usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_sync_state),
-			"::",
-			stringify!(headerbytes)
-		)
-	);
-	assert_eq!(
-		unsafe { ::std::ptr::addr_of!((*ptr).bodybytes) as usize - ptr as usize },
-		28usize,
-		concat!(
-			"Offset of field: ",
-			stringify!(ogg_sync_state),
-			"::",
-			stringify!(bodybytes)
-		)
-	);
-}
+#[allow(clippy::unnecessary_operation, clippy::identity_op)]
+const _: () = {
+	["Size of ogg_sync_state"][::std::mem::size_of::<ogg_sync_state>() - 32usize];
+	["Alignment of ogg_sync_state"][::std::mem::align_of::<ogg_sync_state>() - 8usize];
+	["Offset of field: ogg_sync_state::data"]
+		[::std::mem::offset_of!(ogg_sync_state, data) - 0usize];
+	["Offset of field: ogg_sync_state::storage"]
+		[::std::mem::offset_of!(ogg_sync_state, storage) - 8usize];
+	["Offset of field: ogg_sync_state::fill"]
+		[::std::mem::offset_of!(ogg_sync_state, fill) - 12usize];
+	["Offset of field: ogg_sync_state::returned"]
+		[::std::mem::offset_of!(ogg_sync_state, returned) - 16usize];
+	["Offset of field: ogg_sync_state::unsynced"]
+		[::std::mem::offset_of!(ogg_sync_state, unsynced) - 20usize];
+	["Offset of field: ogg_sync_state::headerbytes"]
+		[::std::mem::offset_of!(ogg_sync_state, headerbytes) - 24usize];
+	["Offset of field: ogg_sync_state::bodybytes"]
+		[::std::mem::offset_of!(ogg_sync_state, bodybytes) - 28usize];
+};
 extern "C" {
 	pub fn oggpack_writeinit(b: *mut oggpack_buffer);
 }
