@@ -270,7 +270,7 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 		// and the RNG algorithm used to bruteforce the seed value from the serial. Note that
 		// the security in this scenario comes from how costly and unpredictable the RNG is,
 		// not whether it's cryptographically-secure
-		let mut stream_serial_buf = [MaybeUninit::uninit(); std::mem::size_of::<i32>()];
+		let mut stream_serial_buf = [MaybeUninit::uninit(); size_of::<i32>()];
 		Ok(i32::from_ne_bytes(
 			getrandom::getrandom_uninit(&mut stream_serial_buf)?
 				.try_into()
@@ -361,7 +361,7 @@ impl<W: Write> VorbisEncoder<W> {
 		let encoder_buffer = unsafe {
 			slice::from_raw_parts_mut(
 				vorbis_analysis_buffer(
-					&mut *self.vorbis_encoding_state.vorbis_dsp_state,
+					self.vorbis_encoding_state.vorbis_dsp_state,
 					sample_count.try_into()?
 				),
 				audio_channels
@@ -393,7 +393,7 @@ impl<W: Write> VorbisEncoder<W> {
 		// SAFETY: we assume vorbis_analysis_wrote follows its documented contract
 		unsafe {
 			libvorbis_return_value_to_result!(vorbis_analysis_wrote(
-				&mut *self.vorbis_encoding_state.vorbis_dsp_state,
+				self.vorbis_encoding_state.vorbis_dsp_state,
 				sample_count as i32
 			))?;
 		}
@@ -411,21 +411,21 @@ impl<W: Write> VorbisEncoder<W> {
 		// documented contract
 		unsafe {
 			while libvorbis_return_value_to_result!(vorbis_analysis_blockout(
-				&mut *self.vorbis_encoding_state.vorbis_dsp_state,
-				&mut *self.vorbis_encoding_state.vorbis_block
+				self.vorbis_encoding_state.vorbis_dsp_state,
+				self.vorbis_encoding_state.vorbis_block
 			))? == 1
 			{
 				libvorbis_return_value_to_result!(vorbis_analysis(
-					&mut *self.vorbis_encoding_state.vorbis_block,
+					self.vorbis_encoding_state.vorbis_block,
 					ptr::null_mut()
 				))?;
 				libvorbis_return_value_to_result!(vorbis_bitrate_addblock(
-					&mut *self.vorbis_encoding_state.vorbis_block
+					self.vorbis_encoding_state.vorbis_block
 				))?;
 
 				let mut ogg_packet = MaybeUninit::uninit();
 				while libvorbis_return_value_to_result!(vorbis_bitrate_flushpacket(
-					&mut *self.vorbis_encoding_state.vorbis_dsp_state,
+					self.vorbis_encoding_state.vorbis_dsp_state,
 					ogg_packet.as_mut_ptr()
 				))? == 1
 				{
@@ -451,7 +451,7 @@ impl<W: Write> VorbisEncoder<W> {
 		// SAFETY: we assume that vorbis_analysis_wrote follows its documented contract
 		unsafe {
 			libvorbis_return_value_to_result!(vorbis_analysis_wrote(
-				&mut *self.vorbis_encoding_state.vorbis_dsp_state,
+				self.vorbis_encoding_state.vorbis_dsp_state,
 				0
 			))?
 		};
@@ -470,7 +470,7 @@ impl<W: Write> Drop for VorbisEncoder<W> {
 			// SAFETY: we assume that vorbis_analysis_wrote follows its documented contract
 			if unsafe {
 				libvorbis_return_value_to_result!(vorbis_analysis_wrote(
-					&mut *self.vorbis_encoding_state.vorbis_dsp_state,
+					self.vorbis_encoding_state.vorbis_dsp_state,
 					0
 				))
 			}

@@ -8,7 +8,17 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Changed
+
+- Bumped MSRV to 1.82 due to refactors to use methods like `Box::new_uninit`.
+
+### Fixed
+
+- Resolved an issue with undefined behavior in `VorbisEncoder` caused by C code
+  potentially violating ownership and/or aliasing assumptions made by Rust code
+  for boxed structs.
+  ([#22](https://github.com/ComunidadAylas/vorbis-rs/issues/22), thanks
+  @jasonyu1996)
 
 ## [0.5.4] - 2023-12-10
 

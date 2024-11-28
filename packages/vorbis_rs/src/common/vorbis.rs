@@ -14,11 +14,11 @@ use aotuv_lancer_vorbis_sys::{
 	OV_ECTL_RATEMANAGE2_SET
 };
 
-use crate::common::{assume_init_box, VorbisError};
+use crate::common::VorbisError;
 
 /// A high-level abstraction for a Vorbis stream information struct.
 pub struct VorbisInfo {
-	pub(crate) vorbis_info: Box<vorbis_info>
+	pub(crate) vorbis_info: *mut vorbis_info
 }
 
 impl VorbisInfo {
@@ -27,20 +27,16 @@ impl VorbisInfo {
 	/// calling more methods on the returned struct, such as
 	/// [`encode_init_vbr`](Self::encode_init_vbr).
 	pub fn new() -> Self {
-		// NOTE: stable-friendly version of Box::new_uninit
-		let mut vorbis_info = Box::new(MaybeUninit::uninit());
+		let vorbis_info = Box::into_raw(Box::<vorbis_info>::new_uninit()).cast();
 
 		// SAFETY: we assume vorbis_info_init follows its documented contract.
-		// vorbis_info is wrapped in a box to ensure it lives at a constant address
-		// in memory (i.e., not moved between stack frames), which is necessary
-		// because internal libvorbis encoding state may store pointers to it
-		unsafe {
-			vorbis_info_init(vorbis_info.as_mut_ptr());
+		// vorbis_info is allocated on the heap to ensure it lives at a constant
+		// address in memory (i.e., not moved between stack frames), which is
+		// necessary because internal libvorbis encoding state may store pointers
+		// to it. After this call, the struct pointed to is fully initialized
+		unsafe { vorbis_info_init(vorbis_info) };
 
-			Self {
-				vorbis_info: assume_init_box(vorbis_info)
-			}
-		}
+		Self { vorbis_info }
 	}
 
 	/// Prepares this Vorbis codec information struct to encode an audio signal
@@ -59,7 +55,7 @@ impl VorbisInfo {
 		// SAFETY: we assume these functions follow the documented contract
 		unsafe {
 			libvorbisenc_return_value_to_result!(vorbis_encode_setup_managed(
-				&mut *self.vorbis_info,
+				self.vorbis_info,
 				channels.get() as c_long,
 				sampling_frequency.get().try_into()?,
 				-1,
@@ -70,12 +66,12 @@ impl VorbisInfo {
 			// Disable bitrate management engine to select a true VBR quality mode
 			// based on its expected bitrate
 			libvorbisenc_return_value_to_result!(vorbis_encode_ctl(
-				&mut *self.vorbis_info,
+				self.vorbis_info,
 				OV_ECTL_RATEMANAGE2_SET as c_int,
 				ptr::null_mut()
 			))?;
 
-			libvorbisenc_return_value_to_result!(vorbis_encode_setup_init(&mut *self.vorbis_info))?;
+			libvorbisenc_return_value_to_result!(vorbis_encode_setup_init(self.vorbis_info))?;
 		}
 
 		Ok(())
@@ -103,7 +99,7 @@ impl VorbisInfo {
 		unsafe {
 			// SAFETY: we assume vorbis_encode_init_vbr follows its documented contract
 			libvorbisenc_return_value_to_result!(vorbis_encode_init_vbr(
-				&mut *self.vorbis_info,
+				self.vorbis_info,
 				channels.get() as c_long,
 				sampling_frequency.get().try_into()?,
 				quality_factor
@@ -130,7 +126,7 @@ impl VorbisInfo {
 		// SAFETY: we assume vorbis_encode_init follows its documented contract
 		unsafe {
 			libvorbisenc_return_value_to_result!(vorbis_encode_init(
-				&mut *self.vorbis_info,
+				self.vorbis_info,
 				channels.get() as c_long,
 				sampling_frequency.get().try_into()?,
 				-1,
@@ -161,7 +157,7 @@ impl VorbisInfo {
 		// SAFETY: we assume vorbis_encode_init follows its documented contract
 		unsafe {
 			libvorbisenc_return_value_to_result!(vorbis_encode_init(
-				&mut *self.vorbis_info,
+				self.vorbis_info,
 				channels.get() as c_long,
 				sampling_frequency.get().try_into()?,
 				maximum_bitrate.get().try_into()?,
@@ -178,8 +174,8 @@ impl VorbisInfo {
 	pub fn channels(&self) -> NonZeroU8 {
 		// SAFETY: the Vorbis I specification allows up to 255 channels, so this
 		// cast is always safe. It also requires at least one channel, and so do
-		// we on VorbisInfo constructors
-		unsafe { NonZeroU8::new_unchecked(self.vorbis_info.channels as u8) }
+		// we on VorbisInfo constructors.
+		unsafe { NonZeroU8::new_unchecked((*self.vorbis_info).channels as u8) }
 	}
 }
 
@@ -187,7 +183,10 @@ impl Drop for VorbisInfo {
 	fn drop(&mut self) {
 		// SAFETY: when this struct is dropped we have a valid Vorbis info struct to clear,
 		// and no encode or decode state struct is referencing it
-		unsafe { vorbis_info_clear(&mut *self.vorbis_info) };
+		unsafe {
+			vorbis_info_clear(self.vorbis_info);
+			drop(Box::from_raw(self.vorbis_info));
+		}
 	}
 }
 

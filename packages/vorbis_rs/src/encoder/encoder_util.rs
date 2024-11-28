@@ -5,46 +5,68 @@ use aotuv_lancer_vorbis_sys::{
 	vorbis_block_init, vorbis_dsp_clear, vorbis_dsp_state
 };
 
-use crate::common::{assume_init_box, OggPacket, VorbisComments, VorbisError, VorbisInfo};
+use crate::common::{OggPacket, VorbisComments, VorbisError, VorbisInfo};
 
 /// A high-level abstraction that holds all the needed state for a Vorbis encoder.
 pub struct VorbisEncodingState {
 	pub(crate) vorbis_info: VorbisInfo,
-	pub(crate) vorbis_dsp_state: Box<vorbis_dsp_state>,
-	pub(crate) vorbis_block: Box<vorbis_block>
+	pub(crate) vorbis_dsp_state: *mut vorbis_dsp_state,
+	pub(crate) vorbis_block: *mut vorbis_block
 }
 
 impl VorbisEncodingState {
 	/// Creates a new Vorbis encoder state from the specified Vorbis stream
 	/// information, which should be initialized for encoding.
-	pub fn new(mut vorbis_info: VorbisInfo) -> Result<Self, VorbisError> {
-		// NOTE: stable-friendly version of Box::new_uninit
-		let mut vorbis_dsp_state = Box::new(MaybeUninit::uninit());
-		let mut vorbis_block = Box::new(MaybeUninit::uninit());
+	pub fn new(vorbis_info: VorbisInfo) -> Result<Self, VorbisError> {
+		let vorbis_dsp_state = Box::into_raw(Box::<vorbis_dsp_state>::new_uninit());
+		let vorbis_block = Box::into_raw(Box::<vorbis_block>::new_uninit());
 
 		// SAFETY: we assume vorbis_analysis_init and vorbis_block_init follow
-		// their documented contract. The structs are wrapped in boxes to ensure
+		// their documented contract. The structs are allocated in the heap to ensure
 		// they live at constant addresses in memory, which is necessary because
-		// internal libvorbis encoding state stores pointers to such addresses. We
-		// take the ownership of vorbis_info even though we don't use it to ensure
-		// its lifetime is as long as the lifetime of the encoding state and that
-		// client code does not corrupt it
-		unsafe {
-			libvorbis_return_value_to_result!(vorbis_analysis_init(
-				vorbis_dsp_state.as_mut_ptr(),
-				&mut *vorbis_info.vorbis_info
-			))?;
-			let mut vorbis_dsp_state = assume_init_box(vorbis_dsp_state);
+		// internal libvorbis encoding state stores pointers to such addresses, and
+		// eagerly extracted from `Box`es to guarantee that no lack of aliasing and
+		// interior mutability assumptions made by `Box` are violated (i.e., `Box` is
+		// an owned unique pointer, see #22). We take the ownership of vorbis_info even
+		// though we don't use it to ensure its lifetime is as long as the lifetime of
+		// the encoding state and that client code does not corrupt it
+		let init_error = 'init: {
+			if let Err(err) = unsafe {
+				libvorbis_return_value_to_result!(vorbis_analysis_init(
+					vorbis_dsp_state.cast(),
+					vorbis_info.vorbis_info
+				))
+			} {
+				break 'init Some(err);
+			}
+			// vorbis_dsp_state is now initialized
 
-			libvorbis_return_value_to_result!(vorbis_block_init(
-				&mut *vorbis_dsp_state,
-				vorbis_block.as_mut_ptr()
-			))?;
+			if let Err(err) = unsafe {
+				libvorbis_return_value_to_result!(vorbis_block_init(
+					vorbis_dsp_state.cast(),
+					vorbis_block.cast()
+				))
+			} {
+				break 'init Some(err);
+			}
+			// vorbis_block is now initialized
 
-			Ok(Self {
+			None
+		};
+
+		match init_error {
+			Some(err) => {
+				unsafe {
+					drop(Box::from_raw(vorbis_dsp_state));
+					drop(Box::from_raw(vorbis_block));
+				}
+
+				Err(err)?
+			}
+			None => Ok(Self {
 				vorbis_info,
-				vorbis_dsp_state,
-				vorbis_block: assume_init_box(vorbis_block)
+				vorbis_dsp_state: vorbis_dsp_state.cast(),
+				vorbis_block: vorbis_block.cast()
 			})
 		}
 	}
@@ -66,7 +88,7 @@ impl VorbisEncodingState {
 		// vorbis_comments.vorbis_comment field reference
 		unsafe {
 			libvorbis_return_value_to_result!(vorbis_analysis_headerout(
-				&mut *self.vorbis_dsp_state,
+				self.vorbis_dsp_state,
 				ptr::addr_of_mut!(vorbis_comments.vorbis_comment),
 				identification_header.as_mut_ptr(),
 				comment_header.as_mut_ptr(),
@@ -89,8 +111,11 @@ impl Drop for VorbisEncodingState {
 		// this, which is necessary because clearing these structs requires data
 		// from VorbisInfo
 		unsafe {
-			vorbis_block_clear(&mut *self.vorbis_block);
-			vorbis_dsp_clear(&mut *self.vorbis_dsp_state);
+			vorbis_block_clear(self.vorbis_block);
+			vorbis_dsp_clear(self.vorbis_dsp_state);
+
+			drop(Box::from_raw(self.vorbis_block));
+			drop(Box::from_raw(self.vorbis_dsp_state));
 		}
 	}
 }
