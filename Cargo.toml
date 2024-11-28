@@ -13,8 +13,8 @@ rust-version = "1.82.0"
 aotuv_lancer_vorbis_sys = { version = "0.1.4", path = "packages/aotuv_lancer_vorbis_sys" }
 ogg_next_sys = { version = "0.1.3", path = "packages/ogg_next_sys" }
 
-cc = "1.0.99"
-bindgen = "0.70.0"
+cc = "1.2.1"
+bindgen = "0.70.1"
 
 [profile.release]
 # Add debug symbols on release mode to allow debugging upstream code.

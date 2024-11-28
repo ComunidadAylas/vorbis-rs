@@ -18,6 +18,7 @@ and this project adheres to
   for linking to `libogg` in favor of letting the compiler to carry it over from
   `ogg_next_sys` by adding a `extern crate ogg_next_sys` statement, which is
   cleaner.
+- Updated dependencies.
 
 ### Fixed
 
