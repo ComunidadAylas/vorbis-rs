@@ -1,5 +1,8 @@
 use std::env::current_dir;
 
+#[cfg(feature = "build-time-bindgen")]
+use bindgen::RustTarget;
+
 fn main() {
 	let ogg_vendor_path = current_dir()
 		.expect("Could not get current working directory")
@@ -21,6 +24,7 @@ fn main() {
 		.allowlist_function("ogg.*")
 		.allowlist_type("ogg.*")
 		.blocklist_item("__.*")
+		.rust_target(RustTarget::Stable_1_73)
 		.generate()
 		.expect("Unable to generate bindings")
 		.write_to_file("src/bindings.rs")

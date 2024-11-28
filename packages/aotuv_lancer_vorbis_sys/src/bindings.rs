@@ -38,20 +38,46 @@ pub struct oggpack_buffer {
 	pub ptr: *mut ::std::os::raw::c_uchar,
 	pub storage: ::std::os::raw::c_long
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of oggpack_buffer"][::std::mem::size_of::<oggpack_buffer>() - 40usize];
-	["Alignment of oggpack_buffer"][::std::mem::align_of::<oggpack_buffer>() - 8usize];
-	["Offset of field: oggpack_buffer::endbyte"]
-		[::std::mem::offset_of!(oggpack_buffer, endbyte) - 0usize];
-	["Offset of field: oggpack_buffer::endbit"]
-		[::std::mem::offset_of!(oggpack_buffer, endbit) - 8usize];
-	["Offset of field: oggpack_buffer::buffer"]
-		[::std::mem::offset_of!(oggpack_buffer, buffer) - 16usize];
-	["Offset of field: oggpack_buffer::ptr"][::std::mem::offset_of!(oggpack_buffer, ptr) - 24usize];
-	["Offset of field: oggpack_buffer::storage"]
-		[::std::mem::offset_of!(oggpack_buffer, storage) - 32usize];
-};
+#[test]
+fn bindgen_test_layout_oggpack_buffer() {
+	const UNINIT: ::std::mem::MaybeUninit<oggpack_buffer> = ::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<oggpack_buffer>(),
+		40usize,
+		"Size of oggpack_buffer"
+	);
+	assert_eq!(
+		::std::mem::align_of::<oggpack_buffer>(),
+		8usize,
+		"Alignment of oggpack_buffer"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).endbyte) as usize - ptr as usize },
+		0usize,
+		"Offset of field: oggpack_buffer::endbyte"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).endbit) as usize - ptr as usize },
+		8usize,
+		"Offset of field: oggpack_buffer::endbit"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).buffer) as usize - ptr as usize },
+		16usize,
+		"Offset of field: oggpack_buffer::buffer"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).ptr) as usize - ptr as usize },
+		24usize,
+		"Offset of field: oggpack_buffer::ptr"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).storage) as usize - ptr as usize },
+		32usize,
+		"Offset of field: oggpack_buffer::storage"
+	);
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct vorbis_info {
@@ -64,26 +90,61 @@ pub struct vorbis_info {
 	pub bitrate_window: ::std::os::raw::c_long,
 	pub codec_setup: *mut ::std::os::raw::c_void
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of vorbis_info"][::std::mem::size_of::<vorbis_info>() - 56usize];
-	["Alignment of vorbis_info"][::std::mem::align_of::<vorbis_info>() - 8usize];
-	["Offset of field: vorbis_info::version"]
-		[::std::mem::offset_of!(vorbis_info, version) - 0usize];
-	["Offset of field: vorbis_info::channels"]
-		[::std::mem::offset_of!(vorbis_info, channels) - 4usize];
-	["Offset of field: vorbis_info::rate"][::std::mem::offset_of!(vorbis_info, rate) - 8usize];
-	["Offset of field: vorbis_info::bitrate_upper"]
-		[::std::mem::offset_of!(vorbis_info, bitrate_upper) - 16usize];
-	["Offset of field: vorbis_info::bitrate_nominal"]
-		[::std::mem::offset_of!(vorbis_info, bitrate_nominal) - 24usize];
-	["Offset of field: vorbis_info::bitrate_lower"]
-		[::std::mem::offset_of!(vorbis_info, bitrate_lower) - 32usize];
-	["Offset of field: vorbis_info::bitrate_window"]
-		[::std::mem::offset_of!(vorbis_info, bitrate_window) - 40usize];
-	["Offset of field: vorbis_info::codec_setup"]
-		[::std::mem::offset_of!(vorbis_info, codec_setup) - 48usize];
-};
+#[test]
+fn bindgen_test_layout_vorbis_info() {
+	const UNINIT: ::std::mem::MaybeUninit<vorbis_info> = ::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<vorbis_info>(),
+		56usize,
+		"Size of vorbis_info"
+	);
+	assert_eq!(
+		::std::mem::align_of::<vorbis_info>(),
+		8usize,
+		"Alignment of vorbis_info"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).version) as usize - ptr as usize },
+		0usize,
+		"Offset of field: vorbis_info::version"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).channels) as usize - ptr as usize },
+		4usize,
+		"Offset of field: vorbis_info::channels"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).rate) as usize - ptr as usize },
+		8usize,
+		"Offset of field: vorbis_info::rate"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_upper) as usize - ptr as usize },
+		16usize,
+		"Offset of field: vorbis_info::bitrate_upper"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_nominal) as usize - ptr as usize },
+		24usize,
+		"Offset of field: vorbis_info::bitrate_nominal"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_lower) as usize - ptr as usize },
+		32usize,
+		"Offset of field: vorbis_info::bitrate_lower"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_window) as usize - ptr as usize },
+		40usize,
+		"Offset of field: vorbis_info::bitrate_window"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).codec_setup) as usize - ptr as usize },
+		48usize,
+		"Offset of field: vorbis_info::codec_setup"
+	);
+}
 #[repr(C)]
 pub struct vorbis_dsp_state {
 	pub analysisp: ::std::os::raw::c_int,
@@ -108,52 +169,126 @@ pub struct vorbis_dsp_state {
 	pub res_bits: ogg_int64_t,
 	pub backend_state: *mut ::std::os::raw::c_void
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of vorbis_dsp_state"][::std::mem::size_of::<vorbis_dsp_state>() - 152usize];
-	["Alignment of vorbis_dsp_state"][::std::mem::align_of::<vorbis_dsp_state>() - 8usize];
-	["Offset of field: vorbis_dsp_state::analysisp"]
-		[::std::mem::offset_of!(vorbis_dsp_state, analysisp) - 0usize];
-	["Offset of field: vorbis_dsp_state::vi"]
-		[::std::mem::offset_of!(vorbis_dsp_state, vi) - 8usize];
-	["Offset of field: vorbis_dsp_state::pcm"]
-		[::std::mem::offset_of!(vorbis_dsp_state, pcm) - 16usize];
-	["Offset of field: vorbis_dsp_state::pcmret"]
-		[::std::mem::offset_of!(vorbis_dsp_state, pcmret) - 24usize];
-	["Offset of field: vorbis_dsp_state::preextrapolate_work"]
-		[::std::mem::offset_of!(vorbis_dsp_state, preextrapolate_work) - 32usize];
-	["Offset of field: vorbis_dsp_state::pcm_storage"]
-		[::std::mem::offset_of!(vorbis_dsp_state, pcm_storage) - 40usize];
-	["Offset of field: vorbis_dsp_state::pcm_current"]
-		[::std::mem::offset_of!(vorbis_dsp_state, pcm_current) - 44usize];
-	["Offset of field: vorbis_dsp_state::pcm_returned"]
-		[::std::mem::offset_of!(vorbis_dsp_state, pcm_returned) - 48usize];
-	["Offset of field: vorbis_dsp_state::preextrapolate"]
-		[::std::mem::offset_of!(vorbis_dsp_state, preextrapolate) - 52usize];
-	["Offset of field: vorbis_dsp_state::eofflag"]
-		[::std::mem::offset_of!(vorbis_dsp_state, eofflag) - 56usize];
-	["Offset of field: vorbis_dsp_state::lW"]
-		[::std::mem::offset_of!(vorbis_dsp_state, lW) - 64usize];
-	["Offset of field: vorbis_dsp_state::W"][::std::mem::offset_of!(vorbis_dsp_state, W) - 72usize];
-	["Offset of field: vorbis_dsp_state::nW"]
-		[::std::mem::offset_of!(vorbis_dsp_state, nW) - 80usize];
-	["Offset of field: vorbis_dsp_state::centerW"]
-		[::std::mem::offset_of!(vorbis_dsp_state, centerW) - 88usize];
-	["Offset of field: vorbis_dsp_state::granulepos"]
-		[::std::mem::offset_of!(vorbis_dsp_state, granulepos) - 96usize];
-	["Offset of field: vorbis_dsp_state::sequence"]
-		[::std::mem::offset_of!(vorbis_dsp_state, sequence) - 104usize];
-	["Offset of field: vorbis_dsp_state::glue_bits"]
-		[::std::mem::offset_of!(vorbis_dsp_state, glue_bits) - 112usize];
-	["Offset of field: vorbis_dsp_state::time_bits"]
-		[::std::mem::offset_of!(vorbis_dsp_state, time_bits) - 120usize];
-	["Offset of field: vorbis_dsp_state::floor_bits"]
-		[::std::mem::offset_of!(vorbis_dsp_state, floor_bits) - 128usize];
-	["Offset of field: vorbis_dsp_state::res_bits"]
-		[::std::mem::offset_of!(vorbis_dsp_state, res_bits) - 136usize];
-	["Offset of field: vorbis_dsp_state::backend_state"]
-		[::std::mem::offset_of!(vorbis_dsp_state, backend_state) - 144usize];
-};
+#[test]
+fn bindgen_test_layout_vorbis_dsp_state() {
+	const UNINIT: ::std::mem::MaybeUninit<vorbis_dsp_state> = ::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<vorbis_dsp_state>(),
+		152usize,
+		"Size of vorbis_dsp_state"
+	);
+	assert_eq!(
+		::std::mem::align_of::<vorbis_dsp_state>(),
+		8usize,
+		"Alignment of vorbis_dsp_state"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).analysisp) as usize - ptr as usize },
+		0usize,
+		"Offset of field: vorbis_dsp_state::analysisp"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).vi) as usize - ptr as usize },
+		8usize,
+		"Offset of field: vorbis_dsp_state::vi"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcm) as usize - ptr as usize },
+		16usize,
+		"Offset of field: vorbis_dsp_state::pcm"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcmret) as usize - ptr as usize },
+		24usize,
+		"Offset of field: vorbis_dsp_state::pcmret"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).preextrapolate_work) as usize - ptr as usize },
+		32usize,
+		"Offset of field: vorbis_dsp_state::preextrapolate_work"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcm_storage) as usize - ptr as usize },
+		40usize,
+		"Offset of field: vorbis_dsp_state::pcm_storage"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcm_current) as usize - ptr as usize },
+		44usize,
+		"Offset of field: vorbis_dsp_state::pcm_current"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcm_returned) as usize - ptr as usize },
+		48usize,
+		"Offset of field: vorbis_dsp_state::pcm_returned"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).preextrapolate) as usize - ptr as usize },
+		52usize,
+		"Offset of field: vorbis_dsp_state::preextrapolate"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).eofflag) as usize - ptr as usize },
+		56usize,
+		"Offset of field: vorbis_dsp_state::eofflag"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).lW) as usize - ptr as usize },
+		64usize,
+		"Offset of field: vorbis_dsp_state::lW"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).W) as usize - ptr as usize },
+		72usize,
+		"Offset of field: vorbis_dsp_state::W"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).nW) as usize - ptr as usize },
+		80usize,
+		"Offset of field: vorbis_dsp_state::nW"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).centerW) as usize - ptr as usize },
+		88usize,
+		"Offset of field: vorbis_dsp_state::centerW"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).granulepos) as usize - ptr as usize },
+		96usize,
+		"Offset of field: vorbis_dsp_state::granulepos"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).sequence) as usize - ptr as usize },
+		104usize,
+		"Offset of field: vorbis_dsp_state::sequence"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).glue_bits) as usize - ptr as usize },
+		112usize,
+		"Offset of field: vorbis_dsp_state::glue_bits"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).time_bits) as usize - ptr as usize },
+		120usize,
+		"Offset of field: vorbis_dsp_state::time_bits"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).floor_bits) as usize - ptr as usize },
+		128usize,
+		"Offset of field: vorbis_dsp_state::floor_bits"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).res_bits) as usize - ptr as usize },
+		136usize,
+		"Offset of field: vorbis_dsp_state::res_bits"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).backend_state) as usize - ptr as usize },
+		144usize,
+		"Offset of field: vorbis_dsp_state::backend_state"
+	);
+}
 #[repr(C)]
 pub struct vorbis_block {
 	pub pcm: *mut *mut f32,
@@ -178,58 +313,157 @@ pub struct vorbis_block {
 	pub res_bits: ::std::os::raw::c_long,
 	pub internal: *mut ::std::os::raw::c_void
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of vorbis_block"][::std::mem::size_of::<vorbis_block>() - 192usize];
-	["Alignment of vorbis_block"][::std::mem::align_of::<vorbis_block>() - 8usize];
-	["Offset of field: vorbis_block::pcm"][::std::mem::offset_of!(vorbis_block, pcm) - 0usize];
-	["Offset of field: vorbis_block::opb"][::std::mem::offset_of!(vorbis_block, opb) - 8usize];
-	["Offset of field: vorbis_block::lW"][::std::mem::offset_of!(vorbis_block, lW) - 48usize];
-	["Offset of field: vorbis_block::W"][::std::mem::offset_of!(vorbis_block, W) - 56usize];
-	["Offset of field: vorbis_block::nW"][::std::mem::offset_of!(vorbis_block, nW) - 64usize];
-	["Offset of field: vorbis_block::pcmend"]
-		[::std::mem::offset_of!(vorbis_block, pcmend) - 72usize];
-	["Offset of field: vorbis_block::mode"][::std::mem::offset_of!(vorbis_block, mode) - 76usize];
-	["Offset of field: vorbis_block::eofflag"]
-		[::std::mem::offset_of!(vorbis_block, eofflag) - 80usize];
-	["Offset of field: vorbis_block::granulepos"]
-		[::std::mem::offset_of!(vorbis_block, granulepos) - 88usize];
-	["Offset of field: vorbis_block::sequence"]
-		[::std::mem::offset_of!(vorbis_block, sequence) - 96usize];
-	["Offset of field: vorbis_block::vd"][::std::mem::offset_of!(vorbis_block, vd) - 104usize];
-	["Offset of field: vorbis_block::localstore"]
-		[::std::mem::offset_of!(vorbis_block, localstore) - 112usize];
-	["Offset of field: vorbis_block::localtop"]
-		[::std::mem::offset_of!(vorbis_block, localtop) - 120usize];
-	["Offset of field: vorbis_block::localalloc"]
-		[::std::mem::offset_of!(vorbis_block, localalloc) - 128usize];
-	["Offset of field: vorbis_block::totaluse"]
-		[::std::mem::offset_of!(vorbis_block, totaluse) - 136usize];
-	["Offset of field: vorbis_block::reap"][::std::mem::offset_of!(vorbis_block, reap) - 144usize];
-	["Offset of field: vorbis_block::glue_bits"]
-		[::std::mem::offset_of!(vorbis_block, glue_bits) - 152usize];
-	["Offset of field: vorbis_block::time_bits"]
-		[::std::mem::offset_of!(vorbis_block, time_bits) - 160usize];
-	["Offset of field: vorbis_block::floor_bits"]
-		[::std::mem::offset_of!(vorbis_block, floor_bits) - 168usize];
-	["Offset of field: vorbis_block::res_bits"]
-		[::std::mem::offset_of!(vorbis_block, res_bits) - 176usize];
-	["Offset of field: vorbis_block::internal"]
-		[::std::mem::offset_of!(vorbis_block, internal) - 184usize];
-};
+#[test]
+fn bindgen_test_layout_vorbis_block() {
+	const UNINIT: ::std::mem::MaybeUninit<vorbis_block> = ::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<vorbis_block>(),
+		192usize,
+		"Size of vorbis_block"
+	);
+	assert_eq!(
+		::std::mem::align_of::<vorbis_block>(),
+		8usize,
+		"Alignment of vorbis_block"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcm) as usize - ptr as usize },
+		0usize,
+		"Offset of field: vorbis_block::pcm"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).opb) as usize - ptr as usize },
+		8usize,
+		"Offset of field: vorbis_block::opb"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).lW) as usize - ptr as usize },
+		48usize,
+		"Offset of field: vorbis_block::lW"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).W) as usize - ptr as usize },
+		56usize,
+		"Offset of field: vorbis_block::W"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).nW) as usize - ptr as usize },
+		64usize,
+		"Offset of field: vorbis_block::nW"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcmend) as usize - ptr as usize },
+		72usize,
+		"Offset of field: vorbis_block::pcmend"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).mode) as usize - ptr as usize },
+		76usize,
+		"Offset of field: vorbis_block::mode"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).eofflag) as usize - ptr as usize },
+		80usize,
+		"Offset of field: vorbis_block::eofflag"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).granulepos) as usize - ptr as usize },
+		88usize,
+		"Offset of field: vorbis_block::granulepos"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).sequence) as usize - ptr as usize },
+		96usize,
+		"Offset of field: vorbis_block::sequence"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).vd) as usize - ptr as usize },
+		104usize,
+		"Offset of field: vorbis_block::vd"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).localstore) as usize - ptr as usize },
+		112usize,
+		"Offset of field: vorbis_block::localstore"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).localtop) as usize - ptr as usize },
+		120usize,
+		"Offset of field: vorbis_block::localtop"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).localalloc) as usize - ptr as usize },
+		128usize,
+		"Offset of field: vorbis_block::localalloc"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).totaluse) as usize - ptr as usize },
+		136usize,
+		"Offset of field: vorbis_block::totaluse"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).reap) as usize - ptr as usize },
+		144usize,
+		"Offset of field: vorbis_block::reap"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).glue_bits) as usize - ptr as usize },
+		152usize,
+		"Offset of field: vorbis_block::glue_bits"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).time_bits) as usize - ptr as usize },
+		160usize,
+		"Offset of field: vorbis_block::time_bits"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).floor_bits) as usize - ptr as usize },
+		168usize,
+		"Offset of field: vorbis_block::floor_bits"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).res_bits) as usize - ptr as usize },
+		176usize,
+		"Offset of field: vorbis_block::res_bits"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).internal) as usize - ptr as usize },
+		184usize,
+		"Offset of field: vorbis_block::internal"
+	);
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct alloc_chain {
 	pub ptr: *mut ::std::os::raw::c_void,
 	pub next: *mut alloc_chain
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of alloc_chain"][::std::mem::size_of::<alloc_chain>() - 16usize];
-	["Alignment of alloc_chain"][::std::mem::align_of::<alloc_chain>() - 8usize];
-	["Offset of field: alloc_chain::ptr"][::std::mem::offset_of!(alloc_chain, ptr) - 0usize];
-	["Offset of field: alloc_chain::next"][::std::mem::offset_of!(alloc_chain, next) - 8usize];
-};
+#[test]
+fn bindgen_test_layout_alloc_chain() {
+	const UNINIT: ::std::mem::MaybeUninit<alloc_chain> = ::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<alloc_chain>(),
+		16usize,
+		"Size of alloc_chain"
+	);
+	assert_eq!(
+		::std::mem::align_of::<alloc_chain>(),
+		8usize,
+		"Alignment of alloc_chain"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).ptr) as usize - ptr as usize },
+		0usize,
+		"Offset of field: alloc_chain::ptr"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).next) as usize - ptr as usize },
+		8usize,
+		"Offset of field: alloc_chain::next"
+	);
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct vorbis_comment {
@@ -238,19 +472,41 @@ pub struct vorbis_comment {
 	pub comments: ::std::os::raw::c_int,
 	pub vendor: *mut ::std::os::raw::c_char
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of vorbis_comment"][::std::mem::size_of::<vorbis_comment>() - 32usize];
-	["Alignment of vorbis_comment"][::std::mem::align_of::<vorbis_comment>() - 8usize];
-	["Offset of field: vorbis_comment::user_comments"]
-		[::std::mem::offset_of!(vorbis_comment, user_comments) - 0usize];
-	["Offset of field: vorbis_comment::comment_lengths"]
-		[::std::mem::offset_of!(vorbis_comment, comment_lengths) - 8usize];
-	["Offset of field: vorbis_comment::comments"]
-		[::std::mem::offset_of!(vorbis_comment, comments) - 16usize];
-	["Offset of field: vorbis_comment::vendor"]
-		[::std::mem::offset_of!(vorbis_comment, vendor) - 24usize];
-};
+#[test]
+fn bindgen_test_layout_vorbis_comment() {
+	const UNINIT: ::std::mem::MaybeUninit<vorbis_comment> = ::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<vorbis_comment>(),
+		32usize,
+		"Size of vorbis_comment"
+	);
+	assert_eq!(
+		::std::mem::align_of::<vorbis_comment>(),
+		8usize,
+		"Alignment of vorbis_comment"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).user_comments) as usize - ptr as usize },
+		0usize,
+		"Offset of field: vorbis_comment::user_comments"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).comment_lengths) as usize - ptr as usize },
+		8usize,
+		"Offset of field: vorbis_comment::comment_lengths"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).comments) as usize - ptr as usize },
+		16usize,
+		"Offset of field: vorbis_comment::comments"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).vendor) as usize - ptr as usize },
+		24usize,
+		"Offset of field: vorbis_comment::vendor"
+	);
+}
 extern "C" {
 	pub fn vorbis_info_init(vi: *mut vorbis_info);
 }
@@ -501,28 +757,62 @@ pub struct ovectl_ratemanage_arg {
 	#[doc = " Regulates the relative centering of the average and hard windows; in\nlibvorbis 1.0 and 1.0.1, the hard window regulation overlapped but\nfollowed the average window regulation. In libvorbis 1.1 a bit-reservoir\ninterface replaces the old windowing interface; the older windowing\ninterface is simulated and this field has no effect."]
 	pub bitrate_av_window_center: f64
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of ovectl_ratemanage_arg"][::std::mem::size_of::<ovectl_ratemanage_arg>() - 64usize];
-	["Alignment of ovectl_ratemanage_arg"]
-		[::std::mem::align_of::<ovectl_ratemanage_arg>() - 8usize];
-	["Offset of field: ovectl_ratemanage_arg::management_active"]
-		[::std::mem::offset_of!(ovectl_ratemanage_arg, management_active) - 0usize];
-	["Offset of field: ovectl_ratemanage_arg::bitrate_hard_min"]
-		[::std::mem::offset_of!(ovectl_ratemanage_arg, bitrate_hard_min) - 8usize];
-	["Offset of field: ovectl_ratemanage_arg::bitrate_hard_max"]
-		[::std::mem::offset_of!(ovectl_ratemanage_arg, bitrate_hard_max) - 16usize];
-	["Offset of field: ovectl_ratemanage_arg::bitrate_hard_window"]
-		[::std::mem::offset_of!(ovectl_ratemanage_arg, bitrate_hard_window) - 24usize];
-	["Offset of field: ovectl_ratemanage_arg::bitrate_av_lo"]
-		[::std::mem::offset_of!(ovectl_ratemanage_arg, bitrate_av_lo) - 32usize];
-	["Offset of field: ovectl_ratemanage_arg::bitrate_av_hi"]
-		[::std::mem::offset_of!(ovectl_ratemanage_arg, bitrate_av_hi) - 40usize];
-	["Offset of field: ovectl_ratemanage_arg::bitrate_av_window"]
-		[::std::mem::offset_of!(ovectl_ratemanage_arg, bitrate_av_window) - 48usize];
-	["Offset of field: ovectl_ratemanage_arg::bitrate_av_window_center"]
-		[::std::mem::offset_of!(ovectl_ratemanage_arg, bitrate_av_window_center) - 56usize];
-};
+#[test]
+fn bindgen_test_layout_ovectl_ratemanage_arg() {
+	const UNINIT: ::std::mem::MaybeUninit<ovectl_ratemanage_arg> =
+		::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<ovectl_ratemanage_arg>(),
+		64usize,
+		"Size of ovectl_ratemanage_arg"
+	);
+	assert_eq!(
+		::std::mem::align_of::<ovectl_ratemanage_arg>(),
+		8usize,
+		"Alignment of ovectl_ratemanage_arg"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).management_active) as usize - ptr as usize },
+		0usize,
+		"Offset of field: ovectl_ratemanage_arg::management_active"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_hard_min) as usize - ptr as usize },
+		8usize,
+		"Offset of field: ovectl_ratemanage_arg::bitrate_hard_min"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_hard_max) as usize - ptr as usize },
+		16usize,
+		"Offset of field: ovectl_ratemanage_arg::bitrate_hard_max"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_hard_window) as usize - ptr as usize },
+		24usize,
+		"Offset of field: ovectl_ratemanage_arg::bitrate_hard_window"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_av_lo) as usize - ptr as usize },
+		32usize,
+		"Offset of field: ovectl_ratemanage_arg::bitrate_av_lo"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_av_hi) as usize - ptr as usize },
+		40usize,
+		"Offset of field: ovectl_ratemanage_arg::bitrate_av_hi"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_av_window) as usize - ptr as usize },
+		48usize,
+		"Offset of field: ovectl_ratemanage_arg::bitrate_av_window"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_av_window_center) as usize - ptr as usize },
+		56usize,
+		"Offset of field: ovectl_ratemanage_arg::bitrate_av_window_center"
+	);
+}
 #[doc = " \\name struct ovectl_ratemanage2_arg\n\n The ovectl_ratemanage2_arg structure is used with vorbis_encode_ctl() and\n the OV_ECTL_RATEMANAGE2_GET and OV_ECTL_RATEMANAGE2_SET calls in order to\n query and modify specifics of the encoder's bitrate management\n configuration."]
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
@@ -542,26 +832,61 @@ pub struct ovectl_ratemanage2_arg {
 	#[doc = " Slew rate limit setting for average bitrate adjustment; sets the minimum\n  time in seconds the bitrate tracker may swing from one extreme to the\n  other when boosting or damping average bitrate."]
 	pub bitrate_average_damping: f64
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of ovectl_ratemanage2_arg"][::std::mem::size_of::<ovectl_ratemanage2_arg>() - 56usize];
-	["Alignment of ovectl_ratemanage2_arg"]
-		[::std::mem::align_of::<ovectl_ratemanage2_arg>() - 8usize];
-	["Offset of field: ovectl_ratemanage2_arg::management_active"]
-		[::std::mem::offset_of!(ovectl_ratemanage2_arg, management_active) - 0usize];
-	["Offset of field: ovectl_ratemanage2_arg::bitrate_limit_min_kbps"]
-		[::std::mem::offset_of!(ovectl_ratemanage2_arg, bitrate_limit_min_kbps) - 8usize];
-	["Offset of field: ovectl_ratemanage2_arg::bitrate_limit_max_kbps"]
-		[::std::mem::offset_of!(ovectl_ratemanage2_arg, bitrate_limit_max_kbps) - 16usize];
-	["Offset of field: ovectl_ratemanage2_arg::bitrate_limit_reservoir_bits"]
-		[::std::mem::offset_of!(ovectl_ratemanage2_arg, bitrate_limit_reservoir_bits) - 24usize];
-	["Offset of field: ovectl_ratemanage2_arg::bitrate_limit_reservoir_bias"]
-		[::std::mem::offset_of!(ovectl_ratemanage2_arg, bitrate_limit_reservoir_bias) - 32usize];
-	["Offset of field: ovectl_ratemanage2_arg::bitrate_average_kbps"]
-		[::std::mem::offset_of!(ovectl_ratemanage2_arg, bitrate_average_kbps) - 40usize];
-	["Offset of field: ovectl_ratemanage2_arg::bitrate_average_damping"]
-		[::std::mem::offset_of!(ovectl_ratemanage2_arg, bitrate_average_damping) - 48usize];
-};
+#[test]
+fn bindgen_test_layout_ovectl_ratemanage2_arg() {
+	const UNINIT: ::std::mem::MaybeUninit<ovectl_ratemanage2_arg> =
+		::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<ovectl_ratemanage2_arg>(),
+		56usize,
+		"Size of ovectl_ratemanage2_arg"
+	);
+	assert_eq!(
+		::std::mem::align_of::<ovectl_ratemanage2_arg>(),
+		8usize,
+		"Alignment of ovectl_ratemanage2_arg"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).management_active) as usize - ptr as usize },
+		0usize,
+		"Offset of field: ovectl_ratemanage2_arg::management_active"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_limit_min_kbps) as usize - ptr as usize },
+		8usize,
+		"Offset of field: ovectl_ratemanage2_arg::bitrate_limit_min_kbps"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_limit_max_kbps) as usize - ptr as usize },
+		16usize,
+		"Offset of field: ovectl_ratemanage2_arg::bitrate_limit_max_kbps"
+	);
+	assert_eq!(
+		unsafe {
+			::std::ptr::addr_of!((*ptr).bitrate_limit_reservoir_bits) as usize - ptr as usize
+		},
+		24usize,
+		"Offset of field: ovectl_ratemanage2_arg::bitrate_limit_reservoir_bits"
+	);
+	assert_eq!(
+		unsafe {
+			::std::ptr::addr_of!((*ptr).bitrate_limit_reservoir_bias) as usize - ptr as usize
+		},
+		32usize,
+		"Offset of field: ovectl_ratemanage2_arg::bitrate_limit_reservoir_bias"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_average_kbps) as usize - ptr as usize },
+		40usize,
+		"Offset of field: ovectl_ratemanage2_arg::bitrate_average_kbps"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bitrate_average_damping) as usize - ptr as usize },
+		48usize,
+		"Offset of field: ovectl_ratemanage2_arg::bitrate_average_damping"
+	);
+}
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct ov_callbacks {
@@ -587,19 +912,41 @@ pub struct ov_callbacks {
 		unsafe extern "C" fn(datasource: *mut ::std::os::raw::c_void) -> ::std::os::raw::c_long
 	>
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of ov_callbacks"][::std::mem::size_of::<ov_callbacks>() - 32usize];
-	["Alignment of ov_callbacks"][::std::mem::align_of::<ov_callbacks>() - 8usize];
-	["Offset of field: ov_callbacks::read_func"]
-		[::std::mem::offset_of!(ov_callbacks, read_func) - 0usize];
-	["Offset of field: ov_callbacks::seek_func"]
-		[::std::mem::offset_of!(ov_callbacks, seek_func) - 8usize];
-	["Offset of field: ov_callbacks::close_func"]
-		[::std::mem::offset_of!(ov_callbacks, close_func) - 16usize];
-	["Offset of field: ov_callbacks::tell_func"]
-		[::std::mem::offset_of!(ov_callbacks, tell_func) - 24usize];
-};
+#[test]
+fn bindgen_test_layout_ov_callbacks() {
+	const UNINIT: ::std::mem::MaybeUninit<ov_callbacks> = ::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<ov_callbacks>(),
+		32usize,
+		"Size of ov_callbacks"
+	);
+	assert_eq!(
+		::std::mem::align_of::<ov_callbacks>(),
+		8usize,
+		"Alignment of ov_callbacks"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).read_func) as usize - ptr as usize },
+		0usize,
+		"Offset of field: ov_callbacks::read_func"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).seek_func) as usize - ptr as usize },
+		8usize,
+		"Offset of field: ov_callbacks::seek_func"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).close_func) as usize - ptr as usize },
+		16usize,
+		"Offset of field: ov_callbacks::close_func"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).tell_func) as usize - ptr as usize },
+		24usize,
+		"Offset of field: ov_callbacks::tell_func"
+	);
+}
 #[repr(C)]
 pub struct OggVorbis_File {
 	pub datasource: *mut ::std::os::raw::c_void,
@@ -625,48 +972,131 @@ pub struct OggVorbis_File {
 	pub vb: vorbis_block,
 	pub callbacks: ov_callbacks
 }
-#[allow(clippy::unnecessary_operation, clippy::identity_op)]
-const _: () = {
-	["Size of OggVorbis_File"][::std::mem::size_of::<OggVorbis_File>() - 952usize];
-	["Alignment of OggVorbis_File"][::std::mem::align_of::<OggVorbis_File>() - 8usize];
-	["Offset of field: OggVorbis_File::datasource"]
-		[::std::mem::offset_of!(OggVorbis_File, datasource) - 0usize];
-	["Offset of field: OggVorbis_File::seekable"]
-		[::std::mem::offset_of!(OggVorbis_File, seekable) - 8usize];
-	["Offset of field: OggVorbis_File::offset"]
-		[::std::mem::offset_of!(OggVorbis_File, offset) - 16usize];
-	["Offset of field: OggVorbis_File::end"][::std::mem::offset_of!(OggVorbis_File, end) - 24usize];
-	["Offset of field: OggVorbis_File::oy"][::std::mem::offset_of!(OggVorbis_File, oy) - 32usize];
-	["Offset of field: OggVorbis_File::links"]
-		[::std::mem::offset_of!(OggVorbis_File, links) - 64usize];
-	["Offset of field: OggVorbis_File::offsets"]
-		[::std::mem::offset_of!(OggVorbis_File, offsets) - 72usize];
-	["Offset of field: OggVorbis_File::dataoffsets"]
-		[::std::mem::offset_of!(OggVorbis_File, dataoffsets) - 80usize];
-	["Offset of field: OggVorbis_File::serialnos"]
-		[::std::mem::offset_of!(OggVorbis_File, serialnos) - 88usize];
-	["Offset of field: OggVorbis_File::pcmlengths"]
-		[::std::mem::offset_of!(OggVorbis_File, pcmlengths) - 96usize];
-	["Offset of field: OggVorbis_File::vi"][::std::mem::offset_of!(OggVorbis_File, vi) - 104usize];
-	["Offset of field: OggVorbis_File::vc"][::std::mem::offset_of!(OggVorbis_File, vc) - 112usize];
-	["Offset of field: OggVorbis_File::pcm_offset"]
-		[::std::mem::offset_of!(OggVorbis_File, pcm_offset) - 120usize];
-	["Offset of field: OggVorbis_File::ready_state"]
-		[::std::mem::offset_of!(OggVorbis_File, ready_state) - 128usize];
-	["Offset of field: OggVorbis_File::current_serialno"]
-		[::std::mem::offset_of!(OggVorbis_File, current_serialno) - 136usize];
-	["Offset of field: OggVorbis_File::current_link"]
-		[::std::mem::offset_of!(OggVorbis_File, current_link) - 144usize];
-	["Offset of field: OggVorbis_File::bittrack"]
-		[::std::mem::offset_of!(OggVorbis_File, bittrack) - 152usize];
-	["Offset of field: OggVorbis_File::samptrack"]
-		[::std::mem::offset_of!(OggVorbis_File, samptrack) - 160usize];
-	["Offset of field: OggVorbis_File::os"][::std::mem::offset_of!(OggVorbis_File, os) - 168usize];
-	["Offset of field: OggVorbis_File::vd"][::std::mem::offset_of!(OggVorbis_File, vd) - 576usize];
-	["Offset of field: OggVorbis_File::vb"][::std::mem::offset_of!(OggVorbis_File, vb) - 728usize];
-	["Offset of field: OggVorbis_File::callbacks"]
-		[::std::mem::offset_of!(OggVorbis_File, callbacks) - 920usize];
-};
+#[test]
+fn bindgen_test_layout_OggVorbis_File() {
+	const UNINIT: ::std::mem::MaybeUninit<OggVorbis_File> = ::std::mem::MaybeUninit::uninit();
+	let ptr = UNINIT.as_ptr();
+	assert_eq!(
+		::std::mem::size_of::<OggVorbis_File>(),
+		952usize,
+		"Size of OggVorbis_File"
+	);
+	assert_eq!(
+		::std::mem::align_of::<OggVorbis_File>(),
+		8usize,
+		"Alignment of OggVorbis_File"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).datasource) as usize - ptr as usize },
+		0usize,
+		"Offset of field: OggVorbis_File::datasource"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).seekable) as usize - ptr as usize },
+		8usize,
+		"Offset of field: OggVorbis_File::seekable"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).offset) as usize - ptr as usize },
+		16usize,
+		"Offset of field: OggVorbis_File::offset"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).end) as usize - ptr as usize },
+		24usize,
+		"Offset of field: OggVorbis_File::end"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).oy) as usize - ptr as usize },
+		32usize,
+		"Offset of field: OggVorbis_File::oy"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).links) as usize - ptr as usize },
+		64usize,
+		"Offset of field: OggVorbis_File::links"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).offsets) as usize - ptr as usize },
+		72usize,
+		"Offset of field: OggVorbis_File::offsets"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).dataoffsets) as usize - ptr as usize },
+		80usize,
+		"Offset of field: OggVorbis_File::dataoffsets"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).serialnos) as usize - ptr as usize },
+		88usize,
+		"Offset of field: OggVorbis_File::serialnos"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcmlengths) as usize - ptr as usize },
+		96usize,
+		"Offset of field: OggVorbis_File::pcmlengths"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).vi) as usize - ptr as usize },
+		104usize,
+		"Offset of field: OggVorbis_File::vi"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).vc) as usize - ptr as usize },
+		112usize,
+		"Offset of field: OggVorbis_File::vc"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).pcm_offset) as usize - ptr as usize },
+		120usize,
+		"Offset of field: OggVorbis_File::pcm_offset"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).ready_state) as usize - ptr as usize },
+		128usize,
+		"Offset of field: OggVorbis_File::ready_state"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).current_serialno) as usize - ptr as usize },
+		136usize,
+		"Offset of field: OggVorbis_File::current_serialno"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).current_link) as usize - ptr as usize },
+		144usize,
+		"Offset of field: OggVorbis_File::current_link"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).bittrack) as usize - ptr as usize },
+		152usize,
+		"Offset of field: OggVorbis_File::bittrack"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).samptrack) as usize - ptr as usize },
+		160usize,
+		"Offset of field: OggVorbis_File::samptrack"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).os) as usize - ptr as usize },
+		168usize,
+		"Offset of field: OggVorbis_File::os"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).vd) as usize - ptr as usize },
+		576usize,
+		"Offset of field: OggVorbis_File::vd"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).vb) as usize - ptr as usize },
+		728usize,
+		"Offset of field: OggVorbis_File::vb"
+	);
+	assert_eq!(
+		unsafe { ::std::ptr::addr_of!((*ptr).callbacks) as usize - ptr as usize },
+		920usize,
+		"Offset of field: OggVorbis_File::callbacks"
+	);
+}
 extern "C" {
 	pub fn ov_clear(vf: *mut OggVorbis_File) -> ::std::os::raw::c_int;
 }
