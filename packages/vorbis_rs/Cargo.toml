@@ -26,7 +26,7 @@ tinyvec = { version = "1.8.0", default-features = false, features = [
   "alloc",
   "rustc_1_57",
 ] }
-thiserror = "2.0.3"
+thiserror = "2.0.6"
 
 getrandom = { version = "0.2.15", features = ["std"], optional = true }
 
