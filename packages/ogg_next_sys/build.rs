@@ -24,7 +24,7 @@ fn main() {
 		.allowlist_function("ogg.*")
 		.allowlist_type("ogg.*")
 		.blocklist_item("__.*")
-		.rust_target(RustTarget::Stable_1_77)
+		.rust_target(RustTarget::Stable_1_82)
 		.layout_tests(false) // Type layout is platform-specific
 		.generate()
 		.expect("Unable to generate bindings")

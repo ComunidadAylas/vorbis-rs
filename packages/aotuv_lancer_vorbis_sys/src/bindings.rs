@@ -112,78 +112,78 @@ pub struct vorbis_comment {
 	pub comments: ::std::os::raw::c_int,
 	pub vendor: *mut ::std::os::raw::c_char
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_info_init(vi: *mut vorbis_info);
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_info_clear(vi: *mut vorbis_info);
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_info_blocksize(
 		vi: *mut vorbis_info,
 		zo: ::std::os::raw::c_int
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_comment_init(vc: *mut vorbis_comment);
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_comment_add(vc: *mut vorbis_comment, comment: *const ::std::os::raw::c_char);
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_comment_add_tag(
 		vc: *mut vorbis_comment,
 		tag: *const ::std::os::raw::c_char,
 		contents: *const ::std::os::raw::c_char
 	);
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_comment_query(
 		vc: *mut vorbis_comment,
 		tag: *const ::std::os::raw::c_char,
 		count: ::std::os::raw::c_int
 	) -> *mut ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_comment_query_count(
 		vc: *mut vorbis_comment,
 		tag: *const ::std::os::raw::c_char
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_comment_clear(vc: *mut vorbis_comment);
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_block_init(
 		v: *mut vorbis_dsp_state,
 		vb: *mut vorbis_block
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_block_clear(vb: *mut vorbis_block) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_dsp_clear(v: *mut vorbis_dsp_state);
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_granule_time(v: *mut vorbis_dsp_state, granulepos: ogg_int64_t) -> f64;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_version_string() -> *const ::std::os::raw::c_char;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_analysis_init(
 		v: *mut vorbis_dsp_state,
 		vi: *mut vorbis_info
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_commentheader_out(
 		vc: *mut vorbis_comment,
 		op: *mut ogg_packet
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_analysis_headerout(
 		v: *mut vorbis_dsp_state,
 		vc: *mut vorbis_comment,
@@ -192,104 +192,104 @@ extern "C" {
 		op_code: *mut ogg_packet
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_analysis_buffer(
 		v: *mut vorbis_dsp_state,
 		vals: ::std::os::raw::c_int
 	) -> *mut *mut f32;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_analysis_wrote(
 		v: *mut vorbis_dsp_state,
 		vals: ::std::os::raw::c_int
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_analysis_blockout(
 		v: *mut vorbis_dsp_state,
 		vb: *mut vorbis_block
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_analysis(vb: *mut vorbis_block, op: *mut ogg_packet) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_bitrate_addblock(vb: *mut vorbis_block) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_bitrate_flushpacket(
 		vd: *mut vorbis_dsp_state,
 		op: *mut ogg_packet
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_idheader(op: *mut ogg_packet) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_headerin(
 		vi: *mut vorbis_info,
 		vc: *mut vorbis_comment,
 		op: *mut ogg_packet
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_init(
 		v: *mut vorbis_dsp_state,
 		vi: *mut vorbis_info
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_restart(v: *mut vorbis_dsp_state) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis(vb: *mut vorbis_block, op: *mut ogg_packet) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_trackonly(
 		vb: *mut vorbis_block,
 		op: *mut ogg_packet
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_blockin(
 		v: *mut vorbis_dsp_state,
 		vb: *mut vorbis_block
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_pcmout(
 		v: *mut vorbis_dsp_state,
 		pcm: *mut *mut *mut f32
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_lapout(
 		v: *mut vorbis_dsp_state,
 		pcm: *mut *mut *mut f32
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_read(
 		v: *mut vorbis_dsp_state,
 		samples: ::std::os::raw::c_int
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_packet_blocksize(
 		vi: *mut vorbis_info,
 		op: *mut ogg_packet
 	) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_halfrate(
 		v: *mut vorbis_info,
 		flag: ::std::os::raw::c_int
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn vorbis_synthesis_halfrate_p(v: *mut vorbis_info) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	#[doc = " This is the primary function within libvorbisenc for setting up managed\n bitrate modes.\n\n Before this function is called, the \\ref vorbis_info\n struct should be initialized by using vorbis_info_init() from the libvorbis\n API.  After encoding, vorbis_info_clear() should be called.\n\n The max_bitrate, nominal_bitrate, and min_bitrate settings are used to set\n constraints for the encoded file.  This function uses these settings to\n select the appropriate encoding mode and set it up.\n\n \\param vi               Pointer to an initialized \\ref vorbis_info struct.\n \\param channels         The number of channels to be encoded.\n \\param rate             The sampling rate of the source audio.\n \\param max_bitrate      Desired maximum bitrate (limit). -1 indicates unset.\n \\param nominal_bitrate  Desired average, or central, bitrate. -1 indicates unset.\n \\param min_bitrate      Desired minimum bitrate. -1 indicates unset.\n\n \\return Zero for success, and negative values for failure.\n\n \\retval 0          Success.\n \\retval OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption.\n \\retval OV_EINVAL  Invalid setup request, eg, out of range argument.\n \\retval OV_EIMPL   Unimplemented mode; unable to comply with bitrate request."]
 	pub fn vorbis_encode_init(
 		vi: *mut vorbis_info,
@@ -300,7 +300,7 @@ extern "C" {
 		min_bitrate: ::std::os::raw::c_long
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	#[doc = " This function performs step-one of a three-step bitrate-managed encode\n setup.  It functions similarly to the one-step setup performed by \\ref\n vorbis_encode_init but allows an application to make further encode setup\n tweaks using \\ref vorbis_encode_ctl before finally calling \\ref\n vorbis_encode_setup_init to complete the setup process.\n\n Before this function is called, the \\ref vorbis_info struct should be\n initialized by using vorbis_info_init() from the libvorbis API.  After\n encoding, vorbis_info_clear() should be called.\n\n The max_bitrate, nominal_bitrate, and min_bitrate settings are used to set\n constraints for the encoded file.  This function uses these settings to\n select the appropriate encoding mode and set it up.\n\n \\param vi                Pointer to an initialized vorbis_info struct.\n \\param channels          The number of channels to be encoded.\n \\param rate              The sampling rate of the source audio.\n \\param max_bitrate       Desired maximum bitrate (limit). -1 indicates unset.\n \\param nominal_bitrate   Desired average, or central, bitrate. -1 indicates unset.\n \\param min_bitrate       Desired minimum bitrate. -1 indicates unset.\n\n \\return Zero for success, and negative for failure.\n\n \\retval 0           Success\n \\retval OV_EFAULT   Internal logic fault; indicates a bug or heap/stack corruption.\n \\retval OV_EINVAL   Invalid setup request, eg, out of range argument.\n \\retval OV_EIMPL    Unimplemented mode; unable to comply with bitrate request."]
 	pub fn vorbis_encode_setup_managed(
 		vi: *mut vorbis_info,
@@ -311,7 +311,7 @@ extern "C" {
 		min_bitrate: ::std::os::raw::c_long
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	#[doc = " This function performs step-one of a three-step variable bitrate\n (quality-based) encode setup.  It functions similarly to the one-step setup\n performed by \\ref vorbis_encode_init_vbr() but allows an application to\n make further encode setup tweaks using \\ref vorbis_encode_ctl() before\n finally calling \\ref vorbis_encode_setup_init to complete the setup\n process.\n\n Before this function is called, the \\ref vorbis_info struct should be\n initialized by using \\ref vorbis_info_init() from the libvorbis API.  After\n encoding, vorbis_info_clear() should be called.\n\n \\param vi        Pointer to an initialized vorbis_info struct.\n \\param channels  The number of channels to be encoded.\n \\param rate      The sampling rate of the source audio.\n \\param quality   Desired quality level, currently from -0.1 to 1.0 (lo to hi).\n\n \\return Zero for success, and negative values for failure.\n\n \\retval  0          Success\n \\retval  OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption.\n \\retval  OV_EINVAL  Invalid setup request, eg, out of range argument.\n \\retval  OV_EIMPL   Unimplemented mode; unable to comply with quality level request."]
 	pub fn vorbis_encode_setup_vbr(
 		vi: *mut vorbis_info,
@@ -320,7 +320,7 @@ extern "C" {
 		quality: f32
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	#[doc = " This is the primary function within libvorbisenc for setting up variable\n bitrate (\"quality\" based) modes.\n\n\n Before this function is called, the vorbis_info struct should be\n initialized by using vorbis_info_init() from the libvorbis API. After\n encoding, vorbis_info_clear() should be called.\n\n \\param vi           Pointer to an initialized vorbis_info struct.\n \\param channels     The number of channels to be encoded.\n \\param rate         The sampling rate of the source audio.\n \\param base_quality Desired quality level, currently from -0.1 to 1.0 (lo to hi).\n\n\n \\return Zero for success, or a negative number for failure.\n\n \\retval 0           Success\n \\retval OV_EFAULT   Internal logic fault; indicates a bug or heap/stack corruption.\n \\retval OV_EINVAL   Invalid setup request, eg, out of range argument.\n \\retval OV_EIMPL    Unimplemented mode; unable to comply with quality level request."]
 	pub fn vorbis_encode_init_vbr(
 		vi: *mut vorbis_info,
@@ -329,11 +329,11 @@ extern "C" {
 		base_quality: f32
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	#[doc = " This function performs the last stage of three-step encoding setup, as\n described in the API overview under managed bitrate modes.\n\n Before this function is called, the \\ref vorbis_info struct should be\n initialized by using vorbis_info_init() from the libvorbis API, one of\n \\ref vorbis_encode_setup_managed() or \\ref vorbis_encode_setup_vbr() called to\n initialize the high-level encoding setup, and \\ref vorbis_encode_ctl()\n called if necessary to make encoding setup changes.\n vorbis_encode_setup_init() finalizes the highlevel encoding structure into\n a complete encoding setup after which the application may make no further\n setup changes.\n\n After encoding, vorbis_info_clear() should be called.\n\n \\param vi Pointer to an initialized \\ref vorbis_info struct.\n\n \\return Zero for success, and negative values for failure.\n\n \\retval  0           Success.\n \\retval  OV_EFAULT  Internal logic fault; indicates a bug or heap/stack corruption.\n\n \\retval OV_EINVAL   Attempt to use vorbis_encode_setup_init() without first\n calling one of vorbis_encode_setup_managed() or vorbis_encode_setup_vbr() to\n initialize the high-level encoding setup\n"]
 	pub fn vorbis_encode_setup_init(vi: *mut vorbis_info) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	#[doc = " This function implements a generic interface to miscellaneous encoder\n settings similar to the classic UNIX 'ioctl()' system call.  Applications\n may use vorbis_encode_ctl() to query or set bitrate management or quality\n mode details by using one of several \\e request arguments detailed below.\n vorbis_encode_ctl() must be called after one of\n vorbis_encode_setup_managed() or vorbis_encode_setup_vbr().  When used\n to modify settings, \\ref vorbis_encode_ctl() must be called before \\ref\n vorbis_encode_setup_init().\n\n \\param vi      Pointer to an initialized vorbis_info struct.\n\n \\param number Specifies the desired action; See \\ref encctlcodes \"the list\n of available requests\".\n\n \\param arg void * pointing to a data structure matching the request\n argument.\n\n \\retval 0          Success. Any further return information (such as the result of a\n query) is placed into the storage pointed to by *arg.\n\n \\retval OV_EINVAL  Invalid argument, or an attempt to modify a setting after\n calling vorbis_encode_setup_init().\n\n \\retval OV_EIMPL   Unimplemented or unknown request"]
 	pub fn vorbis_encode_ctl(
 		vi: *mut vorbis_info,
@@ -431,10 +431,10 @@ pub struct OggVorbis_File {
 	pub vb: vorbis_block,
 	pub callbacks: ov_callbacks
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_clear(vf: *mut OggVorbis_File) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_open_callbacks(
 		datasource: *mut ::std::os::raw::c_void,
 		vf: *mut OggVorbis_File,
@@ -443,7 +443,7 @@ extern "C" {
 		callbacks: ov_callbacks
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_test_callbacks(
 		datasource: *mut ::std::os::raw::c_void,
 		vf: *mut OggVorbis_File,
@@ -452,83 +452,83 @@ extern "C" {
 		callbacks: ov_callbacks
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_test_open(vf: *mut OggVorbis_File) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_bitrate(vf: *mut OggVorbis_File, i: ::std::os::raw::c_int) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_bitrate_instant(vf: *mut OggVorbis_File) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_streams(vf: *mut OggVorbis_File) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_seekable(vf: *mut OggVorbis_File) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_serialnumber(
 		vf: *mut OggVorbis_File,
 		i: ::std::os::raw::c_int
 	) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_raw_total(vf: *mut OggVorbis_File, i: ::std::os::raw::c_int) -> ogg_int64_t;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_pcm_total(vf: *mut OggVorbis_File, i: ::std::os::raw::c_int) -> ogg_int64_t;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_time_total(vf: *mut OggVorbis_File, i: ::std::os::raw::c_int) -> f64;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_raw_seek(vf: *mut OggVorbis_File, pos: ogg_int64_t) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_pcm_seek(vf: *mut OggVorbis_File, pos: ogg_int64_t) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_pcm_seek_page(vf: *mut OggVorbis_File, pos: ogg_int64_t) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_time_seek(vf: *mut OggVorbis_File, pos: f64) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_time_seek_page(vf: *mut OggVorbis_File, pos: f64) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_raw_seek_lap(vf: *mut OggVorbis_File, pos: ogg_int64_t) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_pcm_seek_lap(vf: *mut OggVorbis_File, pos: ogg_int64_t) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_pcm_seek_page_lap(vf: *mut OggVorbis_File, pos: ogg_int64_t)
 		-> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_time_seek_lap(vf: *mut OggVorbis_File, pos: f64) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_time_seek_page_lap(vf: *mut OggVorbis_File, pos: f64) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_raw_tell(vf: *mut OggVorbis_File) -> ogg_int64_t;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_pcm_tell(vf: *mut OggVorbis_File) -> ogg_int64_t;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_time_tell(vf: *mut OggVorbis_File) -> f64;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_info(vf: *mut OggVorbis_File, link: ::std::os::raw::c_int) -> *mut vorbis_info;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_comment(vf: *mut OggVorbis_File, link: ::std::os::raw::c_int) -> *mut vorbis_comment;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_read_float(
 		vf: *mut OggVorbis_File,
 		pcm_channels: *mut *mut *mut f32,
@@ -536,7 +536,7 @@ extern "C" {
 		bitstream: *mut ::std::os::raw::c_int
 	) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_read_filter(
 		vf: *mut OggVorbis_File,
 		buffer: *mut ::std::os::raw::c_char,
@@ -556,7 +556,7 @@ extern "C" {
 		filter_param: *mut ::std::os::raw::c_void
 	) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_read(
 		vf: *mut OggVorbis_File,
 		buffer: *mut ::std::os::raw::c_char,
@@ -567,16 +567,16 @@ extern "C" {
 		bitstream: *mut ::std::os::raw::c_int
 	) -> ::std::os::raw::c_long;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_crosslap(vf1: *mut OggVorbis_File, vf2: *mut OggVorbis_File)
 		-> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_halfrate(
 		vf: *mut OggVorbis_File,
 		flag: ::std::os::raw::c_int
 	) -> ::std::os::raw::c_int;
 }
-extern "C" {
+unsafe extern "C" {
 	pub fn ov_halfrate_p(vf: *mut OggVorbis_File) -> ::std::os::raw::c_int;
 }
