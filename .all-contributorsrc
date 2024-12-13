@@ -59,6 +59,15 @@
       "contributions": [
         "bug"
       ]
+    },
+    {
+      "login": "jasonyu1996",
+      "name": "Jason Yu",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6760768?v=4",
+      "profile": "https://www.comp.nus.edu.sg/~yuz1996/",
+      "contributions": [
+        "security"
+      ]
     }
   ],
   "contributorsPerLine": 7

@@ -128,6 +128,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://dulc.es/@martin"><img src="https://avatars.githubusercontent.com/u/227204?v=4?s=100" width="100px;" alt="Martin Algesten"/><br /><sub><b>Martin Algesten</b></sub></a><br /><a href="https://github.com/ComunidadAylas/vorbis-rs/commits?author=algesten" title="Code">💻</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://github.com/astral4"><img src="https://avatars.githubusercontent.com/u/88992929?v=4?s=100" width="100px;" alt="Kyle Chen"/><br /><sub><b>Kyle Chen</b></sub></a><br /><a href="#ideas-astral4" title="Ideas, Planning, & Feedback">🤔</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://mastodon.gamedev.place/@daniel_collin"><img src="https://avatars.githubusercontent.com/u/350822?v=4?s=100" width="100px;" alt="Daniel Collin"/><br /><sub><b>Daniel Collin</b></sub></a><br /><a href="https://github.com/ComunidadAylas/vorbis-rs/issues?q=author%3Aemoon" title="Bug reports">🐛</a></td>
+      <td align="center" valign="top" width="14.28%"><a href="https://www.comp.nus.edu.sg/~yuz1996/"><img src="https://avatars.githubusercontent.com/u/6760768?v=4?s=100" width="100px;" alt="Jason Yu"/><br /><sub><b>Jason Yu</b></sub></a><br /><a href="#security-jasonyu1996" title="Security">🛡️</a></td>
     </tr>
   </tbody>
 </table>
