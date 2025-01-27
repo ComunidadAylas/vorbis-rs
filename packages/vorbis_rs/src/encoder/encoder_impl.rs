@@ -272,7 +272,7 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 		// not whether it's cryptographically-secure
 		let mut stream_serial_buf = [MaybeUninit::uninit(); size_of::<i32>()];
 		Ok(i32::from_ne_bytes(
-			getrandom::getrandom_uninit(&mut stream_serial_buf)?
+			getrandom::fill_uninit(&mut stream_serial_buf)?
 				.try_into()
 				.unwrap()
 		))
