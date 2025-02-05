@@ -23,6 +23,9 @@
 //!                       method, which automatically configures such a builder with suitable random
 //!                       Ogg stream serial numbers. This feature pulls dependencies on random number
 //!                       generation crates.
+//! - `wasm-js`           Enables the 'wasm_js' feature flag on [getrandom](https://crates.io/crates/getrandom).
+//!                       Used to enable [WebAssembly support](https://docs.rs/getrandom/latest/getrandom/#webassembly-support)
+//!                       for JavaScript environments.
 //!
 //! # Examples
 //!

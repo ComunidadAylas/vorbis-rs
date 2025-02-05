@@ -33,6 +33,7 @@ getrandom = { version = "0.3.0", features = ["std"], optional = true }
 [features]
 default = ["stream-serial-rng"]
 stream-serial-rng = ["dep:getrandom"]
+wasm-js = ["getrandom?/wasm_js"]
 
 [package.metadata.docs.rs]
 rustdoc-args = ["--cfg", "docsrs"]
