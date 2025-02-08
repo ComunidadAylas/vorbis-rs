@@ -68,6 +68,15 @@
       "contributions": [
         "security"
       ]
+    },
+    {
+      "login": "pdesjardins90",
+      "name": "Philippe Desjardins",
+      "avatar_url": "https://avatars.githubusercontent.com/u/6752776?v=4",
+      "profile": "https://logisparte.com/",
+      "contributions": [
+        "code"
+      ]
     }
   ],
   "contributorsPerLine": 7
