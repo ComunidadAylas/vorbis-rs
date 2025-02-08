@@ -8,7 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Added
+
+- The `wasm-js` feature was introduced to enhance the usability of `vorbis_rs`
+  in JavaScript web assembly environments.
 
 ## [0.5.5] - 2024-12-13
 
