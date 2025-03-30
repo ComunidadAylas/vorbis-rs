@@ -1,6 +1,6 @@
 //! Tests for ensuring past issues are kept fixed.
 
-use std::num::{NonZeroU32, NonZeroU8};
+use std::num::{NonZeroU8, NonZeroU32};
 
 use vorbis_rs::{VorbisDecoder, VorbisEncoderBuilder};
 

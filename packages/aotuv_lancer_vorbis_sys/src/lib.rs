@@ -16,7 +16,7 @@ mod test {
 		ffi::CStr,
 		io::{Cursor, Read, Write},
 		mem::MaybeUninit,
-		os::raw::{c_int, c_long, c_void},
+		os::raw::{c_int, c_void},
 		ptr, slice
 	};
 
@@ -53,8 +53,10 @@ mod test {
 								count: usize,
 								datasource: *mut std::ffi::c_void
 							) -> usize {
-								let data = &mut *(datasource as *mut Cursor<&[u8]>);
-								let buf = slice::from_raw_parts_mut(ptr as *mut u8, size * count);
+								let data = unsafe { &mut *(datasource as *mut Cursor<&[u8]>) };
+								let buf = unsafe {
+									slice::from_raw_parts_mut(ptr as *mut u8, size * count)
+								};
 								match data.read(buf) {
 									Ok(n) => n / size,
 									Err(_) => 0
@@ -92,7 +94,7 @@ mod test {
 				// Pure VBR chosen by quality factor, no bitrate management engine
 				vorbis_encode_init_vbr(
 					vorbis_info,
-					ogg_vorbis_info.channels as c_long,
+					ogg_vorbis_info.channels.into(),
 					ogg_vorbis_info.rate,
 					-0.2 // The worst possible quality for aoTuV for the smallest size
 				),

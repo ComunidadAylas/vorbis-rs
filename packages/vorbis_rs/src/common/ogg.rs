@@ -1,4 +1,4 @@
-use std::{io::Write, mem::MaybeUninit, os::raw::c_int, slice};
+use std::{io::Write, mem::MaybeUninit, slice};
 
 use ogg_next_sys::{
 	ogg_packet, ogg_page, ogg_stream_clear, ogg_stream_flush, ogg_stream_init, ogg_stream_packetin,
@@ -54,7 +54,7 @@ impl OggStream {
 					ogg_stream_pageout_fill(
 						&mut self.ogg_stream,
 						ogg_page.as_mut_ptr(),
-						minimum_page_data_size as c_int
+						minimum_page_data_size.into()
 					)
 				} else {
 					ogg_stream_pageout(&mut self.ogg_stream, ogg_page.as_mut_ptr())

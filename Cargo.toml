@@ -1,13 +1,13 @@
 [workspace]
 members = ["packages/*"]
-resolver = "2"
+resolver = "3"
 
 [workspace.package]
 authors = ["Alejandro González <me@alegon.dev>"]
 license = "BSD-3-Clause"
 repository = "https://github.com/ComunidadAylas/vorbis-rs"
-edition = "2021"
-rust-version = "1.82.0"
+edition = "2024"
+rust-version = "1.85.0"
 
 [workspace.dependencies]
 aotuv_lancer_vorbis_sys = { version = "0.1.5", path = "packages/aotuv_lancer_vorbis_sys" }

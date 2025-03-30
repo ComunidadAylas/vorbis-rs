@@ -2,7 +2,7 @@ use std::{
 	borrow::Cow,
 	io::Write,
 	mem::MaybeUninit,
-	num::{NonZeroU32, NonZeroU8},
+	num::{NonZeroU8, NonZeroU32},
 	ptr, slice
 };
 
@@ -486,7 +486,7 @@ impl<W: Write> Drop for VorbisEncoder<W> {
 mod test {
 	use std::{
 		io,
-		num::{NonZeroU32, NonZeroU8}
+		num::{NonZeroU8, NonZeroU32}
 	};
 
 	use super::VorbisEncoderBuilder;

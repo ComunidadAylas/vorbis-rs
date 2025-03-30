@@ -1,6 +1,6 @@
 use std::slice;
 
-use tinyvec::{tiny_vec, TinyVec};
+use tinyvec::{TinyVec, tiny_vec};
 
 #[allow(unused_imports)]
 use crate::VorbisDecoder;

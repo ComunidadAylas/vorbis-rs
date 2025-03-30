@@ -35,7 +35,9 @@ pub enum VorbisError {
 		actual: usize
 	},
 	/// The input stream is a chained Ogg Vorbis stream, which is not supported by these bindings.
-	#[error("Chained Ogg Vorbis streams are not supported. Please combine them into a single logical stream")]
+	#[error(
+		"Chained Ogg Vorbis streams are not supported. Please combine them into a single logical stream"
+	)]
 	UnsupportedStreamChaining,
 	/// A requested Vorbis user comment string contains a NUL character, which is not allowed.
 	#[error("Invalid comment string: {0}")]

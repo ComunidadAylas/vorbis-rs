@@ -4,15 +4,15 @@ use std::{
 	io::Read,
 	marker::PhantomData,
 	mem::MaybeUninit,
-	num::{NonZeroU32, NonZeroU8},
+	num::{NonZeroU8, NonZeroU32},
 	os::raw::c_int,
 	ptr
 };
 
 use aotuv_lancer_vorbis_sys::{
-	ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float, OggVorbis_File
+	OggVorbis_File, ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float
 };
-use errno::{set_errno, Errno};
+use errno::{Errno, set_errno};
 
 use crate::{common::VorbisError, decoder::VorbisAudioSamples};
 
@@ -58,8 +58,9 @@ impl<R: Read> VorbisDecoder<R> {
 							count: usize,
 							datasource: *mut c_void
 						) -> usize {
-							let source = &mut *(datasource.cast::<R>());
-							let buf = slice::from_raw_parts_mut(ptr.cast(), size * count);
+							let source = unsafe { &mut *(datasource.cast::<R>()) };
+							let buf =
+								unsafe { slice::from_raw_parts_mut(ptr.cast(), size * count) };
 							match source.read(buf) {
 								Ok(n) => n / size,
 								Err(err) => {
@@ -82,7 +83,7 @@ impl<R: Read> VorbisDecoder<R> {
 						unsafe extern "C" fn close_func<R: Read>(datasource: *mut c_void) -> c_int {
 							// Drop the Read when it's no longer needed by vorbisfile.
 							// This is called by ov_clear
-							drop(Box::from_raw(datasource.cast::<R>()));
+							drop(unsafe { Box::from_raw(datasource.cast::<R>()) });
 
 							0
 						}

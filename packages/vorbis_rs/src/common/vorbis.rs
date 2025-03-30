@@ -2,16 +2,16 @@ use std::{
 	borrow::Cow,
 	ffi::CString,
 	mem::MaybeUninit,
-	num::{NonZeroU32, NonZeroU8},
-	os::raw::{c_int, c_long},
+	num::{NonZeroU8, NonZeroU32},
+	os::raw::c_int,
 	ptr
 };
 
 use aotuv_lancer_vorbis_sys::{
-	vorbis_comment, vorbis_comment_add_tag, vorbis_comment_clear, vorbis_comment_init,
-	vorbis_encode_ctl, vorbis_encode_init, vorbis_encode_init_vbr, vorbis_encode_setup_init,
-	vorbis_encode_setup_managed, vorbis_info, vorbis_info_clear, vorbis_info_init,
-	OV_ECTL_RATEMANAGE2_SET
+	OV_ECTL_RATEMANAGE2_SET, vorbis_comment, vorbis_comment_add_tag, vorbis_comment_clear,
+	vorbis_comment_init, vorbis_encode_ctl, vorbis_encode_init, vorbis_encode_init_vbr,
+	vorbis_encode_setup_init, vorbis_encode_setup_managed, vorbis_info, vorbis_info_clear,
+	vorbis_info_init
 };
 
 use crate::common::VorbisError;
@@ -56,7 +56,7 @@ impl VorbisInfo {
 		unsafe {
 			libvorbisenc_return_value_to_result!(vorbis_encode_setup_managed(
 				self.vorbis_info,
-				channels.get() as c_long,
+				channels.get().into(),
 				sampling_frequency.get().try_into()?,
 				-1,
 				target_bitrate.get().try_into()?,
@@ -100,7 +100,7 @@ impl VorbisInfo {
 			// SAFETY: we assume vorbis_encode_init_vbr follows its documented contract
 			libvorbisenc_return_value_to_result!(vorbis_encode_init_vbr(
 				self.vorbis_info,
-				channels.get() as c_long,
+				channels.get().into(),
 				sampling_frequency.get().try_into()?,
 				quality_factor
 			))?;
@@ -127,7 +127,7 @@ impl VorbisInfo {
 		unsafe {
 			libvorbisenc_return_value_to_result!(vorbis_encode_init(
 				self.vorbis_info,
-				channels.get() as c_long,
+				channels.get().into(),
 				sampling_frequency.get().try_into()?,
 				-1,
 				average_bitrate.get().try_into()?,
@@ -158,7 +158,7 @@ impl VorbisInfo {
 		unsafe {
 			libvorbisenc_return_value_to_result!(vorbis_encode_init(
 				self.vorbis_info,
-				channels.get() as c_long,
+				channels.get().into(),
 				sampling_frequency.get().try_into()?,
 				maximum_bitrate.get().try_into()?,
 				-1,

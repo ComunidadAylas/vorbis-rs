@@ -8,6 +8,10 @@ and this project adheres to
 
 ## [Unreleased]
 
+### Changed
+
+- Bumped MSRV to 1.85 due to refactors to use the Rust 2024 edition.
+
 ### Added
 
 - The `wasm-js` feature was introduced to enhance the usability of `vorbis_rs`
