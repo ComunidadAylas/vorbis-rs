@@ -1,51 +1,51 @@
 [package]
 name = "aotuv_lancer_vorbis_sys"
-description = "Low-level FFI bindings for libvorbis, vorbisfile, and libvorbisenc C libraries with the aoTuV and Lancer patches"
-authors.workspace = true
-license.workspace = true
 version = "0.1.5"
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Low-level FFI bindings for libvorbis, vorbisfile, and libvorbisenc C libraries with the aoTuV and Lancer patches"
+documentation = "https://docs.rs/aotuv_lancer_vorbis_sys"
 readme = "../../README.md"
 repository.workspace = true
-documentation = "https://docs.rs/aotuv_lancer_vorbis_sys"
-edition.workspace = true
-links = "vorbis"
-rust-version.workspace = true
-keywords = ["libvorbis", "vorbisfile", "libvorbisenc", "aotuv", "lancer"]
+license.workspace = true
+keywords = ["aotuv", "lancer", "libvorbis", "libvorbisenc", "vorbisfile"]
 categories = [
   "external-ffi-bindings",
   "multimedia",
   "multimedia::audio",
   "multimedia::encoding",
 ]
+links = "vorbis"
 exclude = [
+  "/ogg_vendor/**/*.ac",
+  "/ogg_vendor/**/*.am",
+  "/ogg_vendor/**/*.in",
+  "/ogg_vendor/**/*.m4",
   "/ogg_vendor/**/.*",
+  "/ogg_vendor/README.md",
   "/ogg_vendor/cmake",
   "/ogg_vendor/doc",
   "/ogg_vendor/win32",
-  "/ogg_vendor/README.md",
-  "/ogg_vendor/**/*.ac",
-  "/ogg_vendor/**/*.m4",
-  "/ogg_vendor/**/*.in",
-  "/ogg_vendor/**/*.am",
+  "/src/*.ogg",
+  "/vorbis_vendor/**/*.ac",
+  "/vorbis_vendor/**/*.am",
+  "/vorbis_vendor/**/*.in",
+  "/vorbis_vendor/**/*.m4",
   "/vorbis_vendor/**/.*",
+  "/vorbis_vendor/README.md",
   "/vorbis_vendor/cmake",
   "/vorbis_vendor/doc",
-  "/vorbis_vendor/win32",
   "/vorbis_vendor/test/**/*",
-  "/vorbis_vendor/README.md",
-  "/vorbis_vendor/**/*.ac",
-  "/vorbis_vendor/**/*.m4",
-  "/vorbis_vendor/**/*.in",
-  "/vorbis_vendor/**/*.am",
-  "/src/*.ogg",
+  "/vorbis_vendor/win32",
 ]
 
 [dependencies]
 ogg_next_sys.workspace = true
 
 [build-dependencies]
-cc.workspace = true
 bindgen = { workspace = true, optional = true }
+cc.workspace = true
 
 [features]
 # Requires Clang and slows down the build, but guarantees that the bindings are tailored for the platform and up to date.

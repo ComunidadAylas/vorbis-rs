@@ -1,15 +1,14 @@
 [package]
 name = "ogg_next_sys"
-description = "Updated low-level FFI bindings for the upstream libogg C library"
-authors.workspace = true
-license.workspace = true
 version = "0.1.4"
+authors.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+description = "Updated low-level FFI bindings for the upstream libogg C library"
+documentation = "https://docs.rs/ogg_next_sys"
 readme = "../../README.md"
 repository.workspace = true
-documentation = "https://docs.rs/ogg_next_sys"
-edition.workspace = true
-links = "ogg"
-rust-version.workspace = true
+license.workspace = true
 keywords = ["libogg", "xiph"]
 categories = [
   "external-ffi-bindings",
@@ -17,21 +16,22 @@ categories = [
   "multimedia::audio",
   "multimedia::encoding",
 ]
+links = "ogg"
 exclude = [
+  "/ogg_vendor/**/*.ac",
+  "/ogg_vendor/**/*.am",
+  "/ogg_vendor/**/*.in",
+  "/ogg_vendor/**/*.m4",
   "/ogg_vendor/**/.*",
+  "/ogg_vendor/README.md",
   "/ogg_vendor/cmake",
   "/ogg_vendor/doc",
   "/ogg_vendor/win32",
-  "/ogg_vendor/README.md",
-  "/ogg_vendor/**/*.ac",
-  "/ogg_vendor/**/*.m4",
-  "/ogg_vendor/**/*.in",
-  "/ogg_vendor/**/*.am",
 ]
 
 [build-dependencies]
-cc.workspace = true
 bindgen = { workspace = true, optional = true }
+cc.workspace = true
 
 [features]
 # Requires Clang and slows down the build, but guarantees that the bindings are tailored for the platform and up to date.

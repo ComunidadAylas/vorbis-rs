@@ -1,15 +1,15 @@
 [package]
 name = "vorbis_rs"
-description = "Ogg Vorbis stream encoding and decoding powered by high-level bindings for best-in-breed C libraries"
-authors.workspace = true
-license.workspace = true
 version = "0.5.5"
-readme = "../../README.md"
-repository.workspace = true
-documentation = "https://docs.rs/vorbis_rs"
+authors.workspace = true
 edition.workspace = true
 rust-version.workspace = true
-keywords = ["vorbis", "aotuv", "lancer", "ogg", "xiph"]
+description = "Ogg Vorbis stream encoding and decoding powered by high-level bindings for best-in-breed C libraries"
+documentation = "https://docs.rs/vorbis_rs"
+readme = "../../README.md"
+repository.workspace = true
+license.workspace = true
+keywords = ["aotuv", "lancer", "ogg", "vorbis", "xiph"]
 categories = [
   "api-bindings",
   "multimedia",
@@ -17,23 +17,19 @@ categories = [
   "multimedia::encoding",
 ]
 
+[package.metadata.docs.rs]
+rustdoc-args = ["--cfg", "docsrs"]
+
 [dependencies]
 aotuv_lancer_vorbis_sys.workspace = true
+errno = { workspace = true, default-features = false }
+getrandom = { workspace = true, optional = true }
 ogg_next_sys.workspace = true
-
-errno = { version = "0.3.10", default-features = false }
-tinyvec = { version = "1.8.0", default-features = false, features = [
-  "alloc",
-  "rustc_1_57",
-] }
-thiserror = "2.0.6"
-
-getrandom = { version = "0.3.0", features = ["std"], optional = true }
+thiserror.workspace = true
+tinyvec.workspace = true
 
 [features]
 default = ["stream-serial-rng"]
 stream-serial-rng = ["dep:getrandom"]
 wasm-js = ["getrandom?/wasm_js"]
 
-[package.metadata.docs.rs]
-rustdoc-args = ["--cfg", "docsrs"]

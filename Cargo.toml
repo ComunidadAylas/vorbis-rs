@@ -1,6 +1,6 @@
 [workspace]
-members = ["packages/*"]
 resolver = "3"
+members = ["packages/*"]
 
 [workspace.package]
 authors = ["Alejandro González <me@alegon.dev>"]
@@ -10,17 +10,24 @@ edition = "2024"
 rust-version = "1.85.0"
 
 [workspace.dependencies]
-aotuv_lancer_vorbis_sys = { version = "0.1.5", path = "packages/aotuv_lancer_vorbis_sys" }
-ogg_next_sys = { version = "0.1.4", path = "packages/ogg_next_sys" }
-
-cc = "1.2.4"
+aotuv_lancer_vorbis_sys = { path = "packages/aotuv_lancer_vorbis_sys", version = "0.1.5" }
 bindgen = "0.72.0"
+cc = "1.2.4"
+errno = { version = "0.3.10", default-features = false }
+getrandom = { version = "0.3.0", features = ["std"] }
+ogg_next_sys = { path = "packages/ogg_next_sys", version = "0.1.4" }
+thiserror = "2.0.6"
+tinyvec = { version = "1.8.0", default-features = false, features = [
+  "alloc",
+  "rustc_1_57",
+] }
+
+[workspace.lints.clippy]
+cargo = "warn"
+pedantic = "warn"
 
 [profile.release]
 # Add debug symbols on release mode to allow debugging upstream code.
 # This does not affect library users
 debug = true
 
-[workspace.lints.clippy]
-cargo = "warn"
-pedantic = "warn"
