@@ -270,12 +270,7 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 		// and the RNG algorithm used to bruteforce the seed value from the serial. Note that
 		// the security in this scenario comes from how costly and unpredictable the RNG is,
 		// not whether it's cryptographically-secure
-		let mut stream_serial_buf = [MaybeUninit::uninit(); size_of::<i32>()];
-		Ok(i32::from_ne_bytes(
-			getrandom::fill_uninit(&mut stream_serial_buf)?
-				.try_into()
-				.unwrap()
-		))
+		Ok(getrandom::u32()? as i32)
 	}
 
 	/// Replaces the current stream serial with a new one if the current stream serial
