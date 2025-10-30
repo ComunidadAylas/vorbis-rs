@@ -15,11 +15,14 @@ src="https://github.com/ComunidadAylas/vorbis-rs/actions/workflows/ci.yml/badge.
 
 The `vorbis_rs` package in this repository provides updated, well-documented and
 ergonomic bindings for a modified version of the latest reference Vorbis
-encoder, available [here](https://github.com/enzo1982/vorbis-aotuv-lancer), with
-the [aoTuV](https://github.com/AO-Yumi/vorbis_aotuv) and
+encoder, available
+[here](https://github.com/ComunidadAylas/vorbis-aotuv-lancer), with the
+[aoTuV](https://github.com/AO-Yumi/vorbis_aotuv) and
 [Lancer](https://web.archive.org/web/20160408055651/http://homepage3.nifty.com/blacksword/index.htm)
 patchsets applied to it. These patches are considered to implement significant
-encoding quality and performance improvements by the community.
+encoding quality and performance improvements by the community. However, they
+may introduce slight numerical variations to the encoded and decoded samples
+compared to the reference Vorbis libraries.
 
 The supporting `aotuv_lancer_vorbis_sys` and `ogg_next_sys` packages provide
 automatically-generated low-level bindings used by `vorbis_rs`.
@@ -37,12 +40,12 @@ The Rust ecosystem already has bindings for these libraries (see
 status of the available crates is problematic in an entangled way that does not
 seem reasonable to fix via PRs or patching:
 
-- The high-level `vorbis` crate was not updated in 6 years, has arguably low
-  code quality (lots of `panic!` with messages containing e-mail addresses,
-  etc.), and depends on an old version of `vorbis-sys`. In turn `vorbis-sys`
-  depends on an old version of the `libvorbis` C library with known security
-  vulnerabilities. It also lacks APIs to do some operations needed by sensible
-  audio processing applications that are offered by the C libraries.
+- The high-level `vorbis` crate was not updated in more than 6 years, has
+  arguably low code quality (lots of `panic!` with messages containing e-mail
+  addresses, etc.), and depends on an old version of `vorbis-sys`. In turn
+  `vorbis-sys` depends on an old version of the `libvorbis` C library with known
+  security vulnerabilities. It also lacks APIs to do some operations needed by
+  sensible audio processing applications that are offered by the C libraries.
 - `vorbis-sys` only contains bindings for `libvorbis`, but updated bindings for
   `libvorbisenc` and `vorbisfile` are necessary to do meaningful Vorbis stream
   operations in a sane way. These are not available either.
@@ -52,9 +55,10 @@ seem reasonable to fix via PRs or patching:
   fragmentation.
 - Like most software libraries, frameworks and even Linux distributions, the
   existing crates seem to be oblivious to the existence of the aoTuV and Lancer
-  patchsets, even though they are meant to be drop-in replacements. Thus, users
-  may reasonably expect any patches to be mentioned, which is a good reason to
-  do a different set of binding crates anyway.
+  patchsets, even though they are meant to be drop-in replacements for the vast
+  majority of use cases. Thus, users may reasonably expect any patches to be
+  mentioned, which is a good reason to do a different set of binding crates
+  anyway.
 
 Given these issues and the need for a better solution for Ogg Vorbis audio
 processing applications in Rust, it was decided to spend development effort on
