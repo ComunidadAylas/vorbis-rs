@@ -14,7 +14,7 @@ aotuv_lancer_vorbis_sys = { path = "packages/aotuv_lancer_vorbis_sys", version =
 bindgen = "0.72.0"
 cc = "1.2.4"
 errno = { version = "0.3.10", default-features = false }
-getrandom = { version = "0.3.0", features = ["std"] }
+getrandom = { version = "0.4.0", features = ["std"] }
 ogg_next_sys = { path = "packages/ogg_next_sys", version = "0.1.4" }
 thiserror = "2.0.6"
 tinyvec = { version = "1.8.0", default-features = false, features = [
