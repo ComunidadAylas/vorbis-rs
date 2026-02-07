@@ -10,7 +10,8 @@ and this project adheres to
 
 ### Changed
 
-- Bumped MSRV to 1.85 due to refactors to use the Rust 2024 edition.
+- Bumped MSRV to 1.87 due to refactors to use the Rust 2024 edition and
+  transitive dependency updates.
 
 ### Added
 
