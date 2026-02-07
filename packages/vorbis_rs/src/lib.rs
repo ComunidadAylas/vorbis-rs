@@ -20,9 +20,9 @@
 //! # Features
 //!
 //! - `stream-serial-rng` (enabled by default): adds the [`VorbisEncoderBuilder::new`] convenience
-//!                       method, which automatically configures such a builder with suitable random
-//!                       Ogg stream serial numbers. This feature pulls dependencies on random number
-//!                       generation crates.
+//!   method, which automatically configures such a builder with suitable random
+//!   Ogg stream serial numbers. This feature pulls dependencies on random number
+//!   generation crates.
 //!
 //! # WebAssembly compilation
 //!
