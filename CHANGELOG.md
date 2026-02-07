@@ -15,8 +15,7 @@ and this project adheres to
 
 ### Added
 
-- The `wasm-js` feature was introduced to enhance the usability of `vorbis_rs`
-  in JavaScript web assembly environments.
+- Documentation on how to compile `vorbis_rs` for WebAssembly targets was added.
 
 ## [0.5.5] - 2024-12-13
 

@@ -24,6 +24,21 @@
 //!                       Ogg stream serial numbers. This feature pulls dependencies on random number
 //!                       generation crates.
 //!
+//! # WebAssembly compilation
+//!
+//! `vorbis-rs` has been successfully verified to run in WebAssembly environments. However, because
+//! it relies on C libraries that use a minimal set of POSIX-like system APIs, the common
+//! `wasm32-unknown-unknown` target is not supported. Instead, WASI-enabled targets like
+//! `wasm32-wasip1` (with a WASI runtime such as `wasmer-js`) or `wasm32-unknown-emscripten` must be
+//! used.
+//!
+//! If your application does not already use `vorbis-rs` from a Rust crate compiled to WASM, you
+//! will also need to create a small facade crate for exporting functions that call into `vorbis-rs`
+//! via `#[no_mangle]`, so that your WASM host can use those to interact with `vorbis-rs`.
+//!
+//! For more details, see the notes in [this GitHub issue
+//! comment](https://github.com/ComunidadAylas/vorbis-rs/issues/30#issuecomment-3864669333).
+//!
 //! # Examples
 //!
 //! The following example transcodes an Ogg Vorbis file to another in-memory Ogg Vorbis stream,
