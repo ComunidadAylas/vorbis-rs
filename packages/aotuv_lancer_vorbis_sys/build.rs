@@ -60,7 +60,7 @@ fn main() {
 		.blocklist_item("FILE")
 		.blocklist_item("ogg_.*")
 		.blocklist_item("__.*")
-		.rust_target(RustTarget::Stable_1_82)
+		.rust_target(RustTarget::stable(82, 0).expect("bindgen cannot target Rust 1.82 anymore"))
 		.layout_tests(false) // Type layout is platform-specific
 		.generate()
 		.expect("Unable to generate bindings")

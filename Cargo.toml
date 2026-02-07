@@ -11,13 +11,13 @@ rust-version = "1.85.0"
 
 [workspace.dependencies]
 aotuv_lancer_vorbis_sys = { path = "packages/aotuv_lancer_vorbis_sys", version = "0.1.5" }
-bindgen = "0.72.0"
-cc = "1.2.4"
-errno = { version = "0.3.10", default-features = false }
-getrandom = { version = "0.3.0", features = ["std"] }
+bindgen = "0.72.1"
+cc = "1.2.55"
+errno = { version = "0.3.14", default-features = false }
+getrandom = { version = "0.4.1", features = ["std"] }
 ogg_next_sys = { path = "packages/ogg_next_sys", version = "0.1.4" }
-thiserror = "2.0.6"
-tinyvec = { version = "1.8.0", default-features = false, features = [
+thiserror = "2.0.18"
+tinyvec = { version = "1.10.0", default-features = false, features = [
   "alloc",
   "rustc_1_57",
 ] }
