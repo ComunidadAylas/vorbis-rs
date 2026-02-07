@@ -8,7 +8,7 @@ on:
       - synchronize
 
 env:
-  MSRV: '1.85.0'
+  MSRV: "1.85.0"
 
   # Set up sccache with GitHub Actions cache
   RUSTC_WRAPPER: sccache
@@ -57,9 +57,9 @@ jobs:
           - target: x86_64-pc-windows-gnu
             runner: windows-2022
           - target: x86_64-apple-darwin
-            runner: macos-13
+            runner: macos-15
           - target: aarch64-apple-darwin
-            runner: macos-14
+            runner: macos-15
 
     name: CI (${{ matrix.target }})
     runs-on: ${{ matrix.runner }}
@@ -86,7 +86,7 @@ jobs:
       - name: 💨 Set up sccache
         uses: mozilla-actions/sccache-action@7d986dd989559c6ecdb630a3fd2557667be217ad # v0.0.9
 
-      - name: '🔍 Static analysis: run Clippy'
+      - name: "🔍 Static analysis: run Clippy"
         uses: giraffate/clippy-action@13b9d32482f25d29ead141b79e7e04e7900281e0 # v1
         if: matrix.target == 'x86_64-unknown-linux-gnu'
         with:
@@ -94,7 +94,7 @@ jobs:
           reporter: github-check
           fail_on_error: true
 
-      - name: '🔍 Static analysis: run rustfmt'
+      - name: "🔍 Static analysis: run rustfmt"
         if: matrix.target == 'x86_64-unknown-linux-gnu'
         run: cargo fmt --check --all
 
