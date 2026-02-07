@@ -193,7 +193,7 @@ mod test {
 				Err(VorbisError::LibraryError(VorbisLibraryError {
 					// libvorbis may return a slightly different error kind depending on the
 					// platform: Unix-like systems yield an I/O error, while Windows yields
-					// OV_ENOTVORBIS. Both error kinds make sense, and we're not trying to
+					// OV_ENOTVORBIS. Both error kind of make sense, and we're not trying to
 					// fix upstream code here, so accept both
 					kind: VorbisLibraryErrorKind::Io | VorbisLibraryErrorKind::NotVorbis,
 					..
