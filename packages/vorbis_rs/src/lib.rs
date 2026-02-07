@@ -20,14 +20,9 @@
 //! # Features
 //!
 //! - `stream-serial-rng` (enabled by default): adds the [`VorbisEncoderBuilder::new`] convenience
-//!   method, which automatically configures such a builder with suitable random
-//!   Ogg stream serial numbers. This feature pulls dependencies on random number
-//!   generation crates.
-//! - `wasm-js`: enhances the ergonomics of using `vorbis_rs` when targeting JavaScript environments
-//!   with WebAssembly. Currently, this enables the `wasm_js` feature flag on
-//!   [`getrandom`](https://crates.io/crates/getrandom), opting into its [WebAssembly
-//!   support](https://docs.rs/getrandom/latest/getrandom/#webassembly-support) for JavaScript
-//!   environments, but the concrete effects of this flag may change at any point in the future.
+//!                       method, which automatically configures such a builder with suitable random
+//!                       Ogg stream serial numbers. This feature pulls dependencies on random number
+//!                       generation crates.
 //!
 //! # Examples
 //!
