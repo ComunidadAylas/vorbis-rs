@@ -74,7 +74,7 @@ jobs:
           submodules: recursive
 
       - name: 🧰 Install Rust toolchain
-        uses: dtolnay/rust-toolchain@efcb852328a9f50117170cc43094fb6f09eaf1ae # nightly
+        uses: dtolnay/rust-toolchain@4fd1da8b0805d2d2e936788875a7d65dbd677dc2 # nightly
         with:
           target: ${{ matrix.target }}
           components: rust-src, rustfmt, clippy
