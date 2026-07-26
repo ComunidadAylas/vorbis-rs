@@ -7,7 +7,7 @@ use std::{
 	ptr
 };
 
-use aotuv_lancer_vorbis_sys::{
+use vorbis_c2rust_sys::{
 	OV_ECTL_RATEMANAGE2_SET, vorbis_comment, vorbis_comment_add_tag, vorbis_comment_clear,
 	vorbis_comment_init, vorbis_encode_ctl, vorbis_encode_init, vorbis_encode_init_vbr,
 	vorbis_encode_setup_init, vorbis_encode_setup_managed, vorbis_info, vorbis_info_clear,

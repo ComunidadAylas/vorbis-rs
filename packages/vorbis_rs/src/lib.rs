@@ -1,13 +1,9 @@
 //! Safe, ergonomic, and high-quality Rust bindings to the `vorbisfile`, `libvorbisenc`, and
 //! `libvorbis` C libraries.
 //!
-//! These bindings depend on the accompanying low-level FFI bindings at the `ogg_next_sys` and
-//! `aotuv_lancer_vorbis_sys` crates, which link to the latest versions of the upstream `libogg` and patched
-//! upstream `libvorbis` codebases, respectively. The upstream `libvorbis` codebase is patched
-//! with the latest [aoTuV] and [Lancer] patches, which improve coding efficiency and performance.
-//!
-//! [aoTuV]: https://github.com/AO-Yumi/vorbis_aotuv
-//! [Lancer]: https://web.archive.org/web/20160408055651/http://homepage3.nifty.com/blacksword/index.htm
+//! These bindings depend on the accompanying low-level FFI bindings at the `ogg_c2rust_sys` and
+//! `vorbis_c2rust_sys` crates, which link to the latest versions of the upstream `libogg` and
+//! `libvorbis` codebases, respectively, after automated C -> Rust translation with c2rust.
 //!
 //! # Known limitations
 //!
@@ -50,7 +46,7 @@
 //! # use std::io::Cursor;
 //! # use vorbis_rs::{VorbisBitrateManagementStrategy, VorbisDecoder, VorbisEncoderBuilder};
 //! #
-//! # let mut source_ogg = &include_bytes!("../../aotuv_lancer_vorbis_sys/src/8khz_500ms_mono_400hz_sine_wave.ogg")[..];
+//! # let mut source_ogg = &include_bytes!("../../vorbis_c2rust_sys/src/8khz_500ms_mono_400hz_sine_wave.ogg")[..];
 //! # #[cfg(any())] // Always false to not run it on doctests, but show it on docs
 //! let mut source_ogg = File::open("audio.ogg")?;
 //! let mut transcoded_ogg = vec![];

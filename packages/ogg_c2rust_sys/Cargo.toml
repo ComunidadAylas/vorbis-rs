@@ -1,0 +1,5 @@
+[package]
+name = "ogg_c2rust_sys"
+version = "0.0.0"
+publish = false
+edition = "2021"

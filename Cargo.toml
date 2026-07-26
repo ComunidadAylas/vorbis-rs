@@ -10,12 +10,12 @@ edition = "2024"
 rust-version = "1.87.0"
 
 [workspace.dependencies]
-aotuv_lancer_vorbis_sys = { path = "packages/aotuv_lancer_vorbis_sys", version = "0.1.5" }
+vorbis_c2rust_sys = { path = "packages/vorbis_c2rust_sys" }
 bindgen = "0.72.1"
 cc = "1.2.55"
 errno = { version = "0.3.14", default-features = false }
 getrandom = { version = "0.4.1", features = ["std"] }
-ogg_next_sys = { path = "packages/ogg_next_sys", version = "0.1.4" }
+ogg_c2rust_sys = { path = "packages/ogg_c2rust_sys" }
 thiserror = "2.0.18"
 tinyvec = { version = "1.10.0", default-features = false, features = [
   "alloc",
@@ -30,4 +30,3 @@ pedantic = "warn"
 # Add debug symbols on release mode to allow debugging upstream code.
 # This does not affect library users
 debug = true
-

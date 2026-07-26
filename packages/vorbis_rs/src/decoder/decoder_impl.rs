@@ -9,10 +9,8 @@ use std::{
 	ptr
 };
 
-use aotuv_lancer_vorbis_sys::{
-	OggVorbis_File, ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float
-};
 use errno::{Errno, set_errno};
+use vorbis_c2rust_sys::{OggVorbis_File, ov_callbacks, ov_clear, ov_open_callbacks, ov_read_float};
 
 use crate::{common::VorbisError, decoder::VorbisAudioSamples};
 

@@ -21,14 +21,13 @@ categories = [
 rustdoc-args = ["--cfg", "docsrs"]
 
 [dependencies]
-aotuv_lancer_vorbis_sys.workspace = true
+vorbis_c2rust_sys.workspace = true
 errno = { workspace = true, default-features = false }
 getrandom = { workspace = true, optional = true }
-ogg_next_sys.workspace = true
+ogg_c2rust_sys.workspace = true
 thiserror.workspace = true
 tinyvec.workspace = true
 
 [features]
 default = ["stream-serial-rng"]
 stream-serial-rng = ["dep:getrandom"]
-

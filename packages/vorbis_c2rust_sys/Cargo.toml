@@ -1,0 +1,9 @@
+[package]
+name = "vorbis_c2rust_sys"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[dependencies]
+c2rust-bitfields = "0.22.1"
+ogg_c2rust_sys.workspace = true

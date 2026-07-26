@@ -6,7 +6,7 @@ use std::{
 	ptr, slice
 };
 
-use aotuv_lancer_vorbis_sys::{
+use vorbis_c2rust_sys::{
 	vorbis_analysis, vorbis_analysis_blockout, vorbis_analysis_buffer, vorbis_analysis_wrote,
 	vorbis_bitrate_addblock, vorbis_bitrate_flushpacket
 };

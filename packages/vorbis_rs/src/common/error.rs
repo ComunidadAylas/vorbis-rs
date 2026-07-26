@@ -135,63 +135,63 @@ impl Display for VorbisLibrary {
 pub enum VorbisLibraryErrorKind {
 	/// Unexpected, generic false condition.
 	///
-	/// Corresponds to the low-level [`OV_FALSE`](aotuv_lancer_vorbis_sys::OV_FALSE) result code.
+	/// Corresponds to the low-level [`OV_FALSE`](vorbis_c2rust_sys::OV_FALSE) result code.
 	False,
 	/// Unexpected end of file reached in input stream.
 	///
-	/// Corresponds to the low-level [`OV_EOF`](aotuv_lancer_vorbis_sys::OV_EOF) result code.
+	/// Corresponds to the low-level [`OV_EOF`](vorbis_c2rust_sys::OV_EOF) result code.
 	Eof,
 	/// Unexpected input stream data interruption.
 	///
 	/// Recovery from this error condition is automatically done by `libvorbis`, so most
 	/// applications can ignore it and keep decoding the stream as usual.
 	///
-	/// Corresponds to the low-level [`OV_HOLE`](aotuv_lancer_vorbis_sys::OV_HOLE) result code.
+	/// Corresponds to the low-level [`OV_HOLE`](vorbis_c2rust_sys::OV_HOLE) result code.
 	Hole,
 	/// Unexpected input stream I/O error.
 	///
-	/// Corresponds to the low-level [`OV_EREAD`](aotuv_lancer_vorbis_sys::OV_EREAD) result code.
+	/// Corresponds to the low-level [`OV_EREAD`](vorbis_c2rust_sys::OV_EREAD) result code.
 	Io,
 	/// Internal library error.
 	///
-	/// Corresponds to the low-level [`OV_EFAULT`](aotuv_lancer_vorbis_sys::OV_EFAULT) result code.
+	/// Corresponds to the low-level [`OV_EFAULT`](vorbis_c2rust_sys::OV_EFAULT) result code.
 	InternalFault,
 	/// The requested operation is not implemented for the specified parameters.
 	///
-	/// Corresponds to the low-level [`OV_EIMPL`](aotuv_lancer_vorbis_sys::OV_EIMPL) result code.
+	/// Corresponds to the low-level [`OV_EIMPL`](vorbis_c2rust_sys::OV_EIMPL) result code.
 	NotImplemented,
 	/// Invalid parameter.
 	///
-	/// Corresponds to the low-level [`OV_EINVAL`](aotuv_lancer_vorbis_sys::OV_EINVAL) result code.
+	/// Corresponds to the low-level [`OV_EINVAL`](vorbis_c2rust_sys::OV_EINVAL) result code.
 	InvalidValue,
 	/// The input stream does not contain Ogg Vorbis data as expected.
 	///
-	/// Corresponds to the low-level [`OV_ENOTVORBIS`](aotuv_lancer_vorbis_sys::OV_ENOTVORBIS) result code.
+	/// Corresponds to the low-level [`OV_ENOTVORBIS`](vorbis_c2rust_sys::OV_ENOTVORBIS) result code.
 	NotVorbis,
 	/// The input stream headers are malformed.
 	///
-	/// Corresponds to the low-level [`OV_EBADHEADER`](aotuv_lancer_vorbis_sys::OV_EBADHEADER) result code.
+	/// Corresponds to the low-level [`OV_EBADHEADER`](vorbis_c2rust_sys::OV_EBADHEADER) result code.
 	BadHeader,
 	/// Vorbis version mismatch, caused by the input stream declaring an unknown or incompatible Vorbis
 	/// version.
 	///
-	/// Corresponds to the low-level [`OV_EVERSION`](aotuv_lancer_vorbis_sys::OV_EVERSION) result code.
+	/// Corresponds to the low-level [`OV_EVERSION`](vorbis_c2rust_sys::OV_EVERSION) result code.
 	BadVorbisVersion,
 	/// The input stream cannot contain audio data.
 	///
-	/// Corresponds to the low-level [`OV_ENOTAUDIO`](aotuv_lancer_vorbis_sys::OV_ENOTAUDIO) result code.
+	/// Corresponds to the low-level [`OV_ENOTAUDIO`](vorbis_c2rust_sys::OV_ENOTAUDIO) result code.
 	NotAudio,
 	/// The input stream contains an invalid packet.
 	///
-	/// Corresponds to the low-level [`OV_EBADPACKET`](aotuv_lancer_vorbis_sys::OV_EBADPACKET) result code.
+	/// Corresponds to the low-level [`OV_EBADPACKET`](vorbis_c2rust_sys::OV_EBADPACKET) result code.
 	BadPacket,
 	/// An Ogg logical stream in the input stream is corrupted.
 	///
-	/// Corresponds to the low-level [`OV_EBADLINK`](aotuv_lancer_vorbis_sys::OV_EBADLINK) result code.
+	/// Corresponds to the low-level [`OV_EBADLINK`](vorbis_c2rust_sys::OV_EBADLINK) result code.
 	BadLink,
 	/// A seek operation was attempted in an unseekable input stream.
 	///
-	/// Corresponds to the low-level [`OV_ENOSEEK`](aotuv_lancer_vorbis_sys::OV_ENOSEEK) result code.
+	/// Corresponds to the low-level [`OV_ENOSEEK`](vorbis_c2rust_sys::OV_ENOSEEK) result code.
 	NotSeekable,
 	/// An error condition that does not fall under any other error kind.
 	///
@@ -232,20 +232,20 @@ impl Display for VorbisLibraryErrorKind {
 impl From<i32> for VorbisLibraryErrorKind {
 	fn from(result_code: i32) -> Self {
 		match result_code {
-			aotuv_lancer_vorbis_sys::OV_FALSE => Self::False,
-			aotuv_lancer_vorbis_sys::OV_EOF => Self::Eof,
-			aotuv_lancer_vorbis_sys::OV_HOLE => Self::Hole,
-			aotuv_lancer_vorbis_sys::OV_EREAD => Self::Io,
-			aotuv_lancer_vorbis_sys::OV_EFAULT => Self::InternalFault,
-			aotuv_lancer_vorbis_sys::OV_EIMPL => Self::NotImplemented,
-			aotuv_lancer_vorbis_sys::OV_EINVAL => Self::InvalidValue,
-			aotuv_lancer_vorbis_sys::OV_ENOTVORBIS => Self::NotVorbis,
-			aotuv_lancer_vorbis_sys::OV_EBADHEADER => Self::BadHeader,
-			aotuv_lancer_vorbis_sys::OV_EVERSION => Self::BadVorbisVersion,
-			aotuv_lancer_vorbis_sys::OV_ENOTAUDIO => Self::NotAudio,
-			aotuv_lancer_vorbis_sys::OV_EBADPACKET => Self::BadPacket,
-			aotuv_lancer_vorbis_sys::OV_EBADLINK => Self::BadLink,
-			aotuv_lancer_vorbis_sys::OV_ENOSEEK => Self::NotSeekable,
+			vorbis_c2rust_sys::OV_FALSE => Self::False,
+			vorbis_c2rust_sys::OV_EOF => Self::Eof,
+			vorbis_c2rust_sys::OV_HOLE => Self::Hole,
+			vorbis_c2rust_sys::OV_EREAD => Self::Io,
+			vorbis_c2rust_sys::OV_EFAULT => Self::InternalFault,
+			vorbis_c2rust_sys::OV_EIMPL => Self::NotImplemented,
+			vorbis_c2rust_sys::OV_EINVAL => Self::InvalidValue,
+			vorbis_c2rust_sys::OV_ENOTVORBIS => Self::NotVorbis,
+			vorbis_c2rust_sys::OV_EBADHEADER => Self::BadHeader,
+			vorbis_c2rust_sys::OV_EVERSION => Self::BadVorbisVersion,
+			vorbis_c2rust_sys::OV_ENOTAUDIO => Self::NotAudio,
+			vorbis_c2rust_sys::OV_EBADPACKET => Self::BadPacket,
+			vorbis_c2rust_sys::OV_EBADLINK => Self::BadLink,
+			vorbis_c2rust_sys::OV_ENOSEEK => Self::NotSeekable,
 			result_code => Self::Other { result_code }
 		}
 	}

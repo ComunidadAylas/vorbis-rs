@@ -1,6 +1,6 @@
 use std::{io::Write, mem::MaybeUninit, slice};
 
-use ogg_next_sys::{
+use ogg_c2rust_sys::{
 	ogg_packet, ogg_page, ogg_stream_clear, ogg_stream_flush, ogg_stream_init, ogg_stream_packetin,
 	ogg_stream_pageout, ogg_stream_pageout_fill, ogg_stream_state
 };
