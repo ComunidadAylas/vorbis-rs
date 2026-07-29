@@ -15,7 +15,7 @@ and this project adheres to
 
 ### Added
 
-- Documentation on how to compile `vorbis_rs` for WebAssembly targets was added.
+- Documentation on how to use `vorbis_rs` with WebAssembly targets was added.
 
 ## [0.5.5] - 2024-12-13
 

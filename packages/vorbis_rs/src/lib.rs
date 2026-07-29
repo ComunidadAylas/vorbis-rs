@@ -24,19 +24,21 @@
 //!   Ogg stream serial numbers. This feature pulls dependencies on random number
 //!   generation crates.
 //!
-//! # WebAssembly compilation
+//! # WebAssembly targets compatibility
 //!
-//! `vorbis-rs` has been successfully verified to run in WebAssembly environments. However, because
-//! it relies on C libraries that use a minimal set of POSIX-like system APIs, the common
-//! `wasm32-unknown-unknown` target is not supported. Instead, WASI-enabled targets like
-//! `wasm32-wasip1` (with a WASI runtime such as `wasmer-js`) or `wasm32-unknown-emscripten` must be
-//! used.
+//! `vorbis-rs` has been verified to run in WebAssembly environments. However, because it relies on
+//! C libraries that use a minimal set of POSIX system APIs, the common `wasm32-unknown-unknown`
+//! target is not supported. Instead, WASI-enabled targets such as `wasm32-wasip1` (when it is
+//! feasible to target a WASI runtime such as `wasmer-js`) or `wasm32-unknown-emscripten` must be
+//! chosen.
 //!
-//! If your application does not already use `vorbis-rs` from a Rust crate compiled to WASM, you
-//! will also need to create a small facade crate for exporting functions that call into `vorbis-rs`
-//! via `#[no_mangle]`, so that your WASM host can use those to interact with `vorbis-rs`.
+//! If you are not using `vorbis-rs` merely as an implementation detail of functions already
+//! exported from your WebAssembly module (that is, if you want the WebAssembly runtime host to use
+//! `vorbis-rs` directly), it is required to bring your own facade of `#[no_mangle]`-exported
+//! functions that call into `vorbis-rs` to perform the required operations, which the host can then
+//! call to interact with `vorbis-rs`.
 //!
-//! For more details, see the notes in [this GitHub issue
+//! For more details, see this [this GitHub issue
 //! comment](https://github.com/ComunidadAylas/vorbis-rs/issues/30#issuecomment-3864669333).
 //!
 //! # Examples
