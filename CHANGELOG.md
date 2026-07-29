@@ -146,18 +146,18 @@ and this project adheres to
   that could cause undefined behavior was accepted, such as:
 
   ```rs
-	let vorbis_data = /* Create some Vec<u8> */;
+ let vorbis_data = /* Create some Vec<u8> */;
 
-	// VorbisDecoder::new borrows vorbis_data for the duration of the function invocation
-	let mut decoder = VorbisDecoder::new::<&[u8], _>(&*vorbis_data).unwrap();
+ // VorbisDecoder::new borrows vorbis_data for the duration of the function invocation
+ let mut decoder = VorbisDecoder::new::<&[u8], _>(&*vorbis_data).unwrap();
 
-	// The Vorbis data buffer used as a source for decoding may be freed later...
-	drop(vorbis_data);
+ // The Vorbis data buffer used as a source for decoding may be freed later...
+ drop(vorbis_data);
 
-	// ... but safe code still can read from a deallocated buffer!
-	while let Ok(Some(_)) = decoder.decode_audio_block() {
-		eprintln!("Undefined behavior!");
-	}
+ // ... but safe code still can read from a deallocated buffer!
+ while let Ok(Some(_)) = decoder.decode_audio_block() {
+  eprintln!("Undefined behavior!");
+ }
   ```
 
 - Fixed a memory leak that occurred when `VorbisDecoder::new` returned unsuccessfully.
