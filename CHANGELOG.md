@@ -17,6 +17,11 @@ and this project adheres to
 
 - Documentation on how to use `vorbis_rs` with WebAssembly targets was added.
 
+### Fixed
+
+- Resolved a use-after-free memory safety issue caused by moving a
+`VorbisDecoder` after decoding a block of samples. (#35, thanks @EriKWDev)
+
 ## [0.5.5] - 2024-12-13
 
 ### Changed
