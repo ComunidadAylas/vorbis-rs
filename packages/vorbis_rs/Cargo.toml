@@ -31,4 +31,3 @@ tinyvec.workspace = true
 [features]
 default = ["stream-serial-rng"]
 stream-serial-rng = ["dep:getrandom"]
-
