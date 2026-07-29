@@ -17,7 +17,7 @@ use aotuv_lancer_vorbis_sys::{
 use crate::common::VorbisError;
 
 /// A high-level abstraction for a Vorbis stream information struct.
-pub struct VorbisInfo {
+pub(crate) struct VorbisInfo {
 	pub(crate) vorbis_info: *mut vorbis_info
 }
 
@@ -191,7 +191,7 @@ impl Drop for VorbisInfo {
 }
 
 /// A high-level abstraction for a list of Vorbis user comments.
-pub struct VorbisComments {
+pub(crate) struct VorbisComments {
 	pub(crate) vorbis_comment: vorbis_comment
 }
 

@@ -8,7 +8,7 @@ use ogg_next_sys::{
 use crate::VorbisError;
 
 /// A high-level abstraction for an Ogg stream.
-pub struct OggStream {
+pub(crate) struct OggStream {
 	ogg_stream: ogg_stream_state
 }
 
@@ -104,7 +104,7 @@ impl Drop for OggStream {
 }
 
 /// A high-level abstraction for an Ogg packet.
-pub struct OggPacket {
+pub(crate) struct OggPacket {
 	ogg_packet: ogg_packet
 }
 
@@ -134,7 +134,7 @@ impl OggPacket {
 }
 
 /// A high-level abstraction for an Ogg page.
-pub struct OggPage {
+struct OggPage {
 	ogg_page: ogg_page
 }
 

@@ -90,10 +90,10 @@
 
 #[macro_use]
 mod common;
-pub use common::{VorbisError, VorbisLibrary, VorbisLibraryError, VorbisLibraryErrorKind};
+pub use common::*;
 
 mod encoder;
-pub use encoder::{VorbisBitrateManagementStrategy, VorbisEncoder, VorbisEncoderBuilder};
+pub use encoder::*;
 
 mod decoder;
-pub use decoder::{VorbisAudioSamples, VorbisDecoder};
+pub use decoder::*;

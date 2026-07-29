@@ -13,7 +13,7 @@ use aotuv_lancer_vorbis_sys::{
 
 use crate::{
 	common::{OggPacket, OggStream, VorbisComments, VorbisError, VorbisInfo},
-	encoder::{VorbisBitrateManagementStrategy, VorbisEncodingState}
+	encoder::{VorbisBitrateManagementStrategy, encoder_util::VorbisEncodingState}
 };
 
 /// Builds a [`VorbisEncoder`] with configurable Vorbis encoding and

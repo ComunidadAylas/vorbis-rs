@@ -8,10 +8,10 @@ use aotuv_lancer_vorbis_sys::{
 use crate::common::{OggPacket, VorbisComments, VorbisError, VorbisInfo};
 
 /// A high-level abstraction that holds all the needed state for a Vorbis encoder.
-pub struct VorbisEncodingState {
-	pub(crate) vorbis_info: VorbisInfo,
-	pub(crate) vorbis_dsp_state: *mut vorbis_dsp_state,
-	pub(crate) vorbis_block: *mut vorbis_block
+pub(crate) struct VorbisEncodingState {
+	pub vorbis_info: VorbisInfo,
+	pub vorbis_dsp_state: *mut vorbis_dsp_state,
+	pub vorbis_block: *mut vorbis_block
 }
 
 impl VorbisEncodingState {
