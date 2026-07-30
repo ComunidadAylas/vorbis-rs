@@ -135,6 +135,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
       <td align="center" valign="top" width="14.28%"><a href="https://www.comp.nus.edu.sg/~yuz1996/"><img src="https://avatars.githubusercontent.com/u/6760768?v=4?s=100" width="100px;" alt="Jason Yu"/><br /><sub><b>Jason Yu</b></sub></a><br /><a href="#security-jasonyu1996" title="Security">🛡️</a></td>
       <td align="center" valign="top" width="14.28%"><a href="https://logisparte.com/"><img src="https://avatars.githubusercontent.com/u/6752776?v=4?s=100" width="100px;" alt="Philippe Desjardins"/><br /><sub><b>Philippe Desjardins</b></sub></a><br /><a href="https://github.com/ComunidadAylas/vorbis-rs/commits?author=pdesjardins90" title="Code">💻</a></td>
     </tr>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://idno.se/swap"><img src="https://avatars.githubusercontent.com/u/19771356?v=4?s=100" width="100px;" alt="EriKWDev"/><br /><sub><b>EriKWDev</b></sub></a><br /><a href="https://github.com/ComunidadAylas/vorbis-rs/issues?q=author%3AEriKWDev" title="Bug reports">🐛</a></td>
+    </tr>
   </tbody>
 </table>
 

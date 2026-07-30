@@ -77,6 +77,15 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "EriKWDev",
+      "name": "EriKWDev",
+      "avatar_url": "https://avatars.githubusercontent.com/u/19771356?v=4",
+      "profile": "https://idno.se/swap",
+      "contributions": [
+        "bug"
+      ]
     }
   ],
   "contributorsPerLine": 7
