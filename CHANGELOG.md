@@ -12,6 +12,8 @@ No changes yet.
 
 ## [0.5.6] - 2026-07-30
 
+### Changed
+
 - Bumped MSRV to 1.87 due to refactors to use the Rust 2024 edition and
   transitive dependency updates.
 
