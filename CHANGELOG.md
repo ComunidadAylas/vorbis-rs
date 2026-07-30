@@ -22,7 +22,9 @@ No changes yet.
 ### Fixed
 
 - Resolved a use-after-free memory safety issue caused by moving a
-`VorbisDecoder` after decoding a block of samples. (#35, thanks @EriKWDev)
+`VorbisDecoder` after decoding a block of samples.
+([#35](https://github.com/ComunidadAylas/vorbis-rs/issues/35), thanks
+@EriKWDev)
 
 ## [0.5.5] - 2024-12-13
 
