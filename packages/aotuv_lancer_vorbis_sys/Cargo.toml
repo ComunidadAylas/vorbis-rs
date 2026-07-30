@@ -1,6 +1,6 @@
 [package]
 name = "aotuv_lancer_vorbis_sys"
-version = "0.1.5"
+version = "0.1.6"
 authors.workspace = true
 edition.workspace = true
 rust-version.workspace = true

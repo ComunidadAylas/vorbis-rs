@@ -1,6 +1,6 @@
 [package]
 name = "vorbis_rs"
-version = "0.5.5"
+version = "0.5.6"
 authors.workspace = true
 edition.workspace = true
 rust-version.workspace = true

@@ -8,7 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
-### Changed
+No changes yet.
+
+### [0.5.6] - 2026-07-30
 
 - Bumped MSRV to 1.87 due to refactors to use the Rust 2024 edition and
   transitive dependency updates.
@@ -181,7 +183,8 @@ while let Ok(Some(_)) = decoder.decode_audio_block() {
 
 - First public release.
 
-[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.5...HEAD
+[Unreleased]: https://github.com/ComunidadAylas/vorbis-rs/compare/v0.5.6...HEAD
+[0.5.6]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.6
 [0.5.5]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.5
 [0.5.4]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.4
 [0.5.3]: https://github.com/ComunidadAylas/vorbis-rs/releases/tag/v0.5.3
