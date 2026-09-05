@@ -11,7 +11,7 @@ rust-version = "1.87.0"
 
 [workspace.dependencies]
 aotuv_lancer_vorbis_sys = { path = "packages/aotuv_lancer_vorbis_sys", version = "0.1.6" }
-bindgen = "0.72.1"
+bindgen = "0.73.0"
 cc = "1.4.0"
 errno = { version = "0.3.14", default-features = false }
 getrandom = { version = "0.4.3", features = ["std"] }
