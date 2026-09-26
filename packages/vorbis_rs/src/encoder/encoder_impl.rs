@@ -281,11 +281,11 @@ impl<W: Write> VorbisEncoderBuilder<W> {
 			self.stream_serial_is_fresh = true;
 
 			#[cfg(feature = "stream-serial-rng")]
-			if self.randomize_stream_serials {
-				if let Ok(random_stream_serial) = Self::generate_random_stream_serial() {
-					self.stream_serial = random_stream_serial;
-					return;
-				}
+			if self.randomize_stream_serials
+				&& let Ok(random_stream_serial) = Self::generate_random_stream_serial()
+			{
+				self.stream_serial = random_stream_serial;
+				return;
 			}
 			// Fallback to incrementing the previous serial when not randomizing them,
 			// if their random generation is build-time disabled, or if a RNG error
