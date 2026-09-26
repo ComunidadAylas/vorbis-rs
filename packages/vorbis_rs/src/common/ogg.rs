@@ -52,12 +52,12 @@ impl OggStream {
 			unsafe {
 				let no_pending_page = if let Some(minimum_page_data_size) = minimum_page_data_size {
 					ogg_stream_pageout_fill(
-						&mut self.ogg_stream,
+						&raw mut self.ogg_stream,
 						ogg_page.as_mut_ptr(),
 						minimum_page_data_size.into()
 					)
 				} else {
-					ogg_stream_pageout(&mut self.ogg_stream, ogg_page.as_mut_ptr())
+					ogg_stream_pageout(&raw mut self.ogg_stream, ogg_page.as_mut_ptr())
 				} == 0;
 
 				if no_pending_page {
@@ -83,7 +83,7 @@ impl OggStream {
 
 		// SAFETY: we assume ogg_stream_flush follows its documented contract
 		unsafe {
-			while ogg_stream_flush(&mut self.ogg_stream, ogg_page.as_mut_ptr()) != 0 {
+			while ogg_stream_flush(&raw mut self.ogg_stream, ogg_page.as_mut_ptr()) != 0 {
 				OggPage {
 					ogg_page: ogg_page.assume_init()
 				}
@@ -99,7 +99,7 @@ impl Drop for OggStream {
 	fn drop(&mut self) {
 		// SAFETY: when this struct is dropped we have a valid Ogg stream to clear,
 		// and there are no references to it
-		unsafe { ogg_stream_clear(&mut self.ogg_stream) };
+		unsafe { ogg_stream_clear(&raw mut self.ogg_stream) };
 	}
 }
 
@@ -124,8 +124,8 @@ impl OggPacket {
 		// SAFETY: we assume ogg_stream_packetin follows its documented contract
 		unsafe {
 			libogg_return_value_to_result!(ogg_stream_packetin(
-				&mut ogg_stream.ogg_stream,
-				&mut self.ogg_packet
+				&raw mut ogg_stream.ogg_stream,
+				&raw mut self.ogg_packet
 			))?;
 		}
 

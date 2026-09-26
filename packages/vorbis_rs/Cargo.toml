@@ -17,9 +17,6 @@ categories = [
   "multimedia::encoding",
 ]
 
-[package.metadata.docs.rs]
-rustdoc-args = ["--cfg", "docsrs"]
-
 [dependencies]
 aotuv_lancer_vorbis_sys.workspace = true
 errno = { workspace = true, default-features = false }
@@ -31,3 +28,6 @@ tinyvec.workspace = true
 [features]
 default = ["stream-serial-rng"]
 stream-serial-rng = ["dep:getrandom"]
+
+[lints]
+workspace = true

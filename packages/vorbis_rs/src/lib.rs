@@ -82,12 +82,10 @@
 //! # }
 //! ```
 
-#![warn(
-	missing_abi,
-	missing_docs,
-	unused_crate_dependencies,
-	unused_import_braces
+#![doc(
+	html_logo_url = "https://github.com/ComunidadAylas/vorbis-rs/assets/7822554/c12d850c-8924-41fa-b2f3-9d00e18bd7bc"
 )]
+#![warn(missing_docs)]
 #![cfg_attr(docsrs, feature(doc_cfg))]
 
 #[macro_use]

@@ -228,7 +228,7 @@ impl VorbisComments {
 		// SAFETY: we assume vorbis_comment_add_tag follows its documented contract
 		unsafe {
 			vorbis_comment_add_tag(
-				&mut self.vorbis_comment,
+				&raw mut self.vorbis_comment,
 				tag_c_string.as_ptr(),
 				value_c_string.as_ptr()
 			);
@@ -241,6 +241,6 @@ impl VorbisComments {
 impl Drop for VorbisComments {
 	fn drop(&mut self) {
 		// SAFETY: when this struct is dropped we have a valid Vorbis comment struct to clear
-		unsafe { vorbis_comment_clear(&mut self.vorbis_comment) };
+		unsafe { vorbis_comment_clear(&raw mut self.vorbis_comment) };
 	}
 }

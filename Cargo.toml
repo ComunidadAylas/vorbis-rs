@@ -28,7 +28,10 @@ tinyvec = {
 
 [workspace.lints.clippy]
 cargo = "warn"
-pedantic = "warn"
+
+[workspace.lints.rust]
+unused_crate_dependencies = "warn"
+unused_import_braces = "warn"
 
 [profile.release]
 # Add debug symbols on release mode to allow debugging upstream code.

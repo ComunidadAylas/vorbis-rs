@@ -8,7 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Changed
+
+- The generated `docs.rs` documentation now features the `vorbis_rs` logo.
 
 ## [0.5.6] - 2026-07-30
 
