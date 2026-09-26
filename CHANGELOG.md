@@ -11,6 +11,7 @@ and this project adheres to
 ### Changed
 
 - Bumped MSRV to 1.94 due to usage of newer TOML 1.1 syntax in Cargo manifests.
+- The generated `docs.rs` documentation now features the `vorbis_rs` logo.
 
 ## [0.5.6] - 2026-07-30
 

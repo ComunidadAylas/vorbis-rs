@@ -123,7 +123,7 @@ impl<R: Read> VorbisDecoder<R> {
 		// VorbisAudioSamples implementation for more safety information
 		unsafe {
 			let samples_read = vorbisfile_return_value_to_result!(ov_read_float(
-				&mut *self.ogg_vorbis_file,
+				&raw mut *self.ogg_vorbis_file,
 				sample_buf.as_mut_ptr(),
 				2048, // Most stereo Ogg Vorbis files in the wild use a maximum block size of 2048 samples
 				current_bitstream.as_mut_ptr()
@@ -167,7 +167,7 @@ impl<R: Read> VorbisDecoder<R> {
 
 impl<R: Read> Drop for VorbisDecoder<R> {
 	fn drop(&mut self) {
-		unsafe { ov_clear(&mut *self.ogg_vorbis_file) };
+		unsafe { ov_clear(&raw mut *self.ogg_vorbis_file) };
 	}
 }
 
