@@ -8,7 +8,9 @@ and this project adheres to
 
 ## [Unreleased]
 
-No changes yet.
+### Changed
+
+- Bumped MSRV to 1.94 due to usage of newer TOML 1.1 syntax in Cargo manifests.
 
 ## [0.5.6] - 2026-07-30
 
