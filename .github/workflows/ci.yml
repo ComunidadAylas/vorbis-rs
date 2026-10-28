@@ -97,7 +97,7 @@ jobs:
 
       - name: 🧰 Install static analysis and documentation tools
         if: matrix.target == 'x86_64-unknown-linux-gnu'
-        uses: taiki-e/install-action@5488ac5a951645ce95062214902ac4b6bc1a1037 # v2
+        uses: taiki-e/install-action@86f7a0ffb25f40114606501a311ebcfaf882ea32 # v2
         with:
           tool: cargo-docs-rs,clippy-sarif,sarif-fmt
 
